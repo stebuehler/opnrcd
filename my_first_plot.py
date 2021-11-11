@@ -1,7 +1,7 @@
 import pandas as pd
 import plotly.express as px
 
-source_filename = 'OPNRCD_alltime_stats.csv'
+source_filename = 'source_data/OPNRCD_alltime_stats.csv'
 opnrcd_full_df = pd.read_csv(source_filename)
 nur_strophen_df = opnrcd_full_df[opnrcd_full_df["Strophe?"] == True]
 jahres_totale_df = nur_strophen_df.groupby("Jahr", as_index = False).agg({"Dauer (s)": "sum", "Relevanz x Dauer": "sum", "Härte x Dauer": "sum"})
