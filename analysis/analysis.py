@@ -1,8 +1,3 @@
-import dash
-from dash.dependencies import Input, Output
-from dash import html
-from dash import dcc
-import plotly.express as px
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -84,9 +79,9 @@ assert full_df[f'distance_{len(NUMERICAL_VARIABLES)}'].max() < 1.e-10
 
 sort_by_n_components = 5
 # Top & bottom five Strophen by distance to prediction
-full_df[full_df['Jahr'] != '2021'].sort_values(f'distance_{sort_by_n_components}')[['Jahr', 'Künstler', 'Titel'] + [f'distance_{n_components}' for n_components in range(1, len(NUMERICAL_VARIABLES))]]
+by_strophe =full_df[full_df['Jahr'] != '2021'].sort_values(f'distance_{sort_by_n_components}')[['Jahr', 'Künstler', 'Titel'] + [f'distance_{n_components}' for n_components in range(1, len(NUMERICAL_VARIABLES))]]
 
 # average distance per year
-full_df[full_df['Jahr'] != '2021'].groupby('Jahr').mean()[[f'distance_{n_components}' for n_components in range(1, len(NUMERICAL_VARIABLES))]].sort_values(f'distance_{sort_by_n_components}')
+by_year = full_df[full_df['Jahr'] != '2021'].groupby('Jahr').mean()[[f'distance_{n_components}' for n_components in range(1, len(NUMERICAL_VARIABLES))]].sort_values(f'distance_{sort_by_n_components}')
 
 
