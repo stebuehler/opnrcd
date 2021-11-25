@@ -60,19 +60,20 @@ app.layout = html.Div([
         dcc.Tab(label='Scatter', value='tab-1-graph'),
         dcc.Tab(label='Heatmap', value='tab-2-graph'),
         dcc.Tab(label='Correlation', value='tab-3-graph'),
-        dcc.Tab(label='Time Series', value='tab-4-graph')
+        dcc.Tab(label='Time Series', value='tab-4-graph'),
+        dcc.Tab(label='Treemap', value='tab-5-graph')
     ]),
     # TODO these dropdowns should depend on tab
     html.Div([
         html.Label(['x-axis:'], style={'font-weight': 'bold', "text-align": "left"}),
         dcc.Dropdown(
             id='x-axis-select', options=[{'label': i, 'value': i} for i in NUMERICAL_VARIABLES],
-            value=NUMERICAL_VARIABLES[0], style={'width': '50%'}
+            value=NUMERICAL_VARIABLES[0]
         ),
         html.Label(['y-axis:'], style={'font-weight': 'bold', "text-align": "left"}),
         dcc.Dropdown(
             id='y-axis-select', options=[{'label': i, 'value': i} for i in NUMERICAL_VARIABLES],
-            value=NUMERICAL_VARIABLES[1], style={'width': '50%'}
+            value=NUMERICAL_VARIABLES[1]
         )
     ]),
     html.Div(id='tabs-content-graph')
@@ -106,6 +107,14 @@ def render_content(tab, x_axis_name, y_axis_name):
     elif tab == 'tab-4-graph':
         fig = get_time_series_fig(x_axis_name, y_axis_name)
         return html.Div([dcc.Graph(id='graph-4-tabs',figure=fig)])
+    elif tab == 'tab-5-graph':
+        # TODO Let user chose if grouping by Country or different attribute (Baujahr etc.)
+        # TODO Different levels of how deep to go into hierarchy (e.g. stop at country but can also go until Künstler)
+        # TODO Choice of which OPNRCDs to include.
+        # TODO choice whether to include skits or not.
+        fig = px.treemap(opnrcd_df, path=['Kontinent', 'Nationalität'], values='Dauer (s)')
+        fig.data[0].hovertemplate = '%{label}<br>%{value}'
+        return html.Div([dcc.Graph(id='graph-5-tabs', figure=fig)])
 
 
 if __name__ == '__main__':
