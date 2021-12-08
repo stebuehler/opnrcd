@@ -12,6 +12,12 @@ opnrcd_df = load_data()
 normalized_time_series = get_normalized_time_series()
 mean_std_time_series = mean_hi_lo_over_years(normalized_time_series)
 
+def get_years(df):
+    years = df['Jahr'].unique()
+    years.sort()
+    return years
+
+all_years = get_years(opnrcd_df)
 
 # plot mean band time series
 def get_time_series_fig(x_axis_name, y_axis_name):
@@ -65,6 +71,11 @@ app.layout = html.Div([
     ]),
     # TODO these dropdowns should depend on tab
     html.Div([
+        html.Label(['Jahre:'], style={'font-weight': 'bold', "text-align": "left"}),
+        dcc.Dropdown(
+            id='year-select', options=[{'label': i, 'value': i} for i in all_years],
+            multi=True, value=all_years
+        ),
         html.Label(['x-axis:'], style={'font-weight': 'bold', "text-align": "left"}),
         dcc.Dropdown(
             id='x-axis-select', options=[{'label': i, 'value': i} for i in NUMERICAL_VARIABLES],
@@ -83,22 +94,24 @@ app.layout = html.Div([
     Output('tabs-content-graph', 'children'),
     Input('tabs-graph', 'value'),
     Input('x-axis-select', 'value'),
-    Input('y-axis-select', 'value')
+    Input('y-axis-select', 'value'),
+    Input('year-select', 'value')
 )
-def render_content(tab, x_axis_name, y_axis_name):
+def render_content(tab, x_axis_name, y_axis_name, years):
+    df = opnrcd_df[opnrcd_df['Jahr'].isin(years)]
     if tab == 'tab-1-graph':
-        fig = px.scatter(opnrcd_df, x=x_axis_name, y=y_axis_name, size='Dauer (s)', color='Jahr')
+        fig = px.scatter(df, x=x_axis_name, y=y_axis_name, size='Dauer (s)', color='Jahr')
         fig.update_layout(transition_duration=200)
         return html.Div([dcc.Graph(id='graph-1-tabs', figure=fig)])
     elif tab == 'tab-2-graph':
         # TODO option to select value of heatmap: count / duration
-        # heatmap_df = opnrcd_df.groupby([x_axis_name, y_axis_name]).count()['Jahr'].unstack(x_axis_name).fillna(0.0)  # count
-        heatmap_df = opnrcd_df.groupby([x_axis_name, y_axis_name]).sum()['Dauer (s)'].unstack(x_axis_name).fillna(0.0)  # duration
+        # heatmap_df = df.groupby([x_axis_name, y_axis_name]).count()['Jahr'].unstack(x_axis_name).fillna(0.0)  # count
+        heatmap_df = df.groupby([x_axis_name, y_axis_name]).sum()['Dauer (s)'].unstack(x_axis_name).fillna(0.0)  # duration
         fig = px.imshow(heatmap_df)
         fig.update_layout(transition_duration=200)
         return html.Div([dcc.Graph(id='graph-2-tabs', figure=fig)])
     elif tab == 'tab-3-graph':
-        corr_df = opnrcd_df[NUMERICAL_VARIABLES].dropna().corr()
+        corr_df = df[NUMERICAL_VARIABLES].dropna().corr()
         fig = px.imshow(corr_df)
         # TODO find a way to show correlation numbers in heat map
         # fig.update_traces(textposition='inside')
@@ -109,10 +122,8 @@ def render_content(tab, x_axis_name, y_axis_name):
         return html.Div([dcc.Graph(id='graph-4-tabs',figure=fig)])
     elif tab == 'tab-5-graph':
         # TODO Let user chose if grouping by Country or different attribute (Baujahr etc.)
-        # TODO Different levels of how deep to go into hierarchy (e.g. stop at country but can also go until Künstler)
-        # TODO Choice of which OPNRCDs to include.
-        # TODO choice whether to include skits or not.
-        fig = px.treemap(opnrcd_df, path=['Kontinent', 'Nationalität'], values='Dauer (s)')
+        # TODO choice whether to include skits or not (currently not)
+        fig = px.treemap(df, path=['Kontinent', 'Nationalität', 'Künstler'], values='Dauer (s)')
         fig.data[0].hovertemplate = '%{label}<br>%{value}'
         return html.Div([dcc.Graph(id='graph-5-tabs', figure=fig)])
 
