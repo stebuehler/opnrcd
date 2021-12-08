@@ -35,3 +35,4 @@ def mean_hi_lo_over_years(normalized_time_series: pd.DataFrame) -> pd.DataFrame:
     mean_std_time_series = mean_std_time_series.drop(columns=['std']).unstack(level=0)
     mean_std_time_series.columns = mean_std_time_series.columns.reorder_levels(order=[1, 0])
     return mean_std_time_series[mean_std_time_series.columns.sort_values()]
+    
