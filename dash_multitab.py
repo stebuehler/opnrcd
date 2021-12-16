@@ -66,7 +66,6 @@ app.layout = html.Div([
         dcc.Tab(label='Time Series', value='tab-4-graph'),
         dcc.Tab(label='Treemap', value='tab-5-graph')
     ]),
-    # TODO these dropdowns should depend on tab
     html.Div([
         html.Label(['Jahre:'], style={'font-weight': 'bold', "text-align": "left"}),
         dcc.Dropdown(
