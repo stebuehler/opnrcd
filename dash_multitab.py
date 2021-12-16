@@ -12,19 +12,7 @@ opnrcd_df = load_data()
 normalized_time_series = get_normalized_time_series()
 mean_std_time_series = mean_hi_lo_over_years(normalized_time_series)
 
-def filter_display_style(tab):
-    if tab in ['tab-3-graph', 'tab-5-graph']:
-        x_axis_select_display = {'display': 'None'}
-        y_axis_select_display = {'display': 'None'}
-        x_axis_select_label_display = {'display': 'None'}
-        y_axis_select_label_display = {'display': 'None'}
-    else:
-        x_axis_select_display = {'display': 'Block'}
-        y_axis_select_display = {'display': 'Block'}
-        x_axis_select_label_display = {'display': 'Block'}
-        y_axis_select_label_display = {'display': 'Block'}
-    return x_axis_select_display, x_axis_select_label_display, y_axis_select_display, y_axis_select_label_display
-
+filter_display_style = {f'tab-{i+1}-graph': [{'display': ('None' if i in [3,5] else 'Block')}]*4 for i in range(5)}
 
 all_years = get_years(opnrcd_df)
 
@@ -116,24 +104,24 @@ def render_content(tab, x_axis_name, y_axis_name, years):
     if tab == 'tab-1-graph':
         fig = px.scatter(df, x=x_axis_name, y=y_axis_name, size='Dauer (s)', color='Jahr')
         fig.update_layout(transition_duration=200)
-        return html.Div([dcc.Graph(id='graph-1-tabs', figure=fig)]), *filter_display_style(tab)
+        return html.Div([dcc.Graph(id='graph-1-tabs', figure=fig)]), *filter_display_style[tab]
     elif tab == 'tab-2-graph':
         # TODO option to select value of heatmap: count / duration
         # heatmap_df = df.groupby([x_axis_name, y_axis_name]).count()['Jahr'].unstack(x_axis_name).fillna(0.0)  # count
         heatmap_df = df.groupby([x_axis_name, y_axis_name]).sum()['Dauer (s)'].unstack(x_axis_name).fillna(0.0)  # duration
         fig = px.imshow(heatmap_df)
         fig.update_layout(transition_duration=200)
-        return html.Div([dcc.Graph(id='graph-2-tabs', figure=fig)]), *filter_display_style(tab)
+        return html.Div([dcc.Graph(id='graph-2-tabs', figure=fig)]), *filter_display_style[tab]
     elif tab == 'tab-3-graph':
         corr_df = df[NUMERICAL_VARIABLES].dropna().corr()
         fig = px.imshow(corr_df)
         # TODO find a way to show correlation numbers in heat map
         # fig.update_traces(textposition='inside')
         fig.update_layout(transition_duration=200)
-        return html.Div([dcc.Graph(id='graph-3-tabs',figure=fig)]), *filter_display_style(tab)
+        return html.Div([dcc.Graph(id='graph-3-tabs',figure=fig)]), *filter_display_style[tab]
     elif tab == 'tab-4-graph':
         fig = get_time_series_fig(x_axis_name, y_axis_name)
-        return html.Div([dcc.Graph(id='graph-4-tabs',figure=fig)]), *filter_display_style(tab)
+        return html.Div([dcc.Graph(id='graph-4-tabs',figure=fig)]), *filter_display_style[tab]
     elif tab == 'tab-5-graph':
         # TODO Let user chose if grouping by Country or different attribute (Baujahr etc.)
         # TODO choice whether to include skits or not (currently not)
@@ -141,7 +129,7 @@ def render_content(tab, x_axis_name, y_axis_name, years):
         df['Planet'] = 'Welt'
         fig = px.treemap(df, path=['Planet', 'Kontinent', 'Nationalität', 'Künstler', 'Titel'], values='Dauer (s)')
         fig.data[0].hovertemplate = '%{label}<br>%{value}'
-        return html.Div([dcc.Graph(id='graph-5-tabs', figure=fig)]), *filter_display_style(tab)
+        return html.Div([dcc.Graph(id='graph-5-tabs', figure=fig)]), *filter_display_style[tab]
 
 
 if __name__ == '__main__':
