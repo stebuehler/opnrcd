@@ -4,8 +4,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
-from util.data_loutr import NUMERICAL_VARIABLES
-from util.data_loutr import mean_hi_lo_over_years
+from util.data_loutr import NUMERICAL_VARIABLES, mean_hi_lo_over_years
 
 
 # plot mean band time series
@@ -47,24 +46,33 @@ def get_time_series_fig(x_axis_name, y_axis_name, normalized_time_series, years)
     return fig
 
 
+# For now the active filters are defined staticly
+active_filter_dict = {
+    'Scatter':  ['Block', 'Block', 'Block', 'None'], 
+    'Heatmap': ['Block', 'Block', 'Block', 'Block'], 
+    'Correlation': ['None', 'None', 'Block', 'None'], 
+    'Time Series': ['Block', 'Block', 'Block', 'None'],
+    'Treemap': ['Block', 'Block', 'None', 'Block']
+}
+
 class View:
     def __init__(self, label, value):
         self.label = label
         self.value = value
-        # TODO refactor this to one file per tab and define active filters per tab there
-        filter_display_style = {f'tab-{i+1}-graph': [{'display': ('None' if i in [2,4] else 'Block')}]*4 for i in range(5)}
-        self.active_filters = filter_display_style[self.value]
+        # Note that for each filter we need the same display-style dictionary twice, once for the label and once for the filter
+        self.active_filters = [item for sublist in [[{'display': style}]*2 for style in active_filter_dict[self.label]] for item in sublist]
 
-    # TODO refactor this to one file per tab and define fig per tab there
-    def generate_fig(self, opnrcd_df, normalized_time_series, x_axis_name, y_axis_name, years):
+    # When the logic per tab gets too complicated, we should refactor this to one file per tab and define fig per tab there
+    def generate_fig(self, opnrcd_df, normalized_time_series, x_axis_name, y_axis_name, years, measure):
         df = opnrcd_df[opnrcd_df['Jahr'].isin(years)]
         if self.value == 'tab-1-graph':
             self.fig = px.scatter(df, x=x_axis_name, y=y_axis_name, size='Dauer (s)', color='Jahr')
             self.fig.update_layout(transition_duration=200)
         elif self.value == 'tab-2-graph':
-            # TODO option to select value of heatmap: count / duration
-            # heatmap_df = df.groupby([x_axis_name, y_axis_name]).count()['Jahr'].unstack(x_axis_name).fillna(0.0)  # count
-            heatmap_df = df.groupby([x_axis_name, y_axis_name]).sum()['Dauer (s)'].unstack(x_axis_name).fillna(0.0)  # duration
+            if measure == 'Count':
+                heatmap_df = df.groupby([x_axis_name, y_axis_name]).count()['Jahr'].unstack(x_axis_name).fillna(0.0)  # count
+            else:
+                heatmap_df = df.groupby([x_axis_name, y_axis_name]).sum()['Dauer (s)'].unstack(x_axis_name).fillna(0.0)  # duration
             self.fig = px.imshow(heatmap_df)
             self.fig.update_layout(transition_duration=200)
         elif self.value == 'tab-3-graph':
@@ -78,7 +86,6 @@ class View:
         elif self.value == 'tab-5-graph':
             # TODO Let user chose if grouping by Country or different attribute (Baujahr etc.)
             # TODO choice whether to include skits or not (currently not)
-            # graph
             df['Planet'] = 'Welt'
             self.fig = px.treemap(df, path=['Planet', 'Kontinent', 'Nationalität', 'Künstler', 'Titel'], values='Dauer (s)')
             self.fig.data[0].hovertemplate = '%{label}<br>%{value}'

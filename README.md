@@ -11,6 +11,7 @@
 ## To Do
 * Show Stropheninfo in tooltip for scatterplots
 * Show numbers in correlation matrix heatmap
-* Dropdown options should depend on tab
-* Option to show compute heat map based on duration or count
+* create callback function arguments dynamically from filters
 * Find a css style sheet
+* Treemap: Let user chose if grouping by Country or different attribute (Baujahr etc.)
+* Treemap: choice whether to include skits or not (currently not)

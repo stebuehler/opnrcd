@@ -22,7 +22,7 @@ def get_normalized_time_series() -> pd.DataFrame:
     df = load_data(strophen_only=False)
     df['Timestamp normalized'] = df['Timestamp sekunden'] / df.groupby('Jahr')['Dauer (s)'].transform('sum')
     df_ts = df[df['Strophe?']].set_index(['Timestamp normalized', 'Jahr'])[NUMERICAL_VARIABLES].unstack('Jahr').ffill()
-    # Add the 1.0 as last time index
+    # Add 1.0 as last time index
     series = df_ts.iloc[-1]
     series.name = 1.0
     return df_ts.append(series)

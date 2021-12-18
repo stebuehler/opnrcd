@@ -1,4 +1,4 @@
-from dash.dependencies import Input
+from dash.dependencies import Input, Output
 import dash_html_components as html
 import dash_core_components as dcc
 
@@ -19,3 +19,6 @@ class Filter:
 
     def get_input(self):
         return Input(f'{self.name}-select', 'value')
+
+    def get_output(self):
+        return [Output(f'{self.name}-select', 'style'), Output(f'{self.name}-select-label', 'style')]
