@@ -87,7 +87,8 @@ class View:
             # TODO Let user chose if grouping by Country or different attribute (Baujahr etc.)
             # TODO choice whether to include skits or not (currently not)
             df['Planet'] = 'Welt'
-            self.fig = px.treemap(df, path=['Planet', 'Kontinent', 'Nationalität', 'Künstler', 'Titel'], values='Dauer (s)')
+            df['Count'] = 1
+            self.fig = px.treemap(df, path=['Planet', 'Kontinent', 'Nationalität', 'Künstler', 'Titel'], values='Count' if measure == 'Count' else 'Dauer (s)')
             self.fig.data[0].hovertemplate = '%{label}<br>%{value}'
 
     def get_div(self):
