@@ -5,7 +5,11 @@ import dash_html_components as html
 
 from util.data_loutr import NUMERICAL_VARIABLES, get_years, load_data, get_normalized_time_series
 from util.filter import Filter
-from views.view import View
+from views.view_correlation import ViewCorrelation
+from views.view_heatmap import ViewHeatmap
+from views.view_scatter import ViewScatter
+from views.view_time_series import ViewTimeSeries
+from views.view_treemap import ViewTreemap
 
 opnrcd_df = load_data()
 normalized_time_series = get_normalized_time_series()
@@ -13,8 +17,7 @@ normalized_time_series = get_normalized_time_series()
 all_years = get_years(opnrcd_df)
 
 # Define all tabs
-view_labels = ['Scatter', 'Heatmap', 'Correlation', 'Time Series', 'Treemap']
-views = {f'tab-{i+1}-graph': View(label, f'tab-{i+1}-graph') for i, label in enumerate(view_labels)}
+views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries(), ViewTreemap()]
 
 # Define all filters
 filters = [
@@ -33,7 +36,7 @@ filter_divs = [item for sublist in [f.get_label_dropdown() for f in filters] for
 app = dash.Dash(__name__)  # , external_stylesheets=external_stylesheets
 
 app.layout = html.Div([
-    dcc.Tabs(id="tabs-graph", value='tab-1-graph', children=[view.get_tab() for label, view in views.items()]),
+    dcc.Tabs(id="tabs-graph", value='Scatter-graph', children=[view.get_tab() for view in views]),
     html.Div(filter_divs),
     html.Div(id='tabs-content-graph')
 ])
@@ -47,7 +50,7 @@ app.layout = html.Div([
 def render_content(tab, x_axis_name, y_axis_name, years, measure):
     # TODO create the function arguments dynamically from the filters, see https://community.plotly.com/t/how-to-elegantly-handle-a-very-large-number-of-input-state-in-callbacks/19228
     # select view based on tab selection
-    view = views[tab]
+    view = [v for v in views if v.value == tab][0]
     # generate figure
     view.generate_fig(opnrcd_df, normalized_time_series, x_axis_name, y_axis_name, years, measure)
     return view.get_div()
