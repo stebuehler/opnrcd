@@ -45,15 +45,16 @@ app.layout = html.Div([
     Output('tabs-content-graph', 'children'),
     *filter_outputs,
     Input('tabs-graph', 'value'),
-    *filter_inputs
+    filter_inputs
 )
-def render_content(tab, x_axis_name, y_axis_name, years, measure):
-    # TODO create the function arguments dynamically from the filters, see https://community.plotly.com/t/how-to-elegantly-handle-a-very-large-number-of-input-state-in-callbacks/19228
+def render_content(tab, *args):
+    # create the function arguments dynamically from the filters, see https://community.plotly.com/t/how-to-elegantly-handle-a-very-large-number-of-input-state-in-callbacks/19228
+    kwargs = dict(zip([f.name for f in filters], args))
     # select view based on tab selection
     view = [v for v in views if v.value == tab][0]
     # generate figure
-    view.generate_fig(opnrcd_df, normalized_time_series, x_axis_name, y_axis_name, years, measure)
-    return view.get_div()
+    view.generate_fig(opnrcd_df, normalized_time_series, **kwargs)
+    return view.get_div(filters)
 
 
 if __name__ == '__main__':

@@ -45,16 +45,16 @@ def get_time_series_fig(x_axis_name, y_axis_name, normalized_time_series, years)
     return fig
 
 
-# For now the active filters are defined staticly
-ACTIVE_FILTER_LIST = ['Block', 'Block', 'Block', 'None']
-
 class ViewTimeSeries(AbstractView):
     def __init__(self):
         AbstractView.__init__(self)
         self.label = 'Time Series'
         self.value = self.label + '-graph'
-        self.active_filters = [item for sublist in [[{'display': style}]*2 for style in ACTIVE_FILTER_LIST] for item in sublist]
+        self.active_filters = ['x-axis', 'y-axis', 'Jahre']
 
-    def generate_fig(self, opnrcd_df, normalized_time_series, x_axis_name, y_axis_name, years, measure):
+    def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
+        years = kwargs['Jahre']
+        x_axis_name = kwargs['x-axis']
+        y_axis_name = kwargs['y-axis']
         self.df = opnrcd_df[opnrcd_df['Jahr'].isin(years)]
         self.fig = get_time_series_fig(x_axis_name, y_axis_name, normalized_time_series, years)
