@@ -21,5 +21,6 @@
 * Heatmap: Dauer/count colorscale is only refreshed when tab is changed
 
 ## Deployment process
-* Update requirements.txt: type 'pipreqs .' in the project directory (may first need to install pipreqs via 'pip install pipreqs')
-* Update environment.yml: Manually?
+* (if necessary) Update requirements.txt: type 'pipreqs .' in the project directory (may first need to install pipreqs via 'pip install pipreqs')
+* (if necessary) Update environment.yml: Manually :)
+* (if necessary) Update conda environment with 'conda env create' in the anaconda prompt
