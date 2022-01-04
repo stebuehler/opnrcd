@@ -35,6 +35,7 @@ filter_divs = [item for sublist in [f.get_label_dropdown() for f in filters] for
 # external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__)  # , external_stylesheets=external_stylesheets
 server = app.server
+app.title = "OPNRCD-ANLTCS"
 
 app.layout = html.Div([
     dcc.Tabs(id="tabs-graph", value='Scatter-graph', children=[view.get_tab() for view in views]),
