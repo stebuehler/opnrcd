@@ -1,0 +1,14 @@
+name: opnrcd_dash_app
+dependencies:
+  - python=3.10
+  - pip:
+    - dash
+    - dash-renderer
+    - dash-core-components
+    - dash-html-components
+    - matplotlib
+    - numpy
+    - pandas
+    - plotly
+    - scikit_learn
+    - gunicorn # for app deployment

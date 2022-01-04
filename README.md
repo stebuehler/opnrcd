@@ -19,3 +19,7 @@
 ## Bugs
 * x-filter = y-filter gives error
 * Heatmap: Dauer/count colorscale is only refreshed when tab is changed
+
+## Deployment process
+* Update requirements.txt: type 'pipreqs .' in the project directory (may first need to install pipreqs via 'pip install pipreqs')
+* Update environment.yml: Manually?
