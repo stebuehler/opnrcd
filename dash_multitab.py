@@ -26,7 +26,7 @@ filters = [
     Filter('Jahre', all_years, multi=True),
     Filter('Measure', ['Dauer (min)', 'Count']),
     Filter('Group by', ['Nationalität', 'Sprache', 'Baujahr']),
-    Filter('Color', NUMERICAL_VARIABLES)
+    Filter('Color', NUMERICAL_VARIABLES + ['Jahr', 'Baujahr'])
 ]
 filter_inputs = [f.get_input() for f in filters]
 filter_outputs = [item for sublist in [f.get_output() for f in filters] for item in sublist]
