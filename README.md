@@ -19,7 +19,8 @@
 * Time-series: Add the possibility to show years side-by-side (i.e. above each other)?
 * Time-series: Rename filters ("x axis" and "y axis" don't make sense)
 * Time-series: Why just two measures shown, why not all at once? (i.e. all six Bewertungskriterien in plots). Could get too busy, though.
-* Treemap: Let user chose if grouping by Country or different attribute (Baujahr, Sprache etc.)
+* Treemap: Use color for numerical variables
+* Treemap: Let user choose how deep the path should go?
 * Treemap: choice whether to include skits or not (currently not)
 
 ## Bugs
