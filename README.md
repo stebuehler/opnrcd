@@ -10,17 +10,22 @@
 * PCA decomposition
 
 ## To Do
-* Show Stropheninfo in tooltip for scatterplots
-* Show numbers in correlation matrix heatmap
 * Find a css style sheet
-* Treemap: Let user chose if grouping by Country or different attribute (Baujahr etc.)
+* Make layout more mobile friendly (not sure how easy)
+* Scatterplot: Show Stropheninfo in tooltip
+* Scatterplot: Possibility to group by various fields (Jahr, Künstler, Baujahr, Nationalität, Sprache). Coloring by year can not apply to these, though (except for the Jahr choice), i.e. either switch it off or make it conditional
+* Correlation: Show numbers in matrix heatmap
+* Correlation: Add "Dauer" as another row / column
+* Time-series: Add the possibility to show years side-by-side (i.e. above each other)?
+* Time-series: Rename filters ("x axis" and "y axis" don't make sense)
+* Time-series: Why just two measures shown, why not all at once? (i.e. all six Bewertungskriterien in plots). Could get too busy, though.
+* Treemap: Let user chose if grouping by Country or different attribute (Baujahr, Sprache etc.)
 * Treemap: choice whether to include skits or not (currently not)
 
 ## Bugs
 * x-filter = y-filter gives error
 * Heatmap: Dauer/count colorscale is only refreshed when tab is changed
 
-## Deployment process
-* (if necessary) Update requirements.txt: type 'pipreqs .' in the project directory (may first need to install pipreqs via 'pip install pipreqs')
-* (if necessary) Update environment.yml: Manually :)
-* (if necessary) Update conda environment with 'conda env create' in the anaconda prompt
+## Updates for remote app in case new packages are used in the app:
+* Update requirements.txt: Either manually or type 'pipreqs .' in the project directory (may first need to install pipreqs via 'pip install pipreqs')
+* Update environment.yml: Manually
