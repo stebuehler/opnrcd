@@ -6,7 +6,7 @@ class ViewTreemap(AbstractView):
         AbstractView.__init__(self)
         self.label = 'Treemap'
         self.value = self.label + '-graph'
-        self.active_filters = ['Jahre', 'Measure', 'Group by']
+        self.active_filters = ['Jahre', 'Measure', 'Group by', 'Color']
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
         years = kwargs['Jahre']
@@ -16,8 +16,12 @@ class ViewTreemap(AbstractView):
         self.df['All'] = 'All'
         self.df['Count'] = 1
         treemap_path = self.give_path(kwargs['Group by'])
-        self.fig = px.treemap(self.df, path=treemap_path, values='Count' if measure == 'Count' else 'Dauer (s)')
-        self.fig.data[0].hovertemplate = '%{label}<br>%{value}'
+        self.fig = px.treemap(
+            self.df, path=treemap_path, 
+            values='Count' if measure == 'Count' else 'Dauer (m)',
+            color=kwargs['Color']
+            )
+        self.fig.data[0].hovertemplate = '<b>%{label}</b><br>Measure = %{value}<br>Color = %{color:.2f}'
 
     def give_path(self, groupby):
         if groupby == 'Nationalität':

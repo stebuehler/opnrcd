@@ -10,8 +10,11 @@
 * PCA decomposition
 
 ## To Do
+### App
 * Find a css style sheet
 * Make layout more mobile friendly (not sure how easy)
+* Make filter width less ridiculously wide and depend on window size.
+### Dashboards
 * Scatterplot: Show Stropheninfo in tooltip
 * Scatterplot: Possibility to group by various fields (Jahr, Künstler, Baujahr, Nationalität, Sprache). Coloring by year can not apply to these, though (except for the Jahr choice), i.e. either switch it off or make it conditional
 * Correlation: Show numbers in matrix heatmap
