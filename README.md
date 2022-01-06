@@ -13,7 +13,7 @@
 ### App
 * Find a css style sheet
 * Make layout more mobile friendly (not sure how easy)
-* Make filter width less ridiculously wide and depend on window size.
+* Make filter width less ridiculously wide and depend on window size. May require to rewrite the part where the html.Div() holding the filters is defined (nested divs with style={'flex':1, 'padding':10} in the inner divs and style={'display':'flex', 'flex-direction':'row'} in the main outer Div?)
 ### Dashboards
 * Scatterplot: Show Stropheninfo in tooltip
 * Scatterplot: Possibility to group by various fields (Jahr, Künstler, Baujahr, Nationalität, Sprache). Coloring by year can not apply to these, though (except for the Jahr choice), i.e. either switch it off or make it conditional
