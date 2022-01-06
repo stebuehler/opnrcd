@@ -27,5 +27,5 @@
 * Heatmap: Dauer/count colorscale is only refreshed when tab is changed
 
 ## Updates for remote app in case new packages are used in the app:
-* Update requirements.txt: Either manually or type 'pipreqs .' in the project directory (may first need to install pipreqs via 'pip install pipreqs')
-* Update environment.yml: Manually
+* requirements.txt: Either manually or type 'pipreqs .' in the project directory (may first need to install pipreqs via 'pip install pipreqs')
+* environment.yml: Manually
