@@ -17,6 +17,6 @@ class ViewHeatmap(AbstractView):
         if measure == 'Count':
             heatmap_df = self.df.groupby([x_axis_name, y_axis_name]).count()['Jahr'].unstack(x_axis_name).fillna(0.0)  # count
         else:
-            heatmap_df = self.df.groupby([x_axis_name, y_axis_name]).sum()['Dauer (s)'].unstack(x_axis_name).fillna(0.0)  # duration
+            heatmap_df = self.df.groupby([x_axis_name, y_axis_name]).sum()['Dauer (m)'].unstack(x_axis_name).fillna(0.0)  # duration
         self.fig = px.imshow(heatmap_df)
         self.fig.update_layout(transition_duration=200)
