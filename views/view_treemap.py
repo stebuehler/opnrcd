@@ -6,15 +6,25 @@ class ViewTreemap(AbstractView):
         AbstractView.__init__(self)
         self.label = 'Treemap'
         self.value = self.label + '-graph'
-        self.active_filters = ['Jahre', 'Measure']
+        self.active_filters = ['Jahre', 'Measure', 'Group by']
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
         years = kwargs['Jahre']
         measure = kwargs['Measure']
         self.df = opnrcd_df[opnrcd_df['Jahr'].isin(years)]
         # TODO Let user chose if grouping by Country or different attribute (Baujahr etc.)
-        # TODO choice whether to include skits or not (currently not)
-        self.df['Planet'] = 'Welt'
+        self.df['All'] = 'All'
         self.df['Count'] = 1
-        self.fig = px.treemap(self.df, path=['Planet', 'Kontinent', 'Nationalität', 'Künstler', 'Titel'], values='Count' if measure == 'Count' else 'Dauer (s)')
+        treemap_path = self.give_path(kwargs['Group by'])
+        self.fig = px.treemap(self.df, path=treemap_path, values='Count' if measure == 'Count' else 'Dauer (s)')
         self.fig.data[0].hovertemplate = '%{label}<br>%{value}'
+
+    def give_path(self, groupby):
+        if groupby == 'Nationalität':
+            return ['All', 'Kontinent', 'Nationalität', 'Künstler', 'Titel']
+        elif groupby == 'Sprache':
+            return ['All', 'Sprache gruppiert 2', 'Sprache', 'Künstler', 'Titel']
+        elif groupby == 'Baujahr':
+            return ['All', 'Baujahr Jahrzehnt', 'Baujahr', 'Künstler', 'Titel']
+        else:
+            raise NotImplementedError

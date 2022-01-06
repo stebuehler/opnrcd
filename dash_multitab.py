@@ -24,7 +24,8 @@ filters = [
     Filter('x-axis', NUMERICAL_VARIABLES),
     Filter('y-axis', NUMERICAL_VARIABLES, default_selection=1),
     Filter('Jahre', all_years, multi=True),
-    Filter('Measure', ['Dauer', 'Count'])
+    Filter('Measure', ['Dauer', 'Count']),
+    Filter('Group by', ['Nationalität', 'Sprache', 'Baujahr'])
 ]
 filter_inputs = [f.get_input() for f in filters]
 filter_outputs = [item for sublist in [f.get_output() for f in filters] for item in sublist]
