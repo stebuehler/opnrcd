@@ -41,8 +41,10 @@ app.title = "OPNRCD-ANLTCS"
 
 app.layout = html.Div([
     dcc.Tabs(id="tabs-graph", value='Scatter-graph', children=[view.get_tab() for view in views]),
-    html.Div(filter_divs),
-    html.Div(id='tabs-content-graph')
+    html.Div([
+        html.Div(filter_divs,style={'display':'flex', 'flex-direction': 'column'}),
+        html.Div(id='tabs-content-graph')
+    ])
 ])
 
 @app.callback(
