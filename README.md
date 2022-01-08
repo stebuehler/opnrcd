@@ -30,8 +30,7 @@
   * Choice whether to include skits or not (currently not)
 
 ## Bugs
-* x-filter = y-filter gives error
-* Heatmap: Dauer/count colorscale is only refreshed when tab is changed
+* Heatmap: Columns sometimes become twice as wide when sparse data is selected (example: default axes and select only year 2010). Has to do with "holes" in the data, presumably? We may have to artificially fill the holes in the df (but requires code to know the range of the variables).
 
 ## Updates for remote app in case new packages are used in the app:
 * requirements.txt: Either manually or type 'pipreqs .' in the project directory (may first need to install pipreqs via 'pip install pipreqs')
