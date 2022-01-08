@@ -19,15 +19,15 @@
   * Show Stropheninfo in tooltip
   * Possibility to group by various fields (Jahr, Künstler, Baujahr, Nationalität, Sprache). Coloring by year can not apply to these, though (except for the Jahr choice), i.e. either switch it off or make it conditional
 * Correlation
-  * Show numbers in matrix heatmap
-  * Add "Dauer" as another row / column
+  * Show numbers in matrix heatmap (may need to use go.annotated)
+  * Use different color scale (white around zero)
 * Time-series
   * Add the possibility to show years side-by-side (i.e. above each other)?
   * Rename filters ("x axis" and "y axis" don't make sense)
   * Why just two measures shown, why not all at once? (i.e. all six Bewertungskriterien in plots). Could get too busy, though.
 * Treemap
   * Let user choose how deep the path should go?
-  * Choice whether to include skits or not (currently not)
+  * Choice whether to include skits or not (currently not). Would mess up the colors, though, as skits are not rated by the OPNRCDKMT except the ones for the OPNRCDSTRPHNKWRTL (or require clever nested callbacks to hide the color option when skits are included)
 
 ## Bugs
 * Heatmap: Columns sometimes become twice as wide when sparse data is selected (example: default axes and select only year 2010). Has to do with "holes" in the data, presumably? We may have to artificially fill the holes in the df (but requires code to know the range of the variables).
