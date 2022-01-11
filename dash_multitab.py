@@ -1,7 +1,8 @@
 import dash
 from dash import Input, Output, dcc, html
+import dash_bootstrap_components as dbc
 
-from util.data_loutr import NUMERICAL_VARIABLES, get_years, load_data, get_normalized_time_series
+from util.data_loutr import (NUMERICAL_VARIABLES, get_normalized_time_series, get_years, load_data)
 from util.filter import Filter
 from views.view_correlation import ViewCorrelation
 from views.view_heatmap import ViewHeatmap
@@ -33,15 +34,19 @@ filter_divs = [item for sublist in [f.get_label_dropdown() for f in filters] for
 
 # TODO find a cool stylesheet
 # external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-app = dash.Dash(__name__)  # , external_stylesheets=external_stylesheets
+app = dash.Dash(
+    __name__,
+    external_stylesheets=[dbc.themes.BOOTSTRAP],
+    meta_tags=[{'name': 'viewport', 'content': 'width=device-width, initial-scale=1'}]
+    )
 server = app.server
 app.title = "OPNRCD-ANLTCS"
 
 app.layout = html.Div([
-    dcc.Tabs(id="tabs-graph", value='Scatter-graph', children=[view.get_tab() for view in views]),
+    dbc.Row(dbc.Col(dcc.Tabs(id="tabs-graph", value='Scatter-graph', children=[view.get_tab() for view in views]))),
     html.Div([
-        html.Div(filter_divs,style={'display':'flex', 'flex-direction': 'column'}),
-        html.Div(id='tabs-content-graph')
+        dbc.Row(html.Div(filter_divs)),
+        dbc.Row(dbc.Col(html.Div(id='tabs-content-graph')))
     ])
 ])
 
