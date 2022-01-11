@@ -1,4 +1,5 @@
 from dash import Input, Output, html, dcc
+import dash_bootstrap_components as dbc
 
 class Filter:
     def __init__(self, name, options, default_selection: int=0, multi: bool=False):
@@ -13,7 +14,7 @@ class Filter:
         )
 
     def get_label_dropdown(self):
-        return [self.label, self.dropdown]
+        return dbc.Col(html.Div([self.label, self.dropdown]), width=2, xs=4, sm=4)
 
     def get_input(self):
         return Input(f'{self.name}-select', 'value')
