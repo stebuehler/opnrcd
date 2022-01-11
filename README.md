@@ -18,15 +18,17 @@
 * Scatterplot
   * Show Stropheninfo in tooltip
   * Possibility to group by various fields (Jahr, Künstler, Baujahr, Nationalität, Sprache). Coloring by year can not apply to these, though (except for the Jahr choice), i.e. either switch it off or make it conditional
+* Heatmap
+  * Align color scale  used to Correlation
 * Correlation
-  * Show numbers in matrix heatmap (may need to use go.annotated)
-  * Use different color scale (white around zero)
+  * Show numbers in matrix heatmap (see comments in code for more detail).
 * Time-series
   * Add the possibility to show years side-by-side (i.e. above each other)?
   * Rename filters ("x axis" and "y axis" don't make sense)
   * Why just two measures shown, why not all at once? (i.e. all six Bewertungskriterien in plots). Could get too busy, though.
 * Treemap
-  * Let user choose how deep the path should go?
+  * Align color scale  used to Correlation
+  * Let user choose how deep the path should go? (better readability of avg color).
   * Choice whether to include skits or not (currently not). Would mess up the colors, though, as skits are not rated by the OPNRCDKMT except the ones for the OPNRCDSTRPHNKWRTL (or require clever nested callbacks to hide the color option when skits are included)
 
 ## Bugs
