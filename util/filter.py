@@ -1,6 +1,4 @@
-from dash.dependencies import Input, Output
-import dash_html_components as html
-import dash_core_components as dcc
+from dash import Input, Output, html, dcc
 
 class Filter:
     def __init__(self, name, options, default_selection: int=0, multi: bool=False):

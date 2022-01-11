@@ -13,8 +13,13 @@ class ViewCorrelation(AbstractView):
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
         years = kwargs['Jahre']
         self.df = opnrcd_df[opnrcd_df['Jahr'].isin(years)]  
-        corr_df = self.df[NUMERICAL_VARIABLES].dropna().corr()
-        self.fig = px.imshow(corr_df)
+        corr_df = self.df[NUMERICAL_VARIABLES + ['Dauer (m)', 'Baujahr']].dropna().corr()
+        self.fig = px.imshow(corr_df, color_continuous_scale=px.colors.diverging.RdBu, color_continuous_midpoint=0)
         # TODO find a way to show correlation numbers in heat map
         # fig.update_traces(textposition='inside')
+        # This here will work as soon as dash version > 2.0.0 is available that supports the plotly v 5.5.0 feature of the "text_auto" argument:
+        # self.fig = px.imshow(corr_df, text_auto=".2f", color_continuous_scale=px.colors.diverging.RdBu, color_continuous_midpoint=0)
+        # or we could place our own more up to date plotly.js file in the repo (in an "assets" folder) and refer to it.
+        # https://stackoverflow.com/questions/70512660/how-to-show-text-on-a-heatmap-with-plotly/70516115
+        # https://dash.plotly.com/external-resources
         self.fig.update_layout(transition_duration=200)

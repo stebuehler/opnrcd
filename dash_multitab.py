@@ -1,7 +1,5 @@
 import dash
-from dash.dependencies import Input, Output
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import Input, Output, dcc, html
 
 from util.data_loutr import NUMERICAL_VARIABLES, get_years, load_data, get_normalized_time_series
 from util.filter import Filter
