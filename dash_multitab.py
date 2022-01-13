@@ -29,7 +29,7 @@ filters = [
 ]
 filter_inputs = [f.get_input() for f in filters]
 filter_outputs = [item for sublist in [f.get_output() for f in filters] for item in sublist]
-filter_divs = [item for sublist in [f.get_label_dropdown() for f in filters] for item in sublist]
+filter_divs = [f.get_label_dropdown() for f in filters]
 
 
 # TODO find a cool stylesheet
