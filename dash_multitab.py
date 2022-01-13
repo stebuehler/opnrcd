@@ -1,5 +1,6 @@
 import dash
 from dash import Input, Output, dcc, html
+import dash_bootstrap_components as dbc
 
 from util.data_loutr import NUMERICAL_VARIABLES, get_years, load_data, get_normalized_time_series
 from util.filter import Filter
@@ -33,7 +34,11 @@ filter_divs = [item for sublist in [f.get_label_dropdown() for f in filters] for
 
 # TODO find a cool stylesheet
 # external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-app = dash.Dash(__name__)  # , external_stylesheets=external_stylesheets
+app = dash.Dash(
+    __name__,
+    external_stylesheets=[dbc.themes.BOOTSTRAP],
+    meta_tags=[{'name': 'viewport', 'content': 'width=device-width, initial-scale=1'}]
+    )
 server = app.server
 app.title = "OPNRCD-ANLTCS"
 
