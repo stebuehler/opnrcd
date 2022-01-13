@@ -43,7 +43,7 @@ server = app.server
 app.title = "OPNRCD-ANLTCS"
 
 app.layout = html.Div([
-    dbc.Row(dbc.Col(dcc.Tabs(id="tabs-graph", value='Scatter-graph', children=[view.get_tab() for view in views]))),
+    dbc.Row([dbc.Col(view.get_tab()) for view in views]),
     html.Div([
         dbc.Row(html.Div(filter_divs)),
         dbc.Row(dbc.Col(html.Div(id='tabs-content-graph')))
