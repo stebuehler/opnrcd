@@ -42,12 +42,10 @@ app = dash.Dash(
 server = app.server
 app.title = "OPNRCD-ANLTCS"
 
-app.layout = html.Div([
+app.layout = dbc.Container([
     dbc.Row([dbc.Col(view.get_tab()) for view in views]),
-    html.Div([
-        dbc.Row(html.Div(filter_divs)),
-        dbc.Row(dbc.Col(html.Div(id='tabs-content-graph')))
-    ])
+    dbc.Row(filter_divs),
+    dbc.Row(dbc.Col(html.Div(id='tabs-content-graph')))
 ])
 
 @app.callback(

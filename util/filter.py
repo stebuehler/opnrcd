@@ -14,7 +14,7 @@ class Filter:
         )
 
     def get_label_dropdown(self):
-        return dbc.Col(html.Div([self.label, self.dropdown]), width=2, xs=4, sm=4)
+        return dbc.Col(html.Div([self.dropdown]), width=2, xs=4, sm=4)
 
     def get_input(self):
         return Input(f'{self.name}-select', 'value')
