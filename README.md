@@ -22,6 +22,7 @@
   * Align color scale  used to Correlation
 * Correlation
   * Show numbers in matrix heatmap (see comments in code for more detail).
+  * Modify color scale to start and end at min, max off-diagonal elements. (set diagonal to zero)
 * Time-series
   * Add the possibility to show years side-by-side (i.e. above each other)?
   * Rename filters ("x axis" and "y axis" don't make sense)
