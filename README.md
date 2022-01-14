@@ -17,14 +17,16 @@
 ### Dashboards
 * Scatterplot
   * Show Stropheninfo in tooltip
-  * Possibility to group by various fields (Jahr, Künstler, Baujahr, Nationalität, Sprache). Coloring by year can not apply to these, though (except for the Jahr choice), i.e. either switch it off or make it conditional
+  * Possibility to group by various fields (Jahr, Künstler, Baujahr, Nationalität, Sprache)
+  * Generalize coloring (third variable)
 * Heatmap
   * Align color scale  used to Correlation
 * Correlation
   * Show numbers in matrix heatmap (see comments in code for more detail).
   * Modify color scale to start and end at min, max off-diagonal elements. (set diagonal to zero)
 * Time-series
-  * Add the possibility to show years side-by-side (i.e. above each other)?
+  * Add the possibility to show a single year within the same plot (highlighted).
+  * Move filters next to charts (filter upper and lower chart independently)?
   * Rename filters ("x axis" and "y axis" don't make sense)
   * Why just two measures shown, why not all at once? (i.e. all six Bewertungskriterien in plots). Could get too busy, though.
 * Treemap
