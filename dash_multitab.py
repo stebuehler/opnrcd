@@ -22,10 +22,10 @@ views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries(), View
 filters = [
     Filter('x-axis', NUMERICAL_VARIABLES),
     Filter('y-axis', NUMERICAL_VARIABLES, default_selection=1),
-    Filter('Jahre', all_years, multi=True),
     Filter('Measure', ['Dauer (min)', 'Count']),
     Filter('Group by', ['Nationalität', 'Sprache', 'Baujahr']),
-    Filter('Color', NUMERICAL_VARIABLES + ['Jahr', 'Baujahr'])
+    Filter('Color', NUMERICAL_VARIABLES + ['Jahr', 'Baujahr']),
+    Filter('Jahre', all_years, multi=True) # leave Jahre at the last position because it is the ugliest filter currently.
 ]
 filter_inputs = [f.get_input() for f in filters]
 filter_outputs = [item for sublist in [f.get_output() for f in filters] for item in sublist]
@@ -43,7 +43,7 @@ server = app.server
 app.title = "OPNRCD-ANLTCS"
 
 app.layout = dbc.Container([
-    dbc.Row([dbc.Col(view.get_tab()) for view in views]),
+    dbc.Tabs([view.get_tab() for view in views]),
     dbc.Row(filter_divs),
     dbc.Row(dbc.Col(html.Div(id='tabs-content-graph')))
 ])
