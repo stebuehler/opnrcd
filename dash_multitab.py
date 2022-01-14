@@ -43,7 +43,7 @@ server = app.server
 app.title = "OPNRCD-ANLTCS"
 
 app.layout = dbc.Container([
-    dbc.Tabs([view.get_tab() for view in views]),
+    dbc.Tabs([view.get_tab() for view in views], id='tabs', active_tab='Scatter-graph'),
     dbc.Row(filter_divs),
     dbc.Row(dbc.Col(html.Div(id='tabs-content-graph')))
 ])
@@ -51,7 +51,7 @@ app.layout = dbc.Container([
 @app.callback(
     Output('tabs-content-graph', 'children'),
     *filter_outputs,
-    Input('tabs-graph', 'value'),
+    Input('tabs', 'active_tab'),
     filter_inputs
 )
 def render_content(tab, *args):
