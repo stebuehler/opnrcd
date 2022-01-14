@@ -14,7 +14,24 @@ class Filter:
         )
 
     def get_label_dropdown(self):
-        return dbc.Col(html.Div([self.dropdown]), width=2, xs=4, sm=4)
+        if self.multi:
+            return self.get_label_dropdown_multi()
+        else:
+            return self.get_label_dropdown_single()
+    
+    def get_label_dropdown_single(self):
+        return dbc.Col([
+            dbc.Row([html.Div([self.label])]),
+            dbc.Row([html.Div([self.dropdown])]),
+        ]
+        , width=2, xs=6, sm=6, md=4, lg=2, xl=2, className="g-0")
+
+    def get_label_dropdown_multi(self):
+        return dbc.Col([
+            dbc.Row([html.Div([self.label])]),
+            dbc.Row([html.Div([self.dropdown])]),
+        ]
+        , width=12, className="g-0")
 
     def get_input(self):
         return Input(f'{self.name}-select', 'value')
