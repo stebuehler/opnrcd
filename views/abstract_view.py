@@ -17,4 +17,4 @@ class AbstractView(ABC):
         return html.Div([dcc.Graph(id=self.label, figure=self.fig)]), *filter_display_style
 
     def get_tab(self):
-        return dbc.Tab(self.value, label=self.label)
+        return dbc.Tab(tab_id=self.value, label=self.label)
