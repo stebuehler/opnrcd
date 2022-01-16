@@ -19,7 +19,7 @@
   * Possibility to group by various fields (Jahr, Künstler, Baujahr, Nationalität, Sprache)
   * Generalize coloring (third variable)
 * Heatmap
-  * Align color scale  used to Correlation
+  * Align color scale  used to the one on Correlation tab?
 * Correlation
   * Show numbers in matrix heatmap (see comments in code for more detail).
   * Modify color scale to start and end at min, max off-diagonal elements. (set diagonal to zero)
@@ -29,9 +29,9 @@
   * Rename filters ("x axis" and "y axis" don't make sense)
   * Why just two measures shown, why not all at once? (i.e. all six Bewertungskriterien in plots). Could get too busy, though.
 * Treemap
-  * Align color scale  used to Correlation
+  * Align color scale  used to the one on Correlation tab?
   * Let user choose how deep the path should go? (better readability of avg color).
-  * Choice whether to include skits or not (currently not). Would mess up the colors, though, as skits are not rated by the OPNRCDKMT except the ones for the OPNRCDSTRPHNKWRTL (or require clever nested callbacks to hide the color option when skits are included)
+  * Choice whether to include skits or not (currently not). Would mess up the colors, though, as skits are not rated by the OPNRCDKMT (or require clever nested callbacks to hide the color option when skits are included)
 
 ## Bugs
 
