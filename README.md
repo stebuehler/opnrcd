@@ -12,12 +12,11 @@
 ## To Do
 ### App
 * Find a css style sheet
-* Make layout more mobile friendly (not sure how easy) by using Bootstrap.
 * Make filter width less ridiculously wide and depend on window size. Should also be possible with bootstrap. Alternatively, may require to rewrite the part where the html.Div() holding the filters is defined (nested divs with style={'flex':1, 'padding':10} in the inner divs and style={'display':'flex', 'flex-direction':'row'} in the main outer Div?)
 ### Dashboards
 * Scatterplot
-  * Possibility to group by various fields (Jahr, Künstler, Baujahr, Nationalität, Sprache)
-  * Generalize coloring (third variable)
+  * Modify hovertemplate to show less digits
+  * Add back initial view ("Group by None"?)
 * Heatmap
   * Align color scale  used to the one on Correlation tab?
 * Correlation
