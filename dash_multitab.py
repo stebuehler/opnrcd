@@ -23,9 +23,9 @@ filters = [
     Filter('x-axis', NUMERICAL_VARIABLES),
     Filter('y-axis', NUMERICAL_VARIABLES, default_selection=1),
     Filter('Measure', ['Dauer (min)', 'Count']),
-    Filter('Group by', ['Nationalität', 'Sprache', 'Baujahr']),
-    Filter('Color', NUMERICAL_VARIABLES + ['Jahr', 'Baujahr']),
-    Filter('Jahre', all_years, multi=True) # leave Jahre at the last position because it is the ugliest filter currently.
+    Filter('Group by', ['Jahr', 'Nationalität', 'Sprache', 'Baujahr']),
+    Filter('Color', NUMERICAL_VARIABLES + ['Jahr', 'Baujahr'], default_selection=2),
+    Filter('Jahre', all_years, multi=True)
 ]
 filter_inputs = [f.get_input() for f in filters]
 filter_outputs = [item for sublist in [f.get_output() for f in filters] for item in sublist]
