@@ -16,7 +16,7 @@
 ### Dashboards
 * Scatterplot
   * Modify hovertemplate to show less digits
-  * Add back initial view ("Group by None"?)
+  * Add toggle to turn labels on and off (currently hardcoded depending on group by chosen)
 * Heatmap
   * Align color scale  used to the one on Correlation tab?
 * Correlation
@@ -33,7 +33,8 @@
   * Choice whether to include skits or not (currently not). Would mess up the colors, though, as skits are not rated by the OPNRCDKMT (or require clever nested callbacks to hide the color option when skits are included)
 
 ## Bugs
-
+* Scatter
+  * Group by Jahr and Color by Jahr makes labels have decimal rounding errors.
 ## Updates for remote app in case new packages are used in the app:
 * requirements.txt: Either manually or type 'pipreqs .' in the project directory (may first need to install pipreqs via 'pip install pipreqs')
 * environment.yml: Manually
