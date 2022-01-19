@@ -35,5 +35,9 @@ class ViewTreemap(AbstractView):
             return ['All', 'Baujahr Jahrzehnt', 'Baujahr', 'Künstler', 'Titel']
         elif groupby == 'Jahr':
             return ['All', 'Jahr', 'Künstler', 'Titel']
+        elif groupby == 'Künstler':
+            return ['All', 'Künstler', 'Titel']
+        elif groupby == 'Titel':
+            return ['All', 'Titel']
         else:
             raise NotImplementedError
