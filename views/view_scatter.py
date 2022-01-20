@@ -15,7 +15,15 @@ class ViewScatter(AbstractView):
         color = kwargs['Color']
         groupby = kwargs['Group by']
         df = self.get_df(opnrcd_df, x_axis_name, y_axis_name, color, groupby, years)
-        self.fig = px.scatter(df, x=x_axis_name, y=y_axis_name, color=color, size='Dauer (m)', text=groupby, hover_data=[groupby])
+        self.fig = px.scatter(
+            df,
+            x=x_axis_name,
+            y=y_axis_name,
+            color=color,
+            size='Dauer (m)',
+            text=self.show_labels_depending_on(groupby),
+            hover_data=[groupby]
+            )
         self.fig.update_traces(textposition='top center')
         self.fig.update_layout(transition_duration=200)
 
@@ -36,3 +44,9 @@ class ViewScatter(AbstractView):
         df[color] = df['aux_color']/df['dauer']
         df['Dauer (m)'] = df['dauer']
         return df
+
+    def show_labels_depending_on(self, groupby):
+        if groupby == "Künstler" or groupby == "Titel":
+            return None
+        else:
+            return groupby

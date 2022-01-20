@@ -23,7 +23,7 @@ filters = [
     Filter('x-axis', NUMERICAL_VARIABLES),
     Filter('y-axis', NUMERICAL_VARIABLES, default_selection=1),
     Filter('Measure', ['Dauer (min)', 'Count']),
-    Filter('Group by', ['Jahr', 'Nationalität', 'Sprache', 'Baujahr']),
+    Filter('Group by', ['Jahr', 'Nationalität', 'Sprache', 'Baujahr', 'Künstler', 'Titel']),
     Filter('Color', NUMERICAL_VARIABLES + ['Jahr', 'Baujahr'], default_selection=2),
     Filter('Jahre', all_years, multi=True)
 ]
