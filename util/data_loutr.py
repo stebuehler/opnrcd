@@ -6,7 +6,8 @@ NUMERICAL_VARIABLES = [
     'Tanzbarkeit (1-10)',
     'Verblödungsfaktor (1-10)',
     'Nervofantigkeit (1-10)',
-     'Weirdness (1-8)'
+    'Weirdness (1-8)',
+    'Timestamp sekunden'
 ]
 
 

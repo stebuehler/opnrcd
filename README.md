@@ -18,7 +18,7 @@
   * Modify hovertemplate to show less digits
   * Add toggle to turn labels on and off (currently hardcoded depending on group by chosen)
 * Heatmap
-  * Align color scale  used to the one on Correlation tab?
+  * Remove timestamp as an option for x and y axis
 * Correlation
   * Show numbers in matrix heatmap (see comments in code for more detail).
   * Modify color scale to start and end at min, max off-diagonal elements. (set diagonal to zero)
@@ -26,15 +26,15 @@
   * Add the possibility to show a single year within the same plot (highlighted).
   * Move filters next to charts (filter upper and lower chart independently)?
   * Rename filters ("x axis" and "y axis" don't make sense)
+  * Remove timestamp as an option.
   * Why just two measures shown, why not all at once? (i.e. all six Bewertungskriterien in plots). Could get too busy, though.
 * Treemap
-  * Align color scale  used to the one on Correlation tab?
   * Let user choose how deep the path should go? (better readability of avg color).
   * Choice whether to include skits or not (currently not). Would mess up the colors, though, as skits are not rated by the OPNRCDKMT (or require clever nested callbacks to hide the color option when skits are included)
 
 ## Bugs
 * Scatter
-  * Group by Jahr and Color by Jahr makes labels have decimal rounding errors.
+  * Color by Jahr has decimal rounding errors (worst if only one year is chosen, then color legend is messed up, too)
 ## Updates for remote app in case new packages are used in the app:
 * requirements.txt: Either manually or type 'pipreqs .' in the project directory (may first need to install pipreqs via 'pip install pipreqs')
 * environment.yml: Manually
