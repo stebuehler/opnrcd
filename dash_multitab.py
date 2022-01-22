@@ -2,7 +2,7 @@ import dash
 from dash import Input, Output, dcc, html
 import dash_bootstrap_components as dbc
 
-from util.data_loutr import NUMERICAL_VARIABLES, get_all_entries, get_all_entries, load_data, get_normalized_time_series
+from util.data_loutr import NUMERICAL_VARIABLES, get_all_entries, load_data, get_normalized_time_series
 from util.filter import Filter
 from views.view_correlation import ViewCorrelation
 from views.view_heatmap import ViewHeatmap

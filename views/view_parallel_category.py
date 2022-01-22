@@ -18,7 +18,7 @@ class ViewParallelCategory(AbstractView):
             dimensions=NUMERICAL_VARIABLES
             )
 
-    def prepare_df(self, opnrcd_df, years, sprachen, group=False):
+    def prepare_df(self, opnrcd_df, years, sprachen, group=True):
         df = opnrcd_df[opnrcd_df['Jahr'].isin(years)]
         df = df[df['Sprache'].isin(sprachen)]
         if group:
@@ -26,4 +26,29 @@ class ViewParallelCategory(AbstractView):
         return df
 
     def group_numerical_variables(self, df):
+        map_for_all_except_weirdness = {
+            1: 'Low',
+            2: 'Low',
+            3: 'Low',
+            4: 'Mid',
+            5: 'Mid',
+            6: 'Mid',
+            7: 'Mid',
+            8: 'High',
+            9: 'High',
+            10: 'High'
+        }
+        map_for_weirdness = {
+            1: 'Low',
+            2: 'Low',
+            3: 'Mid',
+            4: 'Mid',
+            5: 'Mid',
+            6: 'Mid',
+            7: 'High',
+            8: 'High',
+        }
+        for variable in NUMERICAL_VARIABLES:
+            mapping = map_for_weirdness if variable == 'Weirdness (1-8)' else map_for_all_except_weirdness
+            df[variable] = df[variable].map(mapping)
         return df

@@ -2,7 +2,7 @@ from dash import Input, Output, html, dcc
 import dash_bootstrap_components as dbc
 
 class Filter:
-    def __init__(self, name, options, default_selection: int=0, multi: bool=False, clearable: bool=False):
+    def __init__(self, name, options, default_selection: int=0, multi: bool=False, clearable: bool=True):
         self.name = name
         self.options = options
         self.multi = multi

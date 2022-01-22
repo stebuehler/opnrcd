@@ -5,18 +5,20 @@
 * correlation
 * time series
 * tree map
+* parallel categories
+* radar
 
 ### Analyses
 * PCA decomposition
 
 ## To Do
 ### App
-* Find a css style sheet
-* Make filter width less ridiculously wide and depend on window size. Should also be possible with bootstrap. Alternatively, may require to rewrite the part where the html.Div() holding the filters is defined (nested divs with style={'flex':1, 'padding':10} in the inner divs and style={'display':'flex', 'flex-direction':'row'} in the main outer Div?)
+* Find a better css style sheet
+* shared filtering section (but really filters, i.e. generalisation of the current filter on years) but independent display options between tabs.
 ### Dashboards
 * Scatterplot
   * Modify hovertemplate to show less digits
-  * Add toggle to turn labels on and off (currently hardcoded depending on group by chosen)
+  * Add toggle to turn labels on and off? (currently hardcoded depending on group by chosen)
 * Heatmap
   * Remove timestamp as an option for x and y axis
 * Correlation
@@ -29,8 +31,12 @@
   * Remove timestamp as an option.
   * Why just two measures shown, why not all at once? (i.e. all six Bewertungskriterien in plots). Could get too busy, though.
 * Treemap
-  * Let user choose how deep the path should go? (better readability of avg color).
   * Choice whether to include skits or not (currently not). Would mess up the colors, though, as skits are not rated by the OPNRCDKMT (or require clever nested callbacks to hide the color option when skits are included)
+* Parallel Categories
+  * Plot has option to use color. How can we use it?
+* Radar
+  * Use go instead of px (tooltip supported) (need to update requirements.txt when done!)
+  * Introduce chained callback to select a column of the dataframe which populates two more dropdowns. These create two radar plots (on the same canvas) with different colors, as a comparison (e.g. compare two Künstler).
 
 ## Bugs
 * Scatter
