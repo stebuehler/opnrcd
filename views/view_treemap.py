@@ -18,6 +18,7 @@ class ViewTreemap(AbstractView):
             values='Count' if measure == 'Count' else 'Dauer (m)',
             color=kwargs['Color']
             )
+        self.fig.update(layout_showlegend=False)
         self.fig.data[0].hovertemplate = '<b>%{label}</b><br>Measure = %{value}<br>Color = %{color:.2f}'
 
     def prepare_df(self, opnrcd_df, years):
