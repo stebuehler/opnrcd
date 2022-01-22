@@ -2,10 +2,12 @@ import dash
 from dash import Input, Output, dcc, html
 import dash_bootstrap_components as dbc
 
-from util.data_loutr import (NUMERICAL_VARIABLES, get_normalized_time_series, get_years, load_data)
+from util.data_loutr import NUMERICAL_VARIABLES, get_all_entries, load_data, get_normalized_time_series
 from util.filter import Filter
 from views.view_correlation import ViewCorrelation
 from views.view_heatmap import ViewHeatmap
+from views.view_parallel_category import ViewParallelCategory
+from views.view_radar import ViewRadar
 from views.view_scatter import ViewScatter
 from views.view_time_series import ViewTimeSeries
 from views.view_treemap import ViewTreemap
@@ -13,19 +15,21 @@ from views.view_treemap import ViewTreemap
 opnrcd_df = load_data()
 normalized_time_series = get_normalized_time_series()
 
-all_years = get_years(opnrcd_df)
+all_years = get_all_entries(opnrcd_df, 'Jahr')
+alle_sprachen = get_all_entries(opnrcd_df, 'Sprache')
 
 # Define all tabs
-views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries(), ViewTreemap()]
+views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries(), ViewTreemap(), ViewParallelCategory(), ViewRadar()]
 
 # Define all filters
 filters = [
-    Filter('x-axis', NUMERICAL_VARIABLES),
-    Filter('y-axis', NUMERICAL_VARIABLES, default_selection=1),
+    Filter('x-axis', NUMERICAL_VARIABLES + ['Timestamp sekunden']),
+    Filter('y-axis', NUMERICAL_VARIABLES + ['Timestamp sekunden'], default_selection=1),
     Filter('Measure', ['Dauer (min)', 'Count']),
     Filter('Group by', ['Jahr', 'Nationalität', 'Sprache', 'Baujahr', 'Künstler', 'Titel']),
-    Filter('Color', NUMERICAL_VARIABLES + ['Jahr', 'Baujahr'], default_selection=2),
-    Filter('Jahre', all_years, multi=True)
+    Filter('Color', NUMERICAL_VARIABLES + ['Timestamp sekunden', 'Jahr', 'Baujahr'], default_selection=2),
+    Filter('Jahre', all_years, multi=True),
+    Filter('Sprachen', alle_sprachen, multi=True)
 ]
 filter_inputs = [f.get_input() for f in filters]
 filter_outputs = [item for sublist in [f.get_output() for f in filters] for item in sublist]

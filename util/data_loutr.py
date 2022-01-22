@@ -6,10 +6,8 @@ NUMERICAL_VARIABLES = [
     'Tanzbarkeit (1-10)',
     'Verblödungsfaktor (1-10)',
     'Nervofantigkeit (1-10)',
-    'Weirdness (1-8)',
-    'Timestamp sekunden'
+    'Weirdness (1-8)'
 ]
-
 
 def load_data(strophen_only: bool=True) -> pd.DataFrame:
     opnrcd_df = pd.read_csv('source_data/OPNRCD_alltime_stats.csv')
@@ -37,10 +35,9 @@ def mean_hi_lo_over_years(normalized_time_series: pd.DataFrame) -> pd.DataFrame:
     mean_std_time_series = mean_std_time_series.drop(columns=['std']).unstack(level=0)
     mean_std_time_series.columns = mean_std_time_series.columns.reorder_levels(order=[1, 0])
     return mean_std_time_series[mean_std_time_series.columns.sort_values()]
-
-
-def get_years(df):
-    years = df['Jahr'].unique()
-    years.sort()
-    return years
     
+
+def get_all_entries(df, field):
+    entries = df[field].unique()
+    entries.sort()
+    return entries 
