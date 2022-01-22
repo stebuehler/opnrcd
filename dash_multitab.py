@@ -33,7 +33,7 @@ filters = [
 ]
 filter_inputs = [f.get_input() for f in filters]
 filter_outputs = [item for sublist in [f.get_output() for f in filters] for item in sublist]
-filter_divs = [item for sublist in [f.get_label_dropdown() for f in filters] for item in sublist]
+filter_divs = [f.get_label_dropdown() for f in filters]
 
 
 # TODO find a cool stylesheet
@@ -46,16 +46,16 @@ app = dash.Dash(
 server = app.server
 app.title = "OPNRCD-ANLTCS"
 
-app.layout = html.Div([
-    dcc.Tabs(id="tabs-graph", value='Scatter-graph', children=[view.get_tab() for view in views]),
-    html.Div(filter_divs),
-    html.Div(id='tabs-content-graph')
+app.layout = dbc.Container([
+    dbc.Tabs([view.get_tab() for view in views], id='tabs', active_tab='Scatter-graph'),
+    dbc.Row(filter_divs),
+    dbc.Row(dbc.Col(html.Div(id='tabs-content-graph')))
 ])
 
 @app.callback(
     Output('tabs-content-graph', 'children'),
     *filter_outputs,
-    Input('tabs-graph', 'value'),
+    Input('tabs', 'active_tab'),
     filter_inputs
 )
 def render_content(tab, *args):
