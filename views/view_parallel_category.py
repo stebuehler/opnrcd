@@ -18,7 +18,12 @@ class ViewParallelCategory(AbstractView):
             dimensions=NUMERICAL_VARIABLES
             )
 
-    def prepare_df(self, opnrcd_df, years, sprachen):
+    def prepare_df(self, opnrcd_df, years, sprachen, group=False):
         df = opnrcd_df[opnrcd_df['Jahr'].isin(years)]
         df = df[df['Sprache'].isin(sprachen)]
+        if group:
+            df = self.group_numerical_variables(df)
+        return df
+
+    def group_numerical_variables(self, df):
         return df
