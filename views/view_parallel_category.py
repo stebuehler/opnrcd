@@ -7,15 +7,17 @@ class ViewParallelCategory(AbstractView):
         AbstractView.__init__(self)
         self.label = 'Parallel Category'
         self.value = self.label + '-graph'
-        self.active_filters = ['Jahre', 'Sprachen']
+        self.active_filters = ['Jahre', 'Sprachen', 'Variables to show', 'Level of detail']
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
         years = kwargs['Jahre']
         sprachen = kwargs['Sprachen']
-        df = self.prepare_df(opnrcd_df, years, sprachen)
+        variables_to_show = kwargs['Variables to show']
+        grouped = kwargs['Level of detail'] == 'Reduced (Low-Mid-High)'
+        df = self.prepare_df(opnrcd_df, years, sprachen, grouped)
         self.fig = px.parallel_categories(
             df,
-            dimensions=NUMERICAL_VARIABLES
+            dimensions=variables_to_show
             )
 
     def prepare_df(self, opnrcd_df, years, sprachen, group=True):

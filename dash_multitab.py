@@ -28,8 +28,10 @@ filters = [
     Filter('Measure', ['Dauer (min)', 'Count']),
     Filter('Group by', ['Jahr', 'Nationalität', 'Sprache', 'Baujahr', 'Künstler', 'Titel']),
     Filter('Color', NUMERICAL_VARIABLES + ['Timestamp sekunden', 'Jahr', 'Baujahr'], default_selection=2),
+    Filter('Level of detail', ['Full (1-10)', 'Reduced (Low-Mid-High)']),
     Filter('Jahre', all_years, multi=True),
-    Filter('Sprachen', alle_sprachen, multi=True)
+    Filter('Sprachen', alle_sprachen, multi=True),
+    Filter('Variables to show', NUMERICAL_VARIABLES, multi=True)
 ]
 filter_inputs = [f.get_input() for f in filters]
 filter_outputs = [item for sublist in [f.get_output() for f in filters] for item in sublist]
