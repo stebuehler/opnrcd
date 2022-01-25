@@ -1,5 +1,5 @@
 import dash
-from dash import Input, Output, dcc, html
+from dash import Input, Output, dcc, html, State
 import dash_bootstrap_components as dbc
 
 from util.data_loutr import NUMERICAL_VARIABLES, get_all_entries, load_data, get_normalized_time_series
@@ -42,15 +42,60 @@ filter_divs = [f.get_label_dropdown() for f in filters]
 # external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(
     __name__,
-    external_stylesheets=[dbc.themes.BOOTSTRAP],
+    external_stylesheets=[dbc.themes.PULSE],
     meta_tags=[{'name': 'viewport', 'content': 'width=device-width, initial-scale=1'}]
     )
 server = app.server
 app.title = "OPNRCD-ANLTCS"
 
 app.layout = dbc.Container([
+    # dbc.Card(
+    #     dbc.CardBody(
+    #         [
+    #         html.H3("OPNRCD-ANLTCS", className="card-title"),
+    #         html.H6("Insert catchy subtitle here", className="card-subtitle")
+    #         ]
+    #     )
+    # ),
+    dbc.NavbarSimple(
+        children=[
+            dbc.NavItem(dbc.NavLink("opnrcd.ch", href="https://www.opnrcd.ch/", target="_blank")),
+            dbc.NavItem(dbc.NavLink("figg-di.ch", href="https://www.figg-di.ch/", target="_blank")),
+            dbc.Button("hä?", id='button_open_offcanvas', color="primary", className="me-1"),
+        ],
+        brand="OPNRCD-ANLTCS",
+        brand_href="#",
+        color="primary",
+        dark=True
+    ),
+    dbc.Offcanvas(
+            html.P(
+                "Explanations for the variables and other random stuff to be added"
+            ),
+            id="offcanvas",
+            title="Was isch das für en Scheiss?",
+            is_open=False,
+            placement='start'
+        ),
     dbc.Tabs([view.get_tab() for view in views], id='tabs', active_tab='Scatter-graph'),
-    dbc.Row(filter_divs),
+    dbc.Accordion(
+        [
+            dbc.AccordionItem(
+                [
+                    dbc.Row(filter_divs)
+                ],
+                title='Filters'
+            ),
+            dbc.AccordionItem(
+                [
+                    html.P("Currently empty but we'll move the display option dropdowns here once they're separated from the real filters"),
+                ],
+                title='Display options'
+            )
+        ],
+        start_collapsed=True,
+        flush=True,
+    ),
     dbc.Row(dbc.Col(html.Div(id='tabs-content-graph')))
 ])
 
@@ -69,6 +114,15 @@ def render_content(tab, *args):
     view.generate_fig(opnrcd_df, normalized_time_series, **kwargs)
     return view.get_div(filters)
 
+@app.callback(
+    Output("offcanvas", "is_open"),
+    Input("button_open_offcanvas", "n_clicks"),
+    [State("offcanvas", "is_open")],
+)
+def toggle_offcanvas(n1, is_open):
+    if n1:
+        return not is_open
+    return is_open
 
 if __name__ == '__main__':
     app.run_server(debug=True)
