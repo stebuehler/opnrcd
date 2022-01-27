@@ -49,14 +49,6 @@ server = app.server
 app.title = "OPNRCD-ANLTCS"
 
 app.layout = dbc.Container([
-    # dbc.Card(
-    #     dbc.CardBody(
-    #         [
-    #         html.H3("OPNRCD-ANLTCS", className="card-title"),
-    #         html.H6("Insert catchy subtitle here", className="card-subtitle")
-    #         ]
-    #     )
-    # ),
     dbc.NavbarSimple(
         children=[
             dbc.NavItem(dbc.NavLink("opnrcd.ch", href="https://www.opnrcd.ch/", target="_blank")),
