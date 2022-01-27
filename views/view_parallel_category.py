@@ -17,7 +17,8 @@ class ViewParallelCategory(AbstractView):
         df = self.prepare_df(opnrcd_df, years, sprachen, grouped)
         self.fig = px.parallel_categories(
             df,
-            dimensions=variables_to_show
+            dimensions=variables_to_show,
+            #color='Baujahr',
             )
 
     def prepare_df(self, opnrcd_df, years, sprachen, group=True):

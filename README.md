@@ -22,8 +22,7 @@
 * Heatmap
   * Remove timestamp as an option for x and y axis
 * Correlation
-  * Show numbers in matrix heatmap (see comments in code for more detail).
-  * Modify color scale to start and end at min, max off-diagonal elements. (set diagonal to zero)
+  * Show numbers in matrix heatmap (need to updgrade to higher version of dash once available, see comments in code for more detail).
 * Time-series
   * Add the possibility to show a single year within the same plot (highlighted).
   * Move filters next to charts (filter upper and lower chart independently)?
