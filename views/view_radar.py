@@ -1,5 +1,6 @@
 from views.abstract_view import AbstractView
 import plotly.express as px
+import plotly.graph_objects as go
 from util.data_loutr import NUMERICAL_VARIABLES
 
 class ViewRadar(AbstractView):
@@ -13,10 +14,11 @@ class ViewRadar(AbstractView):
         years = kwargs['Jahre']
         sprachen = kwargs['Sprachen']
         df = self.prepare_df(opnrcd_df, years, sprachen)
-        self.fig = px.line_polar(
-            df, r='value', theta='index', line_close=True
-            )
-        self.fig.update_traces(fill='toself')
+        self.fig = go.Figure(data=go.Scatterpolar(
+            r=df['value'],
+            theta=df['index'],
+            fill='toself'
+            ))
 
     def prepare_df(self, opnrcd_df, years, sprachen):
         df =  opnrcd_df[opnrcd_df['Jahr'].isin(years)]
