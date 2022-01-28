@@ -4,6 +4,7 @@ import dash_bootstrap_components as dbc
 
 from util.data_loutr import NUMERICAL_VARIABLES, get_all_entries, load_data, get_normalized_time_series
 from util.filter import Filter
+from util.content import offcanvas_content
 from views.view_correlation import ViewCorrelation
 from views.view_heatmap import ViewHeatmap
 from views.view_parallel_category import ViewParallelCategory
@@ -61,9 +62,7 @@ app.layout = dbc.Container([
         dark=True
     ),
     dbc.Offcanvas(
-            html.P(
-                "Explanations for the variables and other random stuff to be added"
-            ),
+            offcanvas_content(),
             id="offcanvas",
             title="Was isch das für en Scheiss?",
             is_open=False,
