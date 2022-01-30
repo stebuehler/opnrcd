@@ -21,7 +21,8 @@ alle_sprachen = get_all_entries(opnrcd_df, 'Sprache')
 alle_kuenstler = get_all_entries(opnrcd_df, 'Künstler')
 
 # Define all tabs
-views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries(), ViewTreemap(), ViewParallelCategory(), ViewRadar()]
+# views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries(), ViewTreemap(), ViewParallelCategory(), ViewRadar()]
+views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries(), ViewTreemap(), ViewRadar()]
 
 # Define all filters
 filters = [
@@ -32,10 +33,10 @@ filters = [
     Filter('Color', NUMERICAL_VARIABLES + ['Timestamp sekunden', 'Jahr', 'Baujahr'], default_selection=2),
     Filter('Radar Nr 1', alle_kuenstler),
     Filter('Radar Nr 2', alle_kuenstler, default_selection=1),
-    Filter('Level of detail', ['Full (1-10)', 'Reduced (Low-Mid-High)']),
+    #Filter('Level of detail', ['Full (1-10)', 'Reduced (Low-Mid-High)']),
     Filter('Jahre', all_years, multi=True),
     Filter('Sprachen', alle_sprachen, multi=True),
-    Filter('Variables to show', NUMERICAL_VARIABLES, multi=True)
+    #Filter('Variables to show', NUMERICAL_VARIABLES, multi=True)
 ]
 filter_inputs = [f.get_input() for f in filters]
 filter_outputs = [item for sublist in [f.get_output() for f in filters] for item in sublist]
