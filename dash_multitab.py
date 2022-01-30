@@ -18,6 +18,7 @@ normalized_time_series = get_normalized_time_series()
 
 all_years = get_all_entries(opnrcd_df, 'Jahr')
 alle_sprachen = get_all_entries(opnrcd_df, 'Sprache')
+alle_kuenstler = get_all_entries(opnrcd_df, 'Künstler')
 
 # Define all tabs
 views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries(), ViewTreemap(), ViewParallelCategory(), ViewRadar()]
@@ -29,6 +30,8 @@ filters = [
     Filter('Measure', ['Dauer (min)', 'Count']),
     Filter('Group by', ['Jahr', 'Nationalität', 'Sprache', 'Baujahr', 'Künstler', 'Titel']),
     Filter('Color', NUMERICAL_VARIABLES + ['Timestamp sekunden', 'Jahr', 'Baujahr'], default_selection=2),
+    Filter('Radar Nr 1', alle_kuenstler),
+    Filter('Radar Nr 2', alle_kuenstler, default_selection=1),
     Filter('Level of detail', ['Full (1-10)', 'Reduced (Low-Mid-High)']),
     Filter('Jahre', all_years, multi=True),
     Filter('Sprachen', alle_sprachen, multi=True),
