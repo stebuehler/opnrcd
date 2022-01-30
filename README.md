@@ -5,8 +5,8 @@
 * correlation
 * time series
 * tree map
-* parallel categories (hidden)
 * radar
+* parallel categories (hidden)
 
 ### Analyses
 * PCA decomposition
