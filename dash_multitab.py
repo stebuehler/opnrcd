@@ -1,5 +1,5 @@
 import dash
-from dash import Input, Output, dcc, html, State
+from dash import Input, Output, html, State
 import dash_bootstrap_components as dbc
 
 from util.data_loutr import NUMERICAL_VARIABLES, get_all_entries_for_column, load_data, get_normalized_time_series
@@ -7,7 +7,6 @@ from util.filter import Filter
 from util.content import offcanvas_content
 from views.view_correlation import ViewCorrelation
 from views.view_heatmap import ViewHeatmap
-from views.view_parallel_category import ViewParallelCategory
 from views.view_radar import ViewRadar
 from views.view_scatter import ViewScatter
 from views.view_time_series import ViewTimeSeries
@@ -21,23 +20,9 @@ alle_sprachen = get_all_entries_for_column('Sprache', opnrcd_df)
 
 # Define all tabs
 # views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries(), ViewTreemap(), ViewParallelCategory(), ViewRadar()]
-# views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries(), ViewTreemap(), ViewRadar()]
 views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries(), ViewTreemap(), ViewRadar()]
 
 # Define all filters
-# filters = [
-#     Filter('x-axis', NUMERICAL_VARIABLES + ['Timestamp sekunden']),
-#     Filter('y-axis', NUMERICAL_VARIABLES + ['Timestamp sekunden'], default_selection=1),
-#     Filter('Measure', ['Dauer (min)', 'Count']),
-#     Filter('Group by', ['Jahr', 'Nationalität', 'Sprache', 'Baujahr', 'Künstler', 'Titel']),
-#     Filter('Color', NUMERICAL_VARIABLES + ['Timestamp sekunden', 'Jahr', 'Baujahr'], default_selection=2),
-#     Filter('Radar Nr 1', alle_kuenstler),
-#     Filter('Radar Nr 2', alle_kuenstler, default_selection=1),
-#     #Filter('Level of detail', ['Full (1-10)', 'Reduced (Low-Mid-High)']),
-#     Filter('Jahre', all_years, multi=True),
-#     Filter('Sprachen', alle_sprachen, multi=True),
-#     #Filter('Variables to show', NUMERICAL_VARIABLES, multi=True)
-# ]
 filters = [
     Filter('Jahre', all_years, multi=True),
     Filter('Sprachen', alle_sprachen, multi=True),
@@ -46,11 +31,13 @@ filter_inputs = [f.get_input() for f in filters]
 filter_outputs = [item for sublist in [f.get_output() for f in filters] for item in sublist]
 filter_divs = [f.get_label_dropdown() for f in filters]
 
+# display options depend on tab
 display_options = [f for v in views for f in v.display_options]
 display_option_inputs = [f.get_input() for v in views for f in v.display_options]
 display_option_outputs = [item for sublist in [f.get_output() for v in views for f in v.display_options] for item in sublist]
 display_option_divs = [[f.get_label_dropdown() for f in v.display_options] for v in views]
 
+# the actual app starts here
 app = dash.Dash(
     __name__,
     external_stylesheets=[dbc.themes.PULSE],
@@ -59,6 +46,7 @@ app = dash.Dash(
 server = app.server
 app.title = "OPNRCD-ANLTCS"
 
+# and here comes the layout...
 app.layout = dbc.Container([
     dbc.NavbarSimple(
         children=[
