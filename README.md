@@ -32,6 +32,7 @@
 * Treemap
   * Choice whether to include skits or not (currently not). Would mess up the colors, though, as skits are not rated by the OPNRCDKMT (or require clever nested callbacks to hide the color option when skits are included)
 * Radar
+  * Rename to "Blau" and "Rot" instead of "Radar Nr 1" and "Radar Nr 2".
   * Make values shown in Radar Nr 1 and 2 dropdowns dynamic, i.e. depending on filters and a preceding dropdown where a column can be chosen.
 
 ## Bugs
