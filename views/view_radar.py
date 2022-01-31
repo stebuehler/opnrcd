@@ -1,20 +1,26 @@
 from views.abstract_view import AbstractView
+from util.filter import Filter
 import plotly.express as px
 import plotly.graph_objects as go
-from util.data_loutr import NUMERICAL_VARIABLES
+from util.data_loutr import NUMERICAL_VARIABLES, get_all_entries_for_column
 
 class ViewRadar(AbstractView):
     def __init__(self):
         AbstractView.__init__(self)
         self.label = 'Radar'
         self.value = self.label + '-graph'
-        self.active_filters = ['Jahre', 'Sprachen', 'Radar Nr 1', 'Radar Nr 2']
+        self.active_filters = ['Blau' + self.label, 'Rot' + self.label]
+        alle_kuenstler = get_all_entries_for_column('Künstler')
+        self.display_options = [
+            Filter('Blau' + self.label, alle_kuenstler),
+            Filter('Rot' + self.label, alle_kuenstler, default_selection=1),
+        ]
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
         years = kwargs['Jahre']
         sprachen = kwargs['Sprachen']
-        radar1 = kwargs['Radar Nr 1']
-        radar2 = kwargs['Radar Nr 2']
+        radar1 = kwargs['Blau' + self.label]
+        radar2 = kwargs['Rot' + self.label]
         df1 = self.prepare_df(opnrcd_df, years, sprachen, radar1)
         df2 = self.prepare_df(opnrcd_df, years, sprachen, radar2)
         self.fig = go.Figure()

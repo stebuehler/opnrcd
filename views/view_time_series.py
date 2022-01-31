@@ -1,4 +1,5 @@
 from views.abstract_view import AbstractView
+from util.filter import Filter
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
@@ -50,11 +51,15 @@ class ViewTimeSeries(AbstractView):
         AbstractView.__init__(self)
         self.label = 'Time Series'
         self.value = self.label + '-graph'
-        self.active_filters = ['x-axis', 'y-axis', 'Jahre']
+        self.active_filters = ['Upper plot' + self.label, 'Lower plot' + self.label]
+        self.display_options = [
+            Filter('Upper plot' + self.label, NUMERICAL_VARIABLES),
+            Filter('Lower plot' + self.label, NUMERICAL_VARIABLES, default_selection=1)
+        ]
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
         years = kwargs['Jahre']
-        x_axis_name = kwargs['x-axis']
-        y_axis_name = kwargs['y-axis']
+        x_axis_name = kwargs['Upper plot' + self.label]
+        y_axis_name = kwargs['Lower plot' + self.label]
         self.df = opnrcd_df[opnrcd_df['Jahr'].isin(years)]
         self.fig = get_time_series_fig(x_axis_name, y_axis_name, normalized_time_series, years)

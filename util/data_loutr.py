@@ -37,7 +37,8 @@ def mean_hi_lo_over_years(normalized_time_series: pd.DataFrame) -> pd.DataFrame:
     return mean_std_time_series[mean_std_time_series.columns.sort_values()]
     
 
-def get_all_entries(df, field):
-    entries = df[field].unique()
+def get_all_entries_for_column(column, df=None, strophen_only=True):
+    df = load_data(strophen_only=strophen_only) if df is None else df
+    entries = df[column].unique()
     entries.sort()
     return entries 

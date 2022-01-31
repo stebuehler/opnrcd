@@ -2,7 +2,7 @@ import dash
 from dash import Input, Output, dcc, html, State
 import dash_bootstrap_components as dbc
 
-from util.data_loutr import NUMERICAL_VARIABLES, get_all_entries, load_data, get_normalized_time_series
+from util.data_loutr import NUMERICAL_VARIABLES, get_all_entries_for_column, load_data, get_normalized_time_series
 from util.filter import Filter
 from util.content import offcanvas_content
 from views.view_correlation import ViewCorrelation
@@ -16,35 +16,41 @@ from views.view_treemap import ViewTreemap
 opnrcd_df = load_data()
 normalized_time_series = get_normalized_time_series()
 
-all_years = get_all_entries(opnrcd_df, 'Jahr')
-alle_sprachen = get_all_entries(opnrcd_df, 'Sprache')
-alle_kuenstler = get_all_entries(opnrcd_df, 'Künstler')
+all_years = get_all_entries_for_column('Jahr', opnrcd_df)
+alle_sprachen = get_all_entries_for_column('Sprache', opnrcd_df)
 
 # Define all tabs
 # views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries(), ViewTreemap(), ViewParallelCategory(), ViewRadar()]
+# views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries(), ViewTreemap(), ViewRadar()]
 views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries(), ViewTreemap(), ViewRadar()]
 
 # Define all filters
+# filters = [
+#     Filter('x-axis', NUMERICAL_VARIABLES + ['Timestamp sekunden']),
+#     Filter('y-axis', NUMERICAL_VARIABLES + ['Timestamp sekunden'], default_selection=1),
+#     Filter('Measure', ['Dauer (min)', 'Count']),
+#     Filter('Group by', ['Jahr', 'Nationalität', 'Sprache', 'Baujahr', 'Künstler', 'Titel']),
+#     Filter('Color', NUMERICAL_VARIABLES + ['Timestamp sekunden', 'Jahr', 'Baujahr'], default_selection=2),
+#     Filter('Radar Nr 1', alle_kuenstler),
+#     Filter('Radar Nr 2', alle_kuenstler, default_selection=1),
+#     #Filter('Level of detail', ['Full (1-10)', 'Reduced (Low-Mid-High)']),
+#     Filter('Jahre', all_years, multi=True),
+#     Filter('Sprachen', alle_sprachen, multi=True),
+#     #Filter('Variables to show', NUMERICAL_VARIABLES, multi=True)
+# ]
 filters = [
-    Filter('x-axis', NUMERICAL_VARIABLES + ['Timestamp sekunden']),
-    Filter('y-axis', NUMERICAL_VARIABLES + ['Timestamp sekunden'], default_selection=1),
-    Filter('Measure', ['Dauer (min)', 'Count']),
-    Filter('Group by', ['Jahr', 'Nationalität', 'Sprache', 'Baujahr', 'Künstler', 'Titel']),
-    Filter('Color', NUMERICAL_VARIABLES + ['Timestamp sekunden', 'Jahr', 'Baujahr'], default_selection=2),
-    Filter('Radar Nr 1', alle_kuenstler),
-    Filter('Radar Nr 2', alle_kuenstler, default_selection=1),
-    #Filter('Level of detail', ['Full (1-10)', 'Reduced (Low-Mid-High)']),
     Filter('Jahre', all_years, multi=True),
     Filter('Sprachen', alle_sprachen, multi=True),
-    #Filter('Variables to show', NUMERICAL_VARIABLES, multi=True)
 ]
 filter_inputs = [f.get_input() for f in filters]
 filter_outputs = [item for sublist in [f.get_output() for f in filters] for item in sublist]
 filter_divs = [f.get_label_dropdown() for f in filters]
 
+display_options = [f for v in views for f in v.display_options]
+display_option_inputs = [f.get_input() for v in views for f in v.display_options]
+display_option_outputs = [item for sublist in [f.get_output() for v in views for f in v.display_options] for item in sublist]
+display_option_divs = [[f.get_label_dropdown() for f in v.display_options] for v in views]
 
-# TODO find a cool stylesheet
-# external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(
     __name__,
     external_stylesheets=[dbc.themes.PULSE],
@@ -82,9 +88,7 @@ app.layout = dbc.Container([
                 title='Filters'
             ),
             dbc.AccordionItem(
-                [
-                    html.P("Currently empty but we'll move the display option dropdowns here once they're separated from the real filters"),
-                ],
+                children = [dbc.Row(display_option_row) for display_option_row in display_option_divs],
                 title='Display options'
             )
         ],
@@ -96,18 +100,19 @@ app.layout = dbc.Container([
 
 @app.callback(
     Output('tabs-content-graph', 'children'),
-    *filter_outputs,
+    *display_option_outputs,
     Input('tabs', 'active_tab'),
-    filter_inputs
+    filter_inputs,
+    display_option_inputs
 )
 def render_content(tab, *args):
     # create the function arguments dynamically from the filters, see https://community.plotly.com/t/how-to-elegantly-handle-a-very-large-number-of-input-state-in-callbacks/19228
-    kwargs = dict(zip([f.name for f in filters], args))
+    kwargs = dict(zip([f.name for f in filters] + [f.name for f in display_options], args))
     # select view based on tab selection
     view = [v for v in views if v.value == tab][0]
     # generate figure
     view.generate_fig(opnrcd_df, normalized_time_series, **kwargs)
-    return view.get_div(filters)
+    return view.get_div(display_options)
 
 @app.callback(
     Output("offcanvas", "is_open"),
