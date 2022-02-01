@@ -1,5 +1,4 @@
 from util.data_loutr import NUMERICAL_VARIABLES
-from util.filter import Filter
 from views.abstract_view import AbstractView
 import plotly.express as px
 
@@ -8,18 +7,15 @@ class ViewHeatmap(AbstractView):
         AbstractView.__init__(self)
         self.label = 'Heatmap'
         self.value = self.label + '-graph'
-        self.active_filters = ['x-axis' + self.label, 'y-axis' + self.label, 'Measure' + self.label]
-        self.display_options = [
-            Filter('x-axis' + self.label, NUMERICAL_VARIABLES),
-            Filter('y-axis' + self.label, NUMERICAL_VARIABLES, default_selection=1),
-            Filter('Measure' + self.label, ['Dauer (min)', 'Count']),
-        ]
+        self.add_display_option('x-axis', NUMERICAL_VARIABLES)
+        self.add_display_option('y-axis', NUMERICAL_VARIABLES, default_selection=1)
+        self.add_display_option('Measure', ['Dauer (min)', 'Count'])
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
         years = kwargs['Jahre']
-        measure = kwargs['Measure' + self.label]
-        x_axis_name = kwargs['x-axis' + self.label]
-        y_axis_name = kwargs['y-axis' + self.label]
+        measure = kwargs[self.get_display_option_id('Measure')]
+        x_axis_name = kwargs[self.get_display_option_id('x-axis')]
+        y_axis_name = kwargs[self.get_display_option_id('y-axis')]
         df = opnrcd_df.copy()
         df[NUMERICAL_VARIABLES] = df[NUMERICAL_VARIABLES].astype("category")
         df = df[df['Jahr'].isin(years)]

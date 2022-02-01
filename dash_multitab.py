@@ -15,27 +15,26 @@ from views.view_treemap import ViewTreemap
 opnrcd_df = load_data()
 normalized_time_series = get_normalized_time_series()
 
-all_years = get_all_entries_for_column('Jahr', opnrcd_df)
-alle_sprachen = get_all_entries_for_column('Sprache', opnrcd_df)
+all_years = get_all_entries_for_column('Jahr', df=opnrcd_df, strophen_only=True)
+alle_sprachen = get_all_entries_for_column('Sprache', df=opnrcd_df, strophen_only=True)
 
 # Define all tabs
-# views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries(), ViewTreemap(), ViewParallelCategory(), ViewRadar()]
-views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries(), ViewTreemap(), ViewRadar()]
+# views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries(), ViewTreemap(), ViewRadar()]
+views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries()]
 
-# Define all filters
+# Filters - these go across tabs
 filters = [
     Filter('Jahre', all_years, multi=True),
     Filter('Sprachen', alle_sprachen, multi=True),
 ]
 filter_inputs = [f.get_input() for f in filters]
-filter_outputs = [item for sublist in [f.get_output() for f in filters] for item in sublist]
 filter_divs = [f.get_label_dropdown() for f in filters]
 
-# display options depend on tab
-display_options = [f for v in views for f in v.display_options]
-display_option_inputs = [f.get_input() for v in views for f in v.display_options]
-display_option_outputs = [item for sublist in [f.get_output() for v in views for f in v.display_options] for item in sublist]
-display_option_divs = [[f.get_label_dropdown() for f in v.display_options] for v in views]
+# display options depend on tab - achieved by nested list in "display_option_div"
+display_options = [f for v in views for f in v.display_options_list()]
+display_option_inputs = [f.get_input() for v in views for f in v.display_options_list()]
+display_option_outputs = [item for sublist in [f.get_output() for v in views for f in v.display_options_list()] for item in sublist]
+display_option_divs = [[f.get_label_dropdown() for f in v.display_options_list()] for v in views]
 
 # the actual app starts here
 app = dash.Dash(
