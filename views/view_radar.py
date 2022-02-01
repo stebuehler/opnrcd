@@ -10,9 +10,14 @@ class ViewRadar(AbstractView):
         self.label = 'Radar'
         self.value = self.label + '-graph'
         self.active_filters = ['Blau' + self.label, 'Rot' + self.label]
-        alle_kuenstler = get_all_entries_for_column('Künstler')
-        self.add_display_option('Blau', alle_kuenstler)
-        self.add_display_option('Rot', alle_kuenstler, default_selection=1)
+        self.add_pre_display_option('Column to be compared', ['Künstler', 'Nationalität'])
+        self.add_display_option('Blau', [])
+        self.add_display_option('Rot', [], default_selection=1)
+
+    def apply_pre_display_options(self, df, **kwargs):
+        column = kwargs[self.get_pre_display_option_id('Column to be compared')]
+        entries = get_all_entries_for_column(column, df)
+        return entries, entries
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
         years = kwargs['Jahre']

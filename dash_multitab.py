@@ -30,6 +30,12 @@ filters = [
 filter_inputs = [f.get_input() for f in filters]
 filter_divs = [f.get_label_dropdown() for f in filters]
 
+# "pre" display options. When a first callback is needed to determine the content of the display options
+pre_display_options = [f for v in views for f in v.pre_display_options_list()]
+pre_display_option_inputs = [f.get_input() for v in views for f in v.pre_display_options_list()]
+pre_display_option_outputs = [item for sublist in [f.get_output() for v in views for f in v.pre_display_options_list()] for item in sublist]
+pre_display_option_divs = [[f.get_label_dropdown() for f in v.pre_display_options_list()] for v in views]
+
 # display options depend on tab - achieved by nested list in "display_option_div"
 display_options = [f for v in views for f in v.display_options_list()]
 display_option_inputs = [f.get_input() for v in views for f in v.display_options_list()]
@@ -75,7 +81,8 @@ app.layout = dbc.Container([
                 title='Filters'
             ),
             dbc.AccordionItem(
-                children = [dbc.Row(display_option_row) for display_option_row in display_option_divs],
+                children = [dbc.Row(pre_display_option_row) for pre_display_option_row in pre_display_option_divs]
+                 + [dbc.Row(display_option_row) for display_option_row in display_option_divs],
                 title='Display options'
             )
         ],
@@ -86,8 +93,27 @@ app.layout = dbc.Container([
 ])
 
 @app.callback(
-    Output('tabs-content-graph', 'children'),
+    *pre_display_option_outputs,
     *display_option_outputs,
+    Input('tabs', 'active_tab'),
+)
+def apply_tab_filters(tab):
+    view = [v for v in views if v.value == tab][0]
+    return view.get_div(pre_display_options + display_options)
+
+@app.callback(
+    Output('Blau-Radar-select', 'options'),
+    Output('Rot-Radar-select', 'options'),
+    Input('tabs', 'active_tab'),
+    pre_display_option_inputs
+)
+def apply_pre_display_options(tab, *args):
+    kwargs = dict(zip([f.name for f in pre_display_options], args))
+    view = [v for v in views if v.value == tab][0]
+    return view.apply_pre_display_options(**kwargs)
+
+@app.callback(
+    Output('tabs-content-graph', 'children'),
     Input('tabs', 'active_tab'),
     filter_inputs,
     display_option_inputs
@@ -99,7 +125,7 @@ def render_content(tab, *args):
     view = [v for v in views if v.value == tab][0]
     # generate figure
     view.generate_fig(opnrcd_df, normalized_time_series, **kwargs)
-    return view.get_div(display_options)
+    return view.get_fig(display_options)
 
 @app.callback(
     Output("offcanvas", "is_open"),

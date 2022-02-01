@@ -7,7 +7,7 @@ class Filter:
         self.options = options
         self.multi = multi
         self.clearable = clearable
-        self.default_selection = self.options if multi else self.options[default_selection]
+        self.default_selection = self.options if multi else self.options[default_selection] if len(self.options)>0 else None
         self.label = html.Label([f'{label}:'], style={'font-weight': 'bold', "text-align": "left"}, id=f'{self.name}-select-label')
         self.dropdown = dcc.Dropdown(
             id=f'{self.name}-select', options=[{'label': i, 'value': i} for i in self.options],
