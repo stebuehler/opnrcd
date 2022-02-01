@@ -20,7 +20,7 @@ alle_sprachen = get_all_entries_for_column('Sprache', df=opnrcd_df, strophen_onl
 
 # Define all tabs
 # views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries(), ViewTreemap(), ViewRadar()]
-views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries()]
+views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries(), ViewTreemap(), ViewRadar()]
 
 # Filters - these go across tabs
 filters = [

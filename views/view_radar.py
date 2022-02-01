@@ -11,16 +11,14 @@ class ViewRadar(AbstractView):
         self.value = self.label + '-graph'
         self.active_filters = ['Blau' + self.label, 'Rot' + self.label]
         alle_kuenstler = get_all_entries_for_column('Künstler')
-        self.display_options = [
-            Filter('Blau' + self.label, alle_kuenstler),
-            Filter('Rot' + self.label, alle_kuenstler, default_selection=1),
-        ]
+        self.add_display_option('Blau', alle_kuenstler)
+        self.add_display_option('Rot', alle_kuenstler, default_selection=1)
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
         years = kwargs['Jahre']
         sprachen = kwargs['Sprachen']
-        radar1 = kwargs['Blau' + self.label]
-        radar2 = kwargs['Rot' + self.label]
+        radar1 = kwargs[self.get_display_option_id('Blau')]
+        radar2 = kwargs[self.get_display_option_id('Rot')]
         df1 = self.prepare_df(opnrcd_df, years, sprachen, radar1)
         df2 = self.prepare_df(opnrcd_df, years, sprachen, radar2)
         self.fig = go.Figure()

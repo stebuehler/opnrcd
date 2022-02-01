@@ -56,5 +56,4 @@ class ViewTimeSeries(AbstractView):
         years = kwargs['Jahre']
         x_axis_name = kwargs[self.get_display_option_id('Upper plot')]
         y_axis_name = kwargs[self.get_display_option_id('Lower plot')]
-        self.df = opnrcd_df[opnrcd_df['Jahr'].isin(years)]
         self.fig = get_time_series_fig(x_axis_name, y_axis_name, normalized_time_series, years)
