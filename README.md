@@ -13,27 +13,27 @@
 
 ## To Do
 ### App
-* shared filtering section (but really filters, i.e. generalisation of the current filter on years) but independent display options between tabs.
+* Clean up / generalise the "pre" display options callback and related functionalities in views and filters.
+* Move the filtering for years out of each tab. This needs to be done centrally. Also in preparation of the step below.
+* Add more filters (Nationalität, Sprache, Baujahr, etc.)?
+* Add a "Reset all" button in the filtering section that fills all filters up with all values
 * Document all (used) columns of the dataframe in the offcanvas help section ("hä?" button)
 ### Dashboards
 * Scatterplot
   * Modify hovertemplate to show less digits
   * Add toggle to turn labels on and off? (currently hardcoded depending on group by chosen)
 * Heatmap
-  * Remove timestamp as an option for x and y axis
+  * None atm
 * Correlation
   * Show numbers in matrix heatmap (need to updgrade to higher version of dash once available, see comments in code for more detail).
 * Time-series
   * Add the possibility to show a single year within the same plot (highlighted).
-  * Move filters next to charts (filter upper and lower chart independently)?
-  * Rename filters ("x axis" and "y axis" don't make sense)
-  * Remove timestamp as an option.
   * Why just two measures shown, why not all at once? (i.e. all six Bewertungskriterien in plots). Could get too busy, though.
 * Treemap
   * Choice whether to include skits or not (currently not). Would mess up the colors, though, as skits are not rated by the OPNRCDKMT (or require clever nested callbacks to hide the color option when skits are included)
 * Radar
-  * Rename to "Blau" and "Rot" instead of "Radar Nr 1" and "Radar Nr 2".
-  * Make values shown in Radar Nr 1 and 2 dropdowns dynamic, i.e. depending on filters and a preceding dropdown where a column can be chosen.
+  * Stop dropdowns from resetting when leaving the tab and coming back (callback shouldn't depend on "active tab")
+  * Make values shown in Blau and Rot dropdowns dynamic on the filtered df.
 
 ## Bugs
 * Scatter

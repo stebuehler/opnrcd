@@ -25,7 +25,7 @@ views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries(), View
 # Filters - these go across tabs
 filters = [
     Filter('Jahre', all_years, multi=True),
-    Filter('Sprachen', alle_sprachen, multi=True),
+    #Filter('Sprachen', alle_sprachen, multi=True),
 ]
 filter_inputs = [f.get_input() for f in filters]
 filter_divs = [f.get_label_dropdown() for f in filters]

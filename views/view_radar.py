@@ -22,12 +22,11 @@ class ViewRadar(AbstractView):
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
         years = kwargs['Jahre']
-        sprachen = kwargs['Sprachen']
         column_chosen = kwargs[self.get_pre_display_option_id('Column to be compared')]
         radar1 = kwargs[self.get_display_option_id('Blau')]
         radar2 = kwargs[self.get_display_option_id('Rot')]
-        df1 = self.prepare_df(opnrcd_df, years, sprachen, column_chosen, radar1)
-        df2 = self.prepare_df(opnrcd_df, years, sprachen, column_chosen, radar2)
+        df1 = self.prepare_df(opnrcd_df, years, column_chosen, radar1)
+        df2 = self.prepare_df(opnrcd_df, years, column_chosen, radar2)
         self.fig = go.Figure()
         self.fig.add_trace(go.Scatterpolar(
             r=df1['value'],
@@ -45,9 +44,8 @@ class ViewRadar(AbstractView):
             ))
         self.fig.update_layout(polar=dict(radialaxis=dict(visible=True)),showlegend=False)
 
-    def prepare_df(self, opnrcd_df, years, sprachen, filter_column, filter_value):
+    def prepare_df(self, opnrcd_df, years, filter_column, filter_value):
         df =  opnrcd_df[opnrcd_df['Jahr'].isin(years)]
-        df =  df[df['Sprache'].isin(sprachen)]
         df = df[df[filter_column].isin([filter_value])]
         dauer = 'Dauer (s)'
         df = df[NUMERICAL_VARIABLES + [dauer]]
