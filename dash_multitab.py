@@ -92,6 +92,7 @@ app.layout = dbc.Container([
     dbc.Row(dbc.Col(html.Div(id='tabs-content-graph')))
 ])
 
+# this callback sets the display styles of all display options (invisible except the ones for the current tab)
 @app.callback(
     *pre_display_option_outputs,
     *display_option_outputs,
@@ -101,6 +102,7 @@ def apply_tab_filters(tab):
     view = [v for v in views if v.value == tab][0]
     return view.get_div(pre_display_options + display_options)
 
+# this is the "pre" callback for the display options that need it.
 @app.callback(
     Output('Blau-Radar-select', 'options'),
     Output('Rot-Radar-select', 'options'),
@@ -109,9 +111,10 @@ def apply_tab_filters(tab):
 )
 def apply_pre_display_options(tab, *args):
     kwargs = dict(zip([f.name for f in pre_display_options], args))
-    view = [v for v in views if v.value == tab][0]
-    return view.apply_pre_display_options(**kwargs)
+    view = [v for v in views if v.value == 'Radar-graph'][0]
+    return view.apply_pre_display_options(opnrcd_df, **kwargs)
 
+# this is the main callback for the graph(s), depending on the tab
 @app.callback(
     Output('tabs-content-graph', 'children'),
     Input('tabs', 'active_tab'),
@@ -125,8 +128,9 @@ def render_content(tab, *args):
     view = [v for v in views if v.value == tab][0]
     # generate figure
     view.generate_fig(opnrcd_df, normalized_time_series, **kwargs)
-    return view.get_fig(display_options)
+    return view.get_fig()
 
+# aux callback for the offcanvas (help "hä" page)
 @app.callback(
     Output("offcanvas", "is_open"),
     Input("button_open_offcanvas", "n_clicks"),
