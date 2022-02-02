@@ -41,5 +41,5 @@ class AbstractView(ABC):
     def pre_display_options_list(self):
         return list(self.pre_display_options.values())
 
-    def apply_pre_display_options(self, **kwargs):
-        pass
+    def apply_pre_display_options(self, df, **kwargs):
+        return None

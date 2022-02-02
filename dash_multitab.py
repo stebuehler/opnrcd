@@ -113,8 +113,11 @@ def apply_tab_filters(tab):
 )
 def apply_pre_display_options(tab, *args):
     kwargs = dict(zip([f.name for f in pre_display_options], args))
-    view = [v for v in views if v.value == 'Radar-graph'][0]
-    return view.apply_pre_display_options(opnrcd_df, **kwargs)
+    view = [v for v in views if v.value == tab][0]
+    return_value =  view.apply_pre_display_options(opnrcd_df, **kwargs)
+    if return_value is None: # this is the case for the tabs that don't have "pre" callbacks. No need to fire anything.
+        raise dash.exceptions.PreventUpdate
+    return return_value
 
 # this is the main callback for the graph(s), depending on the tab
 @app.callback(
