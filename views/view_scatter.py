@@ -1,4 +1,5 @@
 from views.abstract_view import AbstractView
+from util.data_loutr import NUMERICAL_VARIABLES
 import plotly.express as px
 
 class ViewScatter(AbstractView):
@@ -6,14 +7,19 @@ class ViewScatter(AbstractView):
         AbstractView.__init__(self)
         self.label = 'Scatter'
         self.value = self.label + '-graph'
-        self.active_filters = ['x-axis', 'y-axis', 'Jahre', 'Group by', 'Color']
+        self.add_display_option('x-axis', NUMERICAL_VARIABLES + ['Timestamp sekunden'])
+        self.add_display_option('y-axis', NUMERICAL_VARIABLES + ['Timestamp sekunden'], default_selection=1)
+        self.add_display_option('Group by', ['Jahr', 'Nationalität', 'Kontinent', 'Sprache', 'Baujahr', 'Baujahr Jahrzehnt', 'Künstler', 'Titel'])
+        self.add_display_option('Color', NUMERICAL_VARIABLES + ['Timestamp sekunden', 'Jahr', 'Baujahr'], default_selection=2)
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
+        # TODO move this somewhere central
         years = kwargs['Jahre']
-        x_axis_name = kwargs['x-axis']
-        y_axis_name = kwargs['y-axis']
-        color = kwargs['Color']
-        groupby = kwargs['Group by']
+        # retrieve display options
+        x_axis_name = kwargs[self.get_display_option_id('x-axis')]
+        y_axis_name = kwargs[self.get_display_option_id('y-axis')]
+        color = kwargs[self.get_display_option_id('Color')]
+        groupby = kwargs[self.get_display_option_id('Group by')]
         df = self.get_df(opnrcd_df, x_axis_name, y_axis_name, color, groupby, years)
         self.fig = px.scatter(
             df,

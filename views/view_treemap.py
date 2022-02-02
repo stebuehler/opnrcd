@@ -1,4 +1,6 @@
 from views.abstract_view import AbstractView
+from util.filter import Filter
+from util.data_loutr import NUMERICAL_VARIABLES
 import plotly.express as px
 
 class ViewTreemap(AbstractView):
@@ -6,17 +8,19 @@ class ViewTreemap(AbstractView):
         AbstractView.__init__(self)
         self.label = 'Treemap'
         self.value = self.label + '-graph'
-        self.active_filters = ['Jahre', 'Measure', 'Group by', 'Color']
+        self.add_display_option('Measure', ['Dauer (min)', 'Count'])
+        self.add_display_option('Group by', ['Jahr', 'Nationalität', 'Sprache', 'Baujahr', 'Künstler', 'Titel'])
+        self.add_display_option('Color', NUMERICAL_VARIABLES + ['Timestamp sekunden', 'Jahr', 'Baujahr'], default_selection=2)
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
         years = kwargs['Jahre']
-        measure = kwargs['Measure']
+        measure = kwargs[self.get_display_option_id('Measure')]
         self.prepare_df(opnrcd_df, years)
-        treemap_path = self.give_path(kwargs['Group by'])
+        treemap_path = self.give_path(kwargs[self.get_display_option_id('Group by')])
         self.fig = px.treemap(
             self.df, path=treemap_path, 
             values='Count' if measure == 'Count' else 'Dauer (m)',
-            color=kwargs['Color']
+            color=kwargs[self.get_display_option_id('Color')]
             )
         self.fig.update(layout_showlegend=False)
         self.fig.data[0].hovertemplate = '<b>%{label}</b><br>Measure = %{value}<br>Color = %{color:.2f}'

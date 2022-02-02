@@ -9,7 +9,6 @@ class ViewCorrelation(AbstractView):
         AbstractView.__init__(self)
         self.label = 'Correlation'
         self.value = self.label + '-graph'
-        self.active_filters = ['Jahre']
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
         years = kwargs['Jahre']

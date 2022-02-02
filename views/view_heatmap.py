@@ -7,13 +7,15 @@ class ViewHeatmap(AbstractView):
         AbstractView.__init__(self)
         self.label = 'Heatmap'
         self.value = self.label + '-graph'
-        self.active_filters = ['x-axis', 'y-axis', 'Jahre', 'Measure']
+        self.add_display_option('x-axis', NUMERICAL_VARIABLES)
+        self.add_display_option('y-axis', NUMERICAL_VARIABLES, default_selection=1)
+        self.add_display_option('Measure', ['Dauer (min)', 'Count'])
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
         years = kwargs['Jahre']
-        measure = kwargs['Measure']
-        x_axis_name = kwargs['x-axis']
-        y_axis_name = kwargs['y-axis']
+        measure = kwargs[self.get_display_option_id('Measure')]
+        x_axis_name = kwargs[self.get_display_option_id('x-axis')]
+        y_axis_name = kwargs[self.get_display_option_id('y-axis')]
         df = opnrcd_df.copy()
         df[NUMERICAL_VARIABLES] = df[NUMERICAL_VARIABLES].astype("category")
         df = df[df['Jahr'].isin(years)]

@@ -5,7 +5,6 @@ from plotly.subplots import make_subplots
 
 from util.data_loutr import NUMERICAL_VARIABLES, mean_hi_lo_over_years
 
-
 # plot mean band time series
 def get_time_series_fig(x_axis_name, y_axis_name, normalized_time_series, years):
     mean_std_time_series = mean_hi_lo_over_years(normalized_time_series.iloc[:, normalized_time_series.columns.get_level_values(level='Jahr').isin(years)])
@@ -50,11 +49,11 @@ class ViewTimeSeries(AbstractView):
         AbstractView.__init__(self)
         self.label = 'Time Series'
         self.value = self.label + '-graph'
-        self.active_filters = ['x-axis', 'y-axis', 'Jahre']
+        self.add_display_option('Upper plot', NUMERICAL_VARIABLES)
+        self.add_display_option('Lower plot', NUMERICAL_VARIABLES, default_selection=1)
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
         years = kwargs['Jahre']
-        x_axis_name = kwargs['x-axis']
-        y_axis_name = kwargs['y-axis']
-        self.df = opnrcd_df[opnrcd_df['Jahr'].isin(years)]
+        x_axis_name = kwargs[self.get_display_option_id('Upper plot')]
+        y_axis_name = kwargs[self.get_display_option_id('Lower plot')]
         self.fig = get_time_series_fig(x_axis_name, y_axis_name, normalized_time_series, years)

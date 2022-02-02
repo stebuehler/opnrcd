@@ -1,13 +1,12 @@
 import dash
-from dash import Input, Output, dcc, html, State
+from dash import Input, Output, html, State
 import dash_bootstrap_components as dbc
 
-from util.data_loutr import NUMERICAL_VARIABLES, get_all_entries, load_data, get_normalized_time_series
+from util.data_loutr import NUMERICAL_VARIABLES, get_all_entries_for_column, load_data, get_normalized_time_series
 from util.filter import Filter
 from util.content import offcanvas_content
 from views.view_correlation import ViewCorrelation
 from views.view_heatmap import ViewHeatmap
-from views.view_parallel_category import ViewParallelCategory
 from views.view_radar import ViewRadar
 from views.view_scatter import ViewScatter
 from views.view_time_series import ViewTimeSeries
@@ -16,35 +15,34 @@ from views.view_treemap import ViewTreemap
 opnrcd_df = load_data()
 normalized_time_series = get_normalized_time_series()
 
-all_years = get_all_entries(opnrcd_df, 'Jahr')
-alle_sprachen = get_all_entries(opnrcd_df, 'Sprache')
-alle_kuenstler = get_all_entries(opnrcd_df, 'Künstler')
+all_years = get_all_entries_for_column('Jahr', df=opnrcd_df, strophen_only=True)
+alle_sprachen = get_all_entries_for_column('Sprache', df=opnrcd_df, strophen_only=True)
 
 # Define all tabs
-# views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries(), ViewTreemap(), ViewParallelCategory(), ViewRadar()]
+# views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries(), ViewTreemap(), ViewRadar()]
 views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries(), ViewTreemap(), ViewRadar()]
 
-# Define all filters
+# Filters - these go across tabs
 filters = [
-    Filter('x-axis', NUMERICAL_VARIABLES + ['Timestamp sekunden']),
-    Filter('y-axis', NUMERICAL_VARIABLES + ['Timestamp sekunden'], default_selection=1),
-    Filter('Measure', ['Dauer (min)', 'Count']),
-    Filter('Group by', ['Jahr', 'Nationalität', 'Sprache', 'Baujahr', 'Künstler', 'Titel']),
-    Filter('Color', NUMERICAL_VARIABLES + ['Timestamp sekunden', 'Jahr', 'Baujahr'], default_selection=2),
-    Filter('Radar Nr 1', alle_kuenstler),
-    Filter('Radar Nr 2', alle_kuenstler, default_selection=1),
-    #Filter('Level of detail', ['Full (1-10)', 'Reduced (Low-Mid-High)']),
     Filter('Jahre', all_years, multi=True),
-    Filter('Sprachen', alle_sprachen, multi=True),
-    #Filter('Variables to show', NUMERICAL_VARIABLES, multi=True)
+    #Filter('Sprachen', alle_sprachen, multi=True),
 ]
 filter_inputs = [f.get_input() for f in filters]
-filter_outputs = [item for sublist in [f.get_output() for f in filters] for item in sublist]
 filter_divs = [f.get_label_dropdown() for f in filters]
 
+# "pre" display options. When a first callback is needed to determine the content of the display options
+pre_display_options = [f for v in views for f in v.pre_display_options_list()]
+pre_display_option_inputs = [f.get_input() for v in views for f in v.pre_display_options_list()]
+pre_display_option_outputs = [item for sublist in [f.get_output() for v in views for f in v.pre_display_options_list()] for item in sublist]
+pre_display_option_divs = [[f.get_label_dropdown() for f in v.pre_display_options_list()] for v in views]
 
-# TODO find a cool stylesheet
-# external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+# display options depend on tab - achieved by nested list in "display_option_div"
+display_options = [f for v in views for f in v.display_options_list()]
+display_option_inputs = [f.get_input() for v in views for f in v.display_options_list()]
+display_option_outputs = [item for sublist in [f.get_output() for v in views for f in v.display_options_list()] for item in sublist]
+display_option_divs = [[f.get_label_dropdown() for f in v.display_options_list()] for v in views]
+
+# the actual app starts here
 app = dash.Dash(
     __name__,
     external_stylesheets=[dbc.themes.PULSE],
@@ -53,6 +51,7 @@ app = dash.Dash(
 server = app.server
 app.title = "OPNRCD-ANLTCS"
 
+# and here comes the layout...
 app.layout = dbc.Container([
     dbc.NavbarSimple(
         children=[
@@ -82,9 +81,8 @@ app.layout = dbc.Container([
                 title='Filters'
             ),
             dbc.AccordionItem(
-                [
-                    html.P("Currently empty but we'll move the display option dropdowns here once they're separated from the real filters"),
-                ],
+                children = [dbc.Row(pre_display_option_row) for pre_display_option_row in pre_display_option_divs]
+                 + [dbc.Row(display_option_row) for display_option_row in display_option_divs],
                 title='Display options'
             )
         ],
@@ -94,21 +92,51 @@ app.layout = dbc.Container([
     dbc.Row(dbc.Col(html.Div(id='tabs-content-graph')))
 ])
 
+# this callback sets the display styles of all display options (invisible except the ones for the current tab)
+@app.callback(
+    *pre_display_option_outputs,
+    *display_option_outputs,
+    Input('tabs', 'active_tab'),
+)
+def apply_tab_filters(tab):
+    view = [v for v in views if v.value == tab][0]
+    return view.get_div(pre_display_options + display_options)
+
+# this is the "pre" callback for the display options that need it.
+@app.callback(
+    Output('Blau-Radar-select', 'options'),
+    Output('Rot-Radar-select', 'options'),
+    Output('Blau-Radar-select', 'value'),
+    Output('Rot-Radar-select', 'value'),
+    Input('tabs', 'active_tab'),
+    pre_display_option_inputs
+)
+def apply_pre_display_options(tab, *args):
+    kwargs = dict(zip([f.name for f in pre_display_options], args))
+    view = [v for v in views if v.value == tab][0]
+    return_value =  view.apply_pre_display_options(opnrcd_df, **kwargs)
+    if return_value is None: # this is the case for the tabs that don't have "pre" callbacks. No need to fire anything.
+        raise dash.exceptions.PreventUpdate
+    return return_value
+
+# this is the main callback for the graph(s), depending on the tab
 @app.callback(
     Output('tabs-content-graph', 'children'),
-    *filter_outputs,
     Input('tabs', 'active_tab'),
-    filter_inputs
+    filter_inputs,
+    pre_display_option_inputs,
+    display_option_inputs
 )
 def render_content(tab, *args):
     # create the function arguments dynamically from the filters, see https://community.plotly.com/t/how-to-elegantly-handle-a-very-large-number-of-input-state-in-callbacks/19228
-    kwargs = dict(zip([f.name for f in filters], args))
+    kwargs = dict(zip([f.name for f in filters] + [f.name for f in pre_display_options] + [f.name for f in display_options], args))
     # select view based on tab selection
     view = [v for v in views if v.value == tab][0]
     # generate figure
     view.generate_fig(opnrcd_df, normalized_time_series, **kwargs)
-    return view.get_div(filters)
+    return view.get_fig()
 
+# aux callback for the offcanvas (help "hä" page)
 @app.callback(
     Output("offcanvas", "is_open"),
     Input("button_open_offcanvas", "n_clicks"),
