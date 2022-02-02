@@ -17,7 +17,8 @@ class ViewRadar(AbstractView):
     def apply_pre_display_options(self, df, **kwargs):
         column = kwargs[self.get_pre_display_option_id('Column to be compared')]
         entries = get_all_entries_for_column(column, df)
-        return entries, entries
+        return_dict = [{'label': i, 'value': i} for i in entries]
+        return return_dict, return_dict, entries[0], entries[1]
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
         years = kwargs['Jahre']

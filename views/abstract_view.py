@@ -10,7 +10,7 @@ class AbstractView(ABC):
         self.pre_display_options = dict()
 
     def get_div(self, filters):
-        active_display_options = [self.get_display_option_id(label) for label in {**self.pre_display_options, **self.display_options}]
+        active_display_options = [self.get_pre_display_option_id(label) for label in self.pre_display_options] + [self.get_display_option_id(label) for label in self.display_options]
         filter_style_list = [('Block' if f.name in active_display_options else 'None') for f in filters]
         filter_display_style = [item for sublist in [[{'display': style}]*2 for style in filter_style_list] for item in sublist]
         return filter_display_style
@@ -27,8 +27,8 @@ class AbstractView(ABC):
     def add_pre_display_option(self, label, options, default_selection: int=0, multi: bool=False, clearable: bool=False):
         self.pre_display_options[label] = Filter(label, options, tab_name=self.label, default_selection=default_selection, multi=multi, clearable=clearable)
 
-    def get_display_option_id(self, display_option_label):
-        filter = self.display_options[display_option_label]
+    def get_display_option_id(self, label):
+        filter = self.display_options[label]
         return filter.name
 
     def get_pre_display_option_id(self, label):

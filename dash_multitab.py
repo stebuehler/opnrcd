@@ -106,6 +106,8 @@ def apply_tab_filters(tab):
 @app.callback(
     Output('Blau-Radar-select', 'options'),
     Output('Rot-Radar-select', 'options'),
+    Output('Blau-Radar-select', 'value'),
+    Output('Rot-Radar-select', 'value'),
     Input('tabs', 'active_tab'),
     pre_display_option_inputs
 )
