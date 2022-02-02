@@ -121,11 +121,12 @@ def apply_pre_display_options(tab, *args):
     Output('tabs-content-graph', 'children'),
     Input('tabs', 'active_tab'),
     filter_inputs,
+    pre_display_option_inputs,
     display_option_inputs
 )
 def render_content(tab, *args):
     # create the function arguments dynamically from the filters, see https://community.plotly.com/t/how-to-elegantly-handle-a-very-large-number-of-input-state-in-callbacks/19228
-    kwargs = dict(zip([f.name for f in filters] + [f.name for f in display_options], args))
+    kwargs = dict(zip([f.name for f in filters] + [f.name for f in pre_display_options] + [f.name for f in display_options], args))
     # select view based on tab selection
     view = [v for v in views if v.value == tab][0]
     # generate figure
