@@ -2,7 +2,7 @@ import dash
 from dash import Input, Output, html, State
 import dash_bootstrap_components as dbc
 
-from util.data_loutr import NUMERICAL_VARIABLES, get_all_entries_for_column, load_data, get_normalized_time_series
+from util.data_loutr import NUMERICAL_VARIABLES, get_all_entries_for_column, load_data, get_normalized_time_series, filter_df_with_filters
 from util.filter import Filter
 from util.content import offcanvas_content
 from views.view_correlation import ViewCorrelation
@@ -89,8 +89,19 @@ app.layout = dbc.Container([
         start_collapsed=True,
         flush=True,
     ),
-    dbc.Row(dbc.Col(html.Div(id='tabs-content-graph')))
+    dbc.Row(dbc.Col(html.Div(id='tabs-content-graph'))),
+    dbc.Row(dbc.Col(html.Div(id='hidden-aux-div', style={'display':'None'}))) # as a "target" for the filtering callback
 ])
+
+#this is the callback that filters the df based on the filter selections
+@app.callback(
+    Output('hidden-aux-div', 'children'),
+    filter_inputs
+)
+def apply_filters_to_df(*args):
+    kwargs = dict(zip([f.name for f in filters], args))
+    filter_df_with_filters(opnrcd_df, **kwargs)
+    return 'dummy'
 
 # this callback sets the display styles of all display options (invisible except the ones for the current tab)
 @app.callback(
@@ -123,13 +134,12 @@ def apply_pre_display_options(tab, *args):
 @app.callback(
     Output('tabs-content-graph', 'children'),
     Input('tabs', 'active_tab'),
-    filter_inputs,
     pre_display_option_inputs,
     display_option_inputs
 )
 def render_content(tab, *args):
     # create the function arguments dynamically from the filters, see https://community.plotly.com/t/how-to-elegantly-handle-a-very-large-number-of-input-state-in-callbacks/19228
-    kwargs = dict(zip([f.name for f in filters] + [f.name for f in pre_display_options] + [f.name for f in display_options], args))
+    kwargs = dict(zip([f.name for f in pre_display_options] + [f.name for f in display_options], args))
     # select view based on tab selection
     view = [v for v in views if v.value == tab][0]
     # generate figure

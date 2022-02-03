@@ -13,14 +13,12 @@ class ViewScatter(AbstractView):
         self.add_display_option('Color', NUMERICAL_VARIABLES + ['Timestamp sekunden', 'Jahr', 'Baujahr'], default_selection=2)
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
-        # TODO move this somewhere central
-        years = kwargs['Jahre']
         # retrieve display options
         x_axis_name = kwargs[self.get_display_option_id('x-axis')]
         y_axis_name = kwargs[self.get_display_option_id('y-axis')]
         color = kwargs[self.get_display_option_id('Color')]
         groupby = kwargs[self.get_display_option_id('Group by')]
-        df = self.get_df(opnrcd_df, x_axis_name, y_axis_name, color, groupby, years)
+        df = self.get_df(opnrcd_df, x_axis_name, y_axis_name, color, groupby)
         self.fig = px.scatter(
             df,
             x=x_axis_name,
@@ -33,8 +31,7 @@ class ViewScatter(AbstractView):
         self.fig.update_traces(textposition='top center')
         self.fig.update_layout(transition_duration=200)
 
-    def get_df(self, opnrcd_df, x_axis_name, y_axis_name, color, groupby, years):
-        df = opnrcd_df[opnrcd_df['Jahr'].isin(years)]
+    def get_df(self, df, x_axis_name, y_axis_name, color, groupby):
         df = df.astype({'Jahr': 'int64'})
         df['aux_x'] = df[x_axis_name]*df['Dauer (m)']
         df['aux_y'] = df[y_axis_name]*df['Dauer (m)']

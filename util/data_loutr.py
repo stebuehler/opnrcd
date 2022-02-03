@@ -41,4 +41,7 @@ def get_all_entries_for_column(column, df=None, strophen_only=True):
     df = load_data(strophen_only=strophen_only) if df is None else df
     entries = df[column].unique()
     entries.sort()
-    return entries 
+    return entries
+
+def filter_df_with_filters(df, **kwargs):
+    pass

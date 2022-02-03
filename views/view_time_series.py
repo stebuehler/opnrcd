@@ -53,7 +53,6 @@ class ViewTimeSeries(AbstractView):
         self.add_display_option('Lower plot', NUMERICAL_VARIABLES, default_selection=1)
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
-        years = kwargs['Jahre']
         x_axis_name = kwargs[self.get_display_option_id('Upper plot')]
         y_axis_name = kwargs[self.get_display_option_id('Lower plot')]
-        self.fig = get_time_series_fig(x_axis_name, y_axis_name, normalized_time_series, years)
+        self.fig = get_time_series_fig(x_axis_name, y_axis_name, normalized_time_series)

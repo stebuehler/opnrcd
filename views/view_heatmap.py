@@ -12,13 +12,11 @@ class ViewHeatmap(AbstractView):
         self.add_display_option('Measure', ['Dauer (min)', 'Count'])
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
-        years = kwargs['Jahre']
         measure = kwargs[self.get_display_option_id('Measure')]
         x_axis_name = kwargs[self.get_display_option_id('x-axis')]
         y_axis_name = kwargs[self.get_display_option_id('y-axis')]
         df = opnrcd_df.copy()
         df[NUMERICAL_VARIABLES] = df[NUMERICAL_VARIABLES].astype("category")
-        df = df[df['Jahr'].isin(years)]
         if x_axis_name == y_axis_name:
             df[x_axis_name+" "] = df[x_axis_name]
             heatmap_df = self.get_heatmap_df(df, measure, x_axis_name, x_axis_name+" ")
