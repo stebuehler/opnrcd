@@ -27,7 +27,7 @@ class ViewTreemap(AbstractView):
     def prepare_df(self, df):
         df['All'] = 'All'
         df['Count'] = 1
-        df = self.df.astype({'Jahr': 'int64'})
+        df = df.astype({'Jahr': 'int64'})
         return df
 
     def give_path(self, groupby):

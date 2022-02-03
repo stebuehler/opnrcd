@@ -43,5 +43,14 @@ def get_all_entries_for_column(column, df=None, strophen_only=True):
     entries.sort()
     return entries
 
-def filter_df_with_filters(df, **kwargs):
-    pass
+def filter_df_with_filters(df, time_series, **kwargs):
+    # filter the nasty time series - currently only for years
+    years = kwargs['Jahr']
+    mean_std_time_series = mean_hi_lo_over_years(
+            time_series.iloc[:, time_series.columns.get_level_values(level='Jahr').isin(years)]
+            )
+    # filtering of the normal std df is more straightforward
+    for column in kwargs:
+        values = kwargs[column]
+        df = df[df[column].isin(values)]
+    return df, mean_std_time_series

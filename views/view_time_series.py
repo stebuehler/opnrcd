@@ -6,8 +6,7 @@ from plotly.subplots import make_subplots
 from util.data_loutr import NUMERICAL_VARIABLES, mean_hi_lo_over_years
 
 # plot mean band time series
-def get_time_series_fig(x_axis_name, y_axis_name, normalized_time_series, years):
-    mean_std_time_series = mean_hi_lo_over_years(normalized_time_series.iloc[:, normalized_time_series.columns.get_level_values(level='Jahr').isin(years)])
+def get_time_series_fig(x_axis_name, y_axis_name, mean_std_time_series):
     fig = make_subplots(rows=2, cols=1)
 
     x = list(mean_std_time_series.index)

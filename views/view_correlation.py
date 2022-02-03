@@ -22,7 +22,7 @@ class ViewCorrelation(AbstractView):
         # https://dash.plotly.com/external-resources
         self.fig.update_layout(transition_duration=200)
 
-    def prepare_df(self, df, years):
+    def prepare_df(self, df):
         df = df[NUMERICAL_VARIABLES + ['Dauer (m)', 'Baujahr', 'Timestamp sekunden']].dropna().corr()
         np.fill_diagonal(df.values, 0)
         return df

@@ -24,7 +24,7 @@ views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries(), View
 
 # Filters - these go across tabs
 filters = [
-    Filter('Jahre', all_years, multi=True),
+    Filter('Jahre', all_years, column_name='Jahr', multi=True),
     #Filter('Sprachen', alle_sprachen, multi=True),
 ]
 filter_inputs = [f.get_input() for f in filters]
@@ -89,19 +89,8 @@ app.layout = dbc.Container([
         start_collapsed=True,
         flush=True,
     ),
-    dbc.Row(dbc.Col(html.Div(id='tabs-content-graph'))),
-    dbc.Row(dbc.Col(html.Div(id='hidden-aux-div', style={'display':'None'}))) # as a "target" for the filtering callback
+    dbc.Row(dbc.Col(html.Div(id='tabs-content-graph')))
 ])
-
-#this is the callback that filters the df based on the filter selections
-@app.callback(
-    Output('hidden-aux-div', 'children'),
-    filter_inputs
-)
-def apply_filters_to_df(*args):
-    kwargs = dict(zip([f.name for f in filters], args))
-    filter_df_with_filters(opnrcd_df, **kwargs)
-    return 'dummy'
 
 # this callback sets the display styles of all display options (invisible except the ones for the current tab)
 @app.callback(
@@ -134,16 +123,21 @@ def apply_pre_display_options(tab, *args):
 @app.callback(
     Output('tabs-content-graph', 'children'),
     Input('tabs', 'active_tab'),
+    filter_inputs,
     pre_display_option_inputs,
     display_option_inputs
 )
 def render_content(tab, *args):
     # create the function arguments dynamically from the filters, see https://community.plotly.com/t/how-to-elegantly-handle-a-very-large-number-of-input-state-in-callbacks/19228
-    kwargs = dict(zip([f.name for f in pre_display_options] + [f.name for f in display_options], args))
+    kwargs_all = dict(zip([f.name for f in filters] + [f.name for f in pre_display_options] + [f.name for f in display_options], args))
+    kwargs_for_df_filtering = {f.name: kwargs_all[f.name] for f in filters}
+    kwargs_for_fig = {name: kwargs_all[name] for name in kwargs_all if name not in kwargs_for_df_filtering}
+    # df filtering
+    df, time_series_data = filter_df_with_filters(opnrcd_df, normalized_time_series, **kwargs_for_df_filtering)
     # select view based on tab selection
     view = [v for v in views if v.value == tab][0]
     # generate figure
-    view.generate_fig(opnrcd_df, normalized_time_series, **kwargs)
+    view.generate_fig(df, time_series_data, **kwargs_for_fig)
     return view.get_fig()
 
 # aux callback for the offcanvas (help "hä" page)
