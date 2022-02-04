@@ -13,13 +13,6 @@ class ViewCorrelation(AbstractView):
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
         corr_df = self.prepare_df(opnrcd_df)
         self.fig = px.imshow(corr_df, text_auto=".2f", color_continuous_scale=px.colors.diverging.RdBu, color_continuous_midpoint=0)
-        # TODO find a way to show correlation numbers in heat map
-        # fig.update_traces(textposition='inside')
-        # This here will work as soon as dash version > 2.0.0 is available that supports the plotly v 5.5.0 feature of the "text_auto" argument:
-        # self.fig = px.imshow(corr_df, text_auto=".2f", color_continuous_scale=px.colors.diverging.RdBu, color_continuous_midpoint=0)
-        # or we could place our own more up to date plotly.js file in the repo (in an "assets" folder) and refer to it.
-        # https://stackoverflow.com/questions/70512660/how-to-show-text-on-a-heatmap-with-plotly/70516115
-        # https://dash.plotly.com/external-resources
         self.fig.update_layout(transition_duration=200)
 
     def prepare_df(self, df):

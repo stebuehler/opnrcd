@@ -18,15 +18,17 @@
 * Refactoring the data loading and filtering (no need to call the dfs from the main py file)
 * Add more filters (Nationalität, Sprache, Baujahr, etc.)?
 * Add a "Reset all" button in the filtering section that fills all filters up with all values
+* Rename columns (remove "1-10", rename "Timestamp sekunden" to "Timestamp")
+* Whole app in German!
 * Document all (used) columns of the dataframe in the offcanvas help section ("hä?" button)
 ### Dashboards
 * Scatterplot
   * Modify hovertemplate to show less digits
   * Add toggle to turn labels on and off? (currently hardcoded depending on group by chosen)
 * Heatmap
-  * None atm
+  * None
 * Correlation
-  * Show numbers in matrix heatmap (need to updgrade to higher version of dash once available, see comments in code for more detail).
+  * None
 * Time-series
   * Add the possibility to show a single year within the same plot (highlighted).
   * Why just two measures shown, why not all at once? (i.e. all six Bewertungskriterien in plots). Could get too busy, though.
