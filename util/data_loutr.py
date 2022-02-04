@@ -43,7 +43,9 @@ def get_all_entries_for_column(column, df=None, strophen_only=True):
     entries.sort()
     return entries
 
-def filter_df_with_filters(df, time_series, **kwargs):
+def filter_df_with_filters(**kwargs):
+    df = load_data()
+    time_series = get_normalized_time_series()
     # filter the nasty time series - currently only for years
     years = kwargs['Jahr']
     mean_std_time_series = mean_hi_lo_over_years(

@@ -15,7 +15,7 @@
 ### App
 * Clean up / generalise the "pre" display options callback and related functionalities in views and filters.
 * Generalize the filtering for the time series data
-* Refactoring the data loading and filtering (no need to call the dfs from the main py file)
+* More refactoring the data loading and filtering
 * Add more filters (Nationalität, Sprache, Baujahr, etc.)?
 * Add a "Reset all" button in the filtering section that fills all filters up with all values
 * Rename columns (remove "1-10", rename "Timestamp sekunden" to "Timestamp")
@@ -40,8 +40,6 @@
 ## Bugs
 * Scatter
   * Color by Jahr has decimal rounding errors (worst if only one year is chosen, then color legend is messed up, too)
-* Radar
-  * Fields offered in the dropdowns do not depend on filter selection. Error is thrown when e.g. a Künstler is chosen that is not in the filtered scope. Possible solution: duplicate filtering of df as part of the "pre" callback.
 ## Updates for remote app in case new packages are used in the app:
 * requirements.txt: Either manually or type 'pipreqs .' in the project directory (may first need to install pipreqs via 'pip install pipreqs')
 * environment.yml: Manually

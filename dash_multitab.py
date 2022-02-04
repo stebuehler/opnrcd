@@ -12,11 +12,8 @@ from views.view_scatter import ViewScatter
 from views.view_time_series import ViewTimeSeries
 from views.view_treemap import ViewTreemap
 
-opnrcd_df = load_data()
-normalized_time_series = get_normalized_time_series()
-
-all_years = get_all_entries_for_column('Jahr', df=opnrcd_df, strophen_only=True)
-alle_sprachen = get_all_entries_for_column('Sprache', df=opnrcd_df, strophen_only=True)
+all_years = get_all_entries_for_column('Jahr', strophen_only=True)
+alle_sprachen = get_all_entries_for_column('Sprache', strophen_only=True)
 
 # Define all tabs
 # views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries(), ViewTreemap(), ViewRadar()]
@@ -109,12 +106,16 @@ def apply_tab_filters(tab):
     Output('Blau-Radar-select', 'value'),
     Output('Rot-Radar-select', 'value'),
     Input('tabs', 'active_tab'),
+    filter_inputs,
     pre_display_option_inputs
 )
 def apply_pre_display_options(tab, *args):
-    kwargs = dict(zip([f.name for f in pre_display_options], args))
+    kwargs_all = dict(zip([f.name for f in filters] + [f.name for f in pre_display_options], args))
+    kwargs_for_df_filtering = {f.name: kwargs_all[f.name] for f in filters}
+    kwargs_for_fig = {name: kwargs_all[name] for name in kwargs_all if name not in kwargs_for_df_filtering}
+    df, time_series_data = filter_df_with_filters(**kwargs_for_df_filtering)
     view = [v for v in views if v.value == tab][0]
-    return_value =  view.apply_pre_display_options(opnrcd_df, **kwargs)
+    return_value =  view.apply_pre_display_options(df, **kwargs_for_fig)
     if return_value is None: # this is the case for the tabs that don't have "pre" callbacks. No need to fire anything.
         raise dash.exceptions.PreventUpdate
     return return_value
@@ -133,7 +134,7 @@ def render_content(tab, *args):
     kwargs_for_df_filtering = {f.name: kwargs_all[f.name] for f in filters}
     kwargs_for_fig = {name: kwargs_all[name] for name in kwargs_all if name not in kwargs_for_df_filtering}
     # df filtering
-    df, time_series_data = filter_df_with_filters(opnrcd_df, normalized_time_series, **kwargs_for_df_filtering)
+    df, time_series_data = filter_df_with_filters(**kwargs_for_df_filtering)
     # select view based on tab selection
     view = [v for v in views if v.value == tab][0]
     # generate figure
