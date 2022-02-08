@@ -17,8 +17,7 @@ def load_data(strophen_only: bool=True) -> pd.DataFrame:
     return opnrcd_df
 
 
-def get_normalized_time_series() -> pd.DataFrame:
-    df = load_data(strophen_only=False)
+def get_normalized_time_series(df) -> pd.DataFrame:
     df['Timestamp normalized'] = df['Timestamp sekunden'] / df.groupby('Jahr')['Dauer (s)'].transform('sum')
     df_ts = df[df['Strophe?']].set_index(['Timestamp normalized', 'Jahr'])[NUMERICAL_VARIABLES].unstack('Jahr').ffill()
     # Add 1.0 as last time index
@@ -43,15 +42,28 @@ def get_all_entries_for_column(column, df=None, strophen_only=True):
     entries.sort()
     return entries
 
+# this is how I think it should look but it alters the timeseries data
+def filter_df_with_filters_target(**kwargs):
+    df = load_data(strophen_only=False)
+    for column in kwargs:
+        values = kwargs[column]
+        df = df[df[column].isin(values)]
+    mean_std_time_series = mean_hi_lo_over_years(get_normalized_time_series(df))
+    # filter for strophen only
+    df = df[df["Strophe?"]]
+    return df, mean_std_time_series
+
+# This is the version that works without altering the timeseries data when filtering
 def filter_df_with_filters(**kwargs):
-    df = load_data()
-    time_series = get_normalized_time_series()
+    df = load_data(strophen_only=False)
+    time_series = get_normalized_time_series(df)
     # filter the nasty time series - currently only for years
     years = kwargs['Jahr']
     mean_std_time_series = mean_hi_lo_over_years(
             time_series.iloc[:, time_series.columns.get_level_values(level='Jahr').isin(years)]
             )
-    # filtering of the normal std df is more straightforward
+    # filtering of the std df is more straightforward
+    df = df[df["Strophe?"]]
     for column in kwargs:
         values = kwargs[column]
         df = df[df[column].isin(values)]
