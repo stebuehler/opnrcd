@@ -13,23 +13,22 @@ class ViewTreemap(AbstractView):
         self.add_display_option('Color', NUMERICAL_VARIABLES + ['Timestamp sekunden', 'Jahr', 'Baujahr'], default_selection=2)
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
-        years = kwargs['Jahre']
         measure = kwargs[self.get_display_option_id('Measure')]
-        self.prepare_df(opnrcd_df, years)
+        df = self.prepare_df(opnrcd_df)
         treemap_path = self.give_path(kwargs[self.get_display_option_id('Group by')])
         self.fig = px.treemap(
-            self.df, path=treemap_path, 
+            df, path=treemap_path, 
             values='Count' if measure == 'Count' else 'Dauer (m)',
             color=kwargs[self.get_display_option_id('Color')]
             )
         self.fig.update(layout_showlegend=False)
         self.fig.data[0].hovertemplate = '<b>%{label}</b><br>Measure = %{value}<br>Color = %{color:.2f}'
 
-    def prepare_df(self, opnrcd_df, years):
-        self.df = opnrcd_df[opnrcd_df['Jahr'].isin(years)]
-        self.df['All'] = 'All'
-        self.df['Count'] = 1
-        self.df = self.df.astype({'Jahr': 'int64'})
+    def prepare_df(self, df):
+        df['All'] = 'All'
+        df['Count'] = 1
+        df = df.astype({'Jahr': 'int64'})
+        return df
 
     def give_path(self, groupby):
         if groupby == 'Nationalität':

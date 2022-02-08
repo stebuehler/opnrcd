@@ -2,8 +2,8 @@ from dash import Input, Output, html, dcc
 import dash_bootstrap_components as dbc
 
 class Filter:
-    def __init__(self, label, options, tab_name=None, default_selection: int=0, multi: bool=False, clearable: bool=True):
-        self.name = label + "-" + tab_name if tab_name is not None else label
+    def __init__(self, label, options, tab_name=None, column_name=None, default_selection: int=0, multi: bool=False, clearable: bool=True):
+        self.name = label + "-" + tab_name if tab_name is not None else column_name if column_name is not None else label
         self.options = options
         self.multi = multi
         self.clearable = clearable
