@@ -30,7 +30,8 @@ filter_divs = [f.get_label_dropdown() for f in filters]
 # "pre" display options. When a first callback is needed to determine the content of the display options
 pre_display_options = [f for v in views for f in v.pre_display_options_list()]
 pre_display_option_inputs = [f.get_input() for v in views for f in v.pre_display_options_list()]
-pre_display_option_outputs = [item for sublist in [f.get_output() for v in views for f in v.pre_display_options_list()] for item in sublist]
+pre_display_option_display_outputs = [item for sublist in [f.get_output() for v in views for f in v.pre_display_options_list()] for item in sublist]
+pre_display_option_target_outputs = [output for v in views for output in v.pre_display_option_target_output_list()]
 pre_display_option_divs = [[f.get_label_dropdown() for f in v.pre_display_options_list()] for v in views]
 
 # display options depend on tab - achieved by nested list in "display_option_div"
@@ -91,7 +92,7 @@ app.layout = dbc.Container([
 
 # this callback sets the display styles of all display options (invisible except the ones for the current tab)
 @app.callback(
-    *pre_display_option_outputs,
+    *pre_display_option_display_outputs,
     *display_option_outputs,
     Input('tabs', 'active_tab'),
 )
@@ -101,24 +102,24 @@ def apply_tab_filters(tab):
 
 # this is the "pre" callback for the display options that need it.
 @app.callback(
-    Output('Blau-Radar-select', 'options'),
-    Output('Rot-Radar-select', 'options'),
-    Output('Blau-Radar-select', 'value'),
-    Output('Rot-Radar-select', 'value'),
-    Input('tabs', 'active_tab'),
+    *pre_display_option_target_outputs,
     filter_inputs,
     pre_display_option_inputs
 )
-def apply_pre_display_options(tab, *args):
+def apply_pre_display_options(*args):
     kwargs_all = dict(zip([f.name for f in filters] + [f.name for f in pre_display_options], args))
     kwargs_for_df_filtering = {f.name: kwargs_all[f.name] for f in filters}
     kwargs_for_fig = {name: kwargs_all[name] for name in kwargs_all if name not in kwargs_for_df_filtering}
     df, time_series_data = filter_df_with_filters(**kwargs_for_df_filtering)
-    view = [v for v in views if v.value == tab][0]
-    return_value =  view.apply_pre_display_options(df, **kwargs_for_fig)
-    if return_value is None: # this is the case for the tabs that don't have "pre" callbacks. No need to fire anything.
-        raise dash.exceptions.PreventUpdate
-    return return_value
+    return_list = None
+    for view in views:
+        output_this_view = view.apply_pre_display_options(df, **kwargs_for_fig)
+        if output_this_view:
+            if return_list:
+                return_list.append(output_this_view)
+            else:
+                return_list = output_this_view
+    return return_list
 
 # this is the main callback for the graph(s), depending on the tab
 @app.callback(
