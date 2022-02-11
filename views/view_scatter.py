@@ -7,10 +7,10 @@ class ViewScatter(AbstractView):
         AbstractView.__init__(self)
         self.label = 'Scatter'
         self.value = self.label + '-graph'
-        self.add_display_option('x-axis', NUMERICAL_VARIABLES + ['Timestamp sekunden'])
-        self.add_display_option('y-axis', NUMERICAL_VARIABLES + ['Timestamp sekunden'], default_selection=1)
         self.add_display_option('Group by', ['Jahr', 'Nationalität', 'Kontinent', 'Sprache', 'Baujahr', 'Baujahr Jahrzehnt', 'Künstler', 'Titel'])
-        self.add_display_option('Color', NUMERICAL_VARIABLES + ['Timestamp sekunden', 'Jahr', 'Baujahr'], default_selection=2)
+        self.add_display_option('x-axis', NUMERICAL_VARIABLES + ['Timestamp sekunden', 'Dauer (m)'])
+        self.add_display_option('y-axis', NUMERICAL_VARIABLES + ['Timestamp sekunden', 'Dauer (m)'], default_selection=1)
+        self.add_display_option('Color', NUMERICAL_VARIABLES + ['Timestamp sekunden', 'Dauer (m)', 'Jahr', 'Baujahr'], default_selection=2)
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
         # retrieve display options
