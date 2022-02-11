@@ -13,7 +13,6 @@
 
 ## To Do
 ### App
-* Clean up / generalise the "pre" display options callback and related functionalities in views and filters.
 * Generalize the filtering for the time series data (timeseries df should be created from the filtered main df, ideally. May require separate passing of the full set of timestamps, for backwards compatibility)
 * More refactoring the data loading and filtering.
 * Add more filters (Nationalität, Sprache, Baujahr, etc.)?
@@ -36,7 +35,7 @@
 * Treemap
   * Choice whether to include skits or not (currently not). Would mess up the colors, though, as skits are not rated by the OPNRCDKMT (or require clever nested callbacks to hide the color option when skits are included)
 * Radar
-  * Stop dropdowns from resetting when leaving the tab and coming back (callback shouldn't depend on "active tab")
+  * None
 
 ## Bugs
 * Scatter

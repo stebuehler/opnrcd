@@ -98,7 +98,6 @@ app.layout = dbc.Container([
 )
 def apply_tab_filters(tab):
     view = [v for v in views if v.value == tab][0]
-    print(view.get_div(pre_display_options + display_options))
     return view.get_div(pre_display_options + display_options)
 
 # this is the "pre" callback for the display options that need it.
@@ -120,7 +119,6 @@ def apply_pre_display_options(*args):
                 return_list.append(output_this_view)
             else:
                 return_list = output_this_view
-    print(return_list)
     return return_list
 
 # this is the main callback for the graph(s), depending on the tab
