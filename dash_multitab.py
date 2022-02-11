@@ -12,17 +12,15 @@ from views.view_scatter import ViewScatter
 from views.view_time_series import ViewTimeSeries
 from views.view_treemap import ViewTreemap
 
-all_years = get_all_entries_for_column('Jahr', strophen_only=True)
-alle_sprachen = get_all_entries_for_column('Sprache', strophen_only=True)
-
 # Define all tabs
 # views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries(), ViewTreemap(), ViewRadar()]
 views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries(), ViewTreemap(), ViewRadar()]
 
 # Filters - these go across tabs
 filters = [
-    Filter('Jahre', all_years, column_name='Jahr', multi=True),
-    #Filter('Sprachen', alle_sprachen, multi=True),
+    Filter('Jahre', get_all_entries_for_column('Jahr', strophen_only=True), column_name='Jahr', multi=True),
+    Filter('Sprachen', get_all_entries_for_column('Sprache', strophen_only=True), column_name='Sprache', multi=True),
+    Filter('Nationalitäten', get_all_entries_for_column('Nationalität', strophen_only=True), column_name='Nationalität', multi=True),
 ]
 filter_inputs = [f.get_input() for f in filters]
 filter_divs = [f.get_label_dropdown() for f in filters]
