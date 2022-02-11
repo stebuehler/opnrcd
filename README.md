@@ -15,10 +15,11 @@
 ### App
 * Generalize the filtering for the time series data (timeseries df should be created from the filtered main df, ideally. May require separate passing of the full set of timestamps, for backwards compatibility)
 * More refactoring of the data loading and filtering.
-* Add more filters (Nationalität, Sprache, Baujahr, etc.)?
+* Add Baujahr as a RangeSlider (but unclear what to do about -1400)
 * Add a "Reset all" button in the filtering section that fills all filters up with all values.
 * Rename columns (remove "1-10"s, rename "Timestamp sekunden" to "Timestamp")?
 * Whole app in German!
+* Dropdowns could look nicer (and a bit of space between them wouldn't hurt)
 * Document all (used) columns of the dataframe in the offcanvas help section ("hä?" button)
 ### Dashboards
 * Scatterplot
