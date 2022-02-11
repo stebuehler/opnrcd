@@ -8,6 +8,7 @@ class AbstractView(ABC):
         self.label = None
         self.display_options = dict()
         self.pre_display_options = dict()
+        self.pre_display_option_target_outputs = []
 
     def get_div(self, filters):
         active_display_options = [self.get_pre_display_option_id(label) for label in self.pre_display_options] + [self.get_display_option_id(label) for label in self.display_options]
@@ -43,3 +44,6 @@ class AbstractView(ABC):
 
     def apply_pre_display_options(self, df, **kwargs):
         return None
+
+    def pre_display_option_target_output_list(self):
+        return self.pre_display_option_target_outputs
