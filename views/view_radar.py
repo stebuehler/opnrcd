@@ -13,7 +13,7 @@ class ViewRadar(AbstractView):
         self.active_filters = ['Blau' + self.label, 'Rot' + self.label]
         self.add_display_option('Blau', [])
         self.add_display_option('Rot', [])
-        self.add_pre_display_option('Column to be compared', ['Künstler', 'Nationalität', 'Kontinent', 'Sprache', 'Baujahr', 'Baujahr Jahrzehnt'])
+        self.add_pre_display_option('Column to be compared', ['Künstler', 'Titel', 'Nationalität', 'Kontinent', 'Sprache', 'Baujahr', 'Baujahr Jahrzehnt'])
         self.define_pre_display_target_outputs()
 
     def define_pre_display_target_outputs(self):
