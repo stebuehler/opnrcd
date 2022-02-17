@@ -13,9 +13,8 @@
 
 ## To Do
 ### App
-* Generalize the filtering for the time series data (timeseries df should be created from the filtered main df, ideally. May require separate passing of the full set of timestamps, for backwards compatibility)
 * More refactoring of the data loading and filtering.
-* Add Baujahr as a RangeSlider (but unclear what to do about -1400)
+* Add Baujahr as a RangeSlider (map all below 1950 to 1950)
 * Add a "Reset all" button in the filtering section that fills all filters up with all values.
 * Rename columns (remove "1-10"s, rename "Timestamp sekunden" to "Timestamp")?
 * Whole app in German!
@@ -34,7 +33,7 @@
   * Add the possibility to show a single year within the same plot (highlighted).
   * Why just two measures shown, why not all at once? (i.e. all six Bewertungskriterien in plots). Could get too busy, though.
 * Treemap
-  * Choice whether to include skits or not (currently not). Would mess up the colors, though, as skits are not rated by the OPNRCDKMT (or require clever nested callbacks to hide the color option when skits are included)
+  * None
 * Radar
   * Color the dropdowns / labels in red and blue
 
