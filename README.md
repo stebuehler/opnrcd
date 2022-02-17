@@ -30,13 +30,13 @@
 * Correlation
   * None
 * Time-series
-  * Make filtering on other variables than year work.
+  * Hide filters other than year
   * Add the possibility to show a single year within the same plot (highlighted).
   * Why just two measures shown, why not all at once? (i.e. all six Bewertungskriterien in plots). Could get too busy, though.
 * Treemap
   * Choice whether to include skits or not (currently not). Would mess up the colors, though, as skits are not rated by the OPNRCDKMT (or require clever nested callbacks to hide the color option when skits are included)
 * Radar
-  * None
+  * Color the dropdowns / labels in red and blue
 
 ## Bugs
 * Scatter
