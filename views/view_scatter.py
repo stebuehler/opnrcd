@@ -26,9 +26,10 @@ class ViewScatter(AbstractView):
             color=color,
             size='Dauer (m)',
             text=self.show_labels_depending_on(groupby),
-            hover_data=[groupby]
+            hover_name=groupby,
             )
         self.fig.update_traces(textposition='top center')
+        self.fig.data[0].hovertemplate = '<b>%{hovertext}</b><br>' + x_axis_name + ' = %{x:.2f}<br>' + y_axis_name + ' = %{y:.2f}<br>' + color + ' = %{marker.color:.2f}<br> Dauer (min) = %{marker.size:.2f}<extra></extra>'
         self.fig.update_layout(transition_duration=200)
 
     def get_df(self, df, x_axis_name, y_axis_name, color, groupby):

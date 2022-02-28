@@ -1,3 +1,5 @@
+from cProfile import label
+from turtle import color
 from views.abstract_view import AbstractView
 from util.filter import Filter
 from util.data_loutr import NUMERICAL_VARIABLES
@@ -14,34 +16,35 @@ class ViewTreemap(AbstractView):
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
         measure = kwargs[self.get_display_option_id('Mass')]
+        color=kwargs[self.get_display_option_id('Farbe')]
         df = self.prepare_df(opnrcd_df)
         treemap_path = self.give_path(kwargs[self.get_display_option_id('Gruppierung')])
         self.fig = px.treemap(
             df, path=treemap_path, 
-            values='Count' if measure == 'Anzahl' else 'Dauer (m)',
-            color=kwargs[self.get_display_option_id('Farbe')]
+            values='Anzahl' if measure == 'Anzahl' else 'Dauer (m)',
+            color=color,
             )
         self.fig.update(layout_showlegend=False)
-        self.fig.data[0].hovertemplate = '<b>%{label}</b><br>Mass = %{value}<br>Farbe = %{color:.2f}'
+        self.fig.data[0].hovertemplate = '<b>%{label}</b><br>' + measure + ' = %{value}<br>' + color + ' = %{color:.2f}<extra></extra>'
 
     def prepare_df(self, df):
-        df['All'] = 'All'
-        df['Count'] = 1
+        df['Total'] = 'Total'
+        df['Anzahl'] = 1
         df = df.astype({'Jahr': 'int64'})
         return df
 
     def give_path(self, groupby):
         if groupby == 'Nationalität':
-            return ['All', 'Kontinent', 'Nationalität', 'Künstler', 'Titel']
+            return ['Total', 'Kontinent', 'Nationalität', 'Künstler', 'Titel']
         elif groupby == 'Sprache':
-            return ['All', 'Sprache gruppiert 2', 'Sprache', 'Künstler', 'Titel']
+            return ['Total', 'Sprache gruppiert 2', 'Sprache', 'Künstler', 'Titel']
         elif groupby == 'Baujahr':
-            return ['All', 'Baujahr Jahrzehnt', 'Baujahr', 'Künstler', 'Titel']
+            return ['Total', 'Baujahr Jahrzehnt', 'Baujahr', 'Künstler', 'Titel']
         elif groupby == 'Jahr':
-            return ['All', 'Jahr', 'Künstler', 'Titel']
+            return ['Total', 'Jahr', 'Künstler', 'Titel']
         elif groupby == 'Künstler':
-            return ['All', 'Künstler', 'Titel']
+            return ['Total', 'Künstler', 'Titel']
         elif groupby == 'Titel':
-            return ['All', 'Titel']
+            return ['Total', 'Titel']
         else:
             raise NotImplementedError

@@ -25,6 +25,7 @@ class ViewHeatmap(AbstractView):
         self.fig = px.imshow(heatmap_df, origin='lower')
         self.fig.update_layout(xaxis = {'dtick': 1})
         self.fig.update_layout(yaxis = {'dtick': 1})
+        self.fig.data[0].hovertemplate = x_axis_name + ' = %{x}<br>' + y_axis_name + ' = %{y}<br>' + measure + ' = %{z}<extra></extra>'
         self.fig.update_layout(transition_duration=200)        
 
     def get_heatmap_df(self, df, measure, x_axis_name, y_axis_name):

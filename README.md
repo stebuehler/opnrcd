@@ -22,7 +22,6 @@
 * Document all (used) columns of the dataframe in the offcanvas help section ("hä?" button)
 ### Dashboards
 * Scatterplot
-  * Modify hovertemplate to show less digits
   * Add toggle to turn labels on and off? (currently hardcoded depending on group by chosen)
 * Heatmap
   * None

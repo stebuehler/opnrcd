@@ -25,7 +25,7 @@ class Filter:
             dbc.Row([html.Div([self.label])]),
             dbc.Row([html.Div([self.dropdown])]),
         ]
-        , width=2, xs=6, sm=6, md=4, lg=2, xl=2, className="g-0")
+        , width=3, xs=6, sm=6, md=4, lg=3, xl=3, className="g-0")
 
     def get_label_dropdown_multi(self):
         return dbc.Col([

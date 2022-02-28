@@ -55,7 +55,7 @@ app.layout = dbc.Container([
             dbc.NavItem(dbc.NavLink("figg-di.ch", href="https://www.figg-di.ch/", target="_blank")),
             dbc.Button("hä?", id='button_open_offcanvas', color="primary", className="me-1"),
         ],
-        brand="OPNRCD-ANLTCS",
+        brand="OPNRCD-ANLTK",
         brand_href="#",
         color="primary",
         dark=True
