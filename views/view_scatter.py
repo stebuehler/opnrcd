@@ -7,17 +7,17 @@ class ViewScatter(AbstractView):
         AbstractView.__init__(self)
         self.label = 'Streudiagramm'
         self.value = self.label + '-graph'
-        self.add_display_option('Group by', ['Jahr', 'Nationalität', 'Kontinent', 'Sprache', 'Baujahr', 'Baujahr Jahrzehnt', 'Künstler', 'Titel'])
-        self.add_display_option('x-axis', NUMERICAL_VARIABLES + ['Timestamp sekunden', 'Dauer (m)'])
-        self.add_display_option('y-axis', NUMERICAL_VARIABLES + ['Timestamp sekunden', 'Dauer (m)'], default_selection=1)
-        self.add_display_option('Color', NUMERICAL_VARIABLES + ['Timestamp sekunden', 'Dauer (m)', 'Jahr', 'Baujahr'], default_selection=2)
+        self.add_display_option('Gruppierung', ['Jahr', 'Nationalität', 'Kontinent', 'Sprache', 'Baujahr', 'Baujahr Jahrzehnt', 'Künstler', 'Titel'])
+        self.add_display_option('x-Achse', NUMERICAL_VARIABLES + ['Timestamp sekunden', 'Dauer (m)'])
+        self.add_display_option('y-Achse', NUMERICAL_VARIABLES + ['Timestamp sekunden', 'Dauer (m)'], default_selection=1)
+        self.add_display_option('Farbe', NUMERICAL_VARIABLES + ['Timestamp sekunden', 'Dauer (m)', 'Jahr', 'Baujahr'], default_selection=2)
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
         # retrieve display options
-        x_axis_name = kwargs[self.get_display_option_id('x-axis')]
-        y_axis_name = kwargs[self.get_display_option_id('y-axis')]
-        color = kwargs[self.get_display_option_id('Color')]
-        groupby = kwargs[self.get_display_option_id('Group by')]
+        x_axis_name = kwargs[self.get_display_option_id('x-Achse')]
+        y_axis_name = kwargs[self.get_display_option_id('y-Achse')]
+        color = kwargs[self.get_display_option_id('Farbe')]
+        groupby = kwargs[self.get_display_option_id('Gruppierung')]
         df = self.get_df(opnrcd_df, x_axis_name, y_axis_name, color, groupby)
         self.fig = px.scatter(
             df,

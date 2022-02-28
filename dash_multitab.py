@@ -45,7 +45,7 @@ app = dash.Dash(
     meta_tags=[{'name': 'viewport', 'content': 'width=device-width, initial-scale=1'}]
     )
 server = app.server
-app.title = "OPNRCD-ANLTCS"
+app.title = "OPNRCD-ANLTK"
 
 # and here comes the layout...
 app.layout = dbc.Container([
@@ -67,7 +67,7 @@ app.layout = dbc.Container([
             is_open=False,
             placement='start'
         ),
-    dbc.Tabs([view.get_tab() for view in views], id='tabs', active_tab='Streudiagramm-graph'),
+    dbc.Tabs([view.get_tab() for view in views], id='tabs', active_tab=views[0].value),
     dbc.Accordion(
         [
             dbc.AccordionItem(

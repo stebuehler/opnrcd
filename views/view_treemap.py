@@ -8,21 +8,21 @@ class ViewTreemap(AbstractView):
         AbstractView.__init__(self)
         self.label = 'Kacheldiagramm'
         self.value = self.label + '-graph'
-        self.add_display_option('Measure', ['Dauer (min)', 'Count'])
-        self.add_display_option('Group by', ['Jahr', 'Nationalität', 'Sprache', 'Baujahr', 'Künstler', 'Titel'])
-        self.add_display_option('Color', NUMERICAL_VARIABLES + ['Timestamp sekunden', 'Jahr', 'Baujahr'], default_selection=2)
+        self.add_display_option('Mass', ['Dauer (min)', 'Anzahl'])
+        self.add_display_option('Gruppierung', ['Jahr', 'Nationalität', 'Sprache', 'Baujahr', 'Künstler', 'Titel'])
+        self.add_display_option('Farbe', NUMERICAL_VARIABLES + ['Timestamp sekunden', 'Jahr', 'Baujahr'], default_selection=2)
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
-        measure = kwargs[self.get_display_option_id('Measure')]
+        measure = kwargs[self.get_display_option_id('Mass')]
         df = self.prepare_df(opnrcd_df)
-        treemap_path = self.give_path(kwargs[self.get_display_option_id('Group by')])
+        treemap_path = self.give_path(kwargs[self.get_display_option_id('Gruppierung')])
         self.fig = px.treemap(
             df, path=treemap_path, 
-            values='Count' if measure == 'Count' else 'Dauer (m)',
-            color=kwargs[self.get_display_option_id('Color')]
+            values='Count' if measure == 'Anzahl' else 'Dauer (m)',
+            color=kwargs[self.get_display_option_id('Farbe')]
             )
         self.fig.update(layout_showlegend=False)
-        self.fig.data[0].hovertemplate = '<b>%{label}</b><br>Measure = %{value}<br>Color = %{color:.2f}'
+        self.fig.data[0].hovertemplate = '<b>%{label}</b><br>Mass = %{value}<br>Farbe = %{color:.2f}'
 
     def prepare_df(self, df):
         df['All'] = 'All'

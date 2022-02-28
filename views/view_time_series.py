@@ -48,10 +48,10 @@ class ViewTimeSeries(AbstractView):
         AbstractView.__init__(self)
         self.label = 'Zeitreihe'
         self.value = self.label + '-graph'
-        self.add_display_option('Upper plot', NUMERICAL_VARIABLES)
-        self.add_display_option('Lower plot', NUMERICAL_VARIABLES, default_selection=1)
+        self.add_display_option('Obere Kurve', NUMERICAL_VARIABLES)
+        self.add_display_option('Untere Kurve', NUMERICAL_VARIABLES, default_selection=1)
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
-        x_axis_name = kwargs[self.get_display_option_id('Upper plot')]
-        y_axis_name = kwargs[self.get_display_option_id('Lower plot')]
+        x_axis_name = kwargs[self.get_display_option_id('Obere Kurve')]
+        y_axis_name = kwargs[self.get_display_option_id('Untere Kurve')]
         self.fig = get_time_series_fig(x_axis_name, y_axis_name, normalized_time_series)
