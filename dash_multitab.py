@@ -45,7 +45,7 @@ app = dash.Dash(
     meta_tags=[{'name': 'viewport', 'content': 'width=device-width, initial-scale=1'}]
     )
 server = app.server
-app.title = "OPNRCD-ANLTCS"
+app.title = "OPNRCD-ANLTK"
 
 # and here comes the layout...
 app.layout = dbc.Container([
@@ -55,7 +55,7 @@ app.layout = dbc.Container([
             dbc.NavItem(dbc.NavLink("figg-di.ch", href="https://www.figg-di.ch/", target="_blank")),
             dbc.Button("hä?", id='button_open_offcanvas', color="primary", className="me-1"),
         ],
-        brand="OPNRCD-ANLTCS",
+        brand="OPNRCD-ANLTK",
         brand_href="#",
         color="primary",
         dark=True
@@ -67,19 +67,19 @@ app.layout = dbc.Container([
             is_open=False,
             placement='start'
         ),
-    dbc.Tabs([view.get_tab() for view in views], id='tabs', active_tab='Scatter-graph'),
+    dbc.Tabs([view.get_tab() for view in views], id='tabs', active_tab=views[0].value),
     dbc.Accordion(
         [
             dbc.AccordionItem(
                 [
                     dbc.Row(filter_divs)
                 ],
-                title='Filters'
+                title='Filter'
             ),
             dbc.AccordionItem(
                 children = [dbc.Row(pre_display_option_row) for pre_display_option_row in pre_display_option_divs]
                  + [dbc.Row(display_option_row) for display_option_row in display_option_divs],
-                title='Display options'
+                title='Anzeigeoptionen'
             )
         ],
         start_collapsed=True,

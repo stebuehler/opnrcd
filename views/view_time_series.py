@@ -32,12 +32,14 @@ def get_time_series_fig(x_axis_name, y_axis_name, mean_std_time_series):
     fig.add_trace(go.Scatter(
         x=x, y=mean_std_time_series[x_axis_name]['mean'],
         line_color='rgb(0,100,80)',
-        name=x_axis_name
+        name=x_axis_name,
+        hovertemplate='x = %{x:.2f}<br>y = %{y:.2f}<br>',
     ), row=1, col=1)
     fig.add_trace(go.Scatter(
         x=x, y=mean_std_time_series[y_axis_name]['mean'],
         line_color='rgb(0,176,246)',
-        name=y_axis_name
+        name=y_axis_name,
+        hovertemplate='x = %{x:.2f}<br>y = %{y:.2f}<br>',
     ), row=2, col=1)
     fig.update_traces(mode='lines')
     return fig
@@ -46,12 +48,12 @@ def get_time_series_fig(x_axis_name, y_axis_name, mean_std_time_series):
 class ViewTimeSeries(AbstractView):
     def __init__(self):
         AbstractView.__init__(self)
-        self.label = 'Time Series'
+        self.label = 'Zeitreihe'
         self.value = self.label + '-graph'
-        self.add_display_option('Upper plot', NUMERICAL_VARIABLES)
-        self.add_display_option('Lower plot', NUMERICAL_VARIABLES, default_selection=1)
+        self.add_display_option('Obere Kurve', NUMERICAL_VARIABLES)
+        self.add_display_option('Untere Kurve', NUMERICAL_VARIABLES, default_selection=1)
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
-        x_axis_name = kwargs[self.get_display_option_id('Upper plot')]
-        y_axis_name = kwargs[self.get_display_option_id('Lower plot')]
+        x_axis_name = kwargs[self.get_display_option_id('Obere Kurve')]
+        y_axis_name = kwargs[self.get_display_option_id('Untere Kurve')]
         self.fig = get_time_series_fig(x_axis_name, y_axis_name, normalized_time_series)

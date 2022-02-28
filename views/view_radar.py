@@ -11,9 +11,9 @@ class ViewRadar(AbstractView):
         self.label = 'Radar'
         self.value = self.label + '-graph'
         self.active_filters = ['Blau' + self.label, 'Rot' + self.label]
-        self.add_display_option('Blau', [])
-        self.add_display_option('Rot', [])
-        self.add_pre_display_option('Column to be compared', ['Künstler', 'Titel', 'Nationalität', 'Kontinent', 'Sprache', 'Baujahr', 'Baujahr Jahrzehnt'])
+        self.add_display_option('Blau', [], color='blue')
+        self.add_display_option('Rot', [], color='red')
+        self.add_pre_display_option('Zu vergleichendes Attribut', ['Künstler', 'Titel', 'Nationalität', 'Kontinent', 'Sprache', 'Baujahr', 'Baujahr Jahrzehnt'])
         self.define_pre_display_target_outputs()
 
     def define_pre_display_target_outputs(self):
@@ -23,13 +23,13 @@ class ViewRadar(AbstractView):
         self.pre_display_option_target_outputs.append(Output(self.get_display_option_id('Rot') + '-select', 'value'))
 
     def apply_pre_display_options(self, df, **kwargs):
-        column = kwargs[self.get_pre_display_option_id('Column to be compared')]
+        column = kwargs[self.get_pre_display_option_id('Zu vergleichendes Attribut')]
         entries = get_all_entries_for_column(column, df)
         return_dict = [{'label': i, 'value': i} for i in entries]
         return [return_dict, return_dict, entries[0], entries[1]]
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
-        column_chosen = kwargs[self.get_pre_display_option_id('Column to be compared')]
+        column_chosen = kwargs[self.get_pre_display_option_id('Zu vergleichendes Attribut')]
         radar1 = kwargs[self.get_display_option_id('Blau')]
         radar2 = kwargs[self.get_display_option_id('Rot')]
         df1 = self.prepare_df(opnrcd_df, column_chosen, radar1)
