@@ -18,6 +18,10 @@ class ViewScatter(AbstractView):
         y_axis_name = kwargs[self.get_display_option_id('y-Achse')]
         color = kwargs[self.get_display_option_id('Farbe')]
         groupby = kwargs[self.get_display_option_id('Gruppierung')]
+        # nasty hack to avoid formatting issues when groupby and color are equal (Jahr, Baujahr)
+        if color == groupby:
+            opnrcd_df[color + ' '] = opnrcd_df[color]
+            color = color + ' '
         df = self.get_df(opnrcd_df, x_axis_name, y_axis_name, color, groupby)
         self.fig = px.scatter(
             df,
@@ -34,6 +38,9 @@ class ViewScatter(AbstractView):
 
     def get_df(self, df, x_axis_name, y_axis_name, color, groupby):
         df = df.astype({'Jahr': 'int64'})
+        # nasty hack to avoid formatting issues when groupby and color are equal (Jahr, Baujahr)
+        if 'Jahr ' in df:
+            df = df.astype({'Jahr ': 'int64'})
         df['aux_x'] = df[x_axis_name]*df['Dauer (m)']
         df['aux_y'] = df[y_axis_name]*df['Dauer (m)']
         df['aux_color'] = df[color]*df['Dauer (m)']

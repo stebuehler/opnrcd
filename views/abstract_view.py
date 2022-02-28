@@ -12,8 +12,8 @@ class AbstractView(ABC):
 
     def get_div(self, filters):
         active_display_options = [self.get_pre_display_option_id(label) for label in self.pre_display_options] + [self.get_display_option_id(label) for label in self.display_options]
-        filter_style_list = [('Block' if f.name in active_display_options else 'None') for f in filters]
-        filter_display_style = [item for sublist in [[{'display': style}]*2 for style in filter_style_list] for item in sublist]
+        filter_style_list = [(('Block' if f.name in active_display_options else 'None'), f.color) for f in filters]
+        filter_display_style = [item for sublist in [[{'display': style, 'color': color}] + [{'display': style, 'color': color, 'font-weight': 'bold', 'text-align': 'left'}] for (style, color) in filter_style_list] for item in sublist]
         return filter_display_style
 
     def get_fig(self):
@@ -22,8 +22,8 @@ class AbstractView(ABC):
     def get_tab(self):
         return dbc.Tab(tab_id=self.value, label=self.label)
 
-    def add_display_option(self, label, options, default_selection: int=0, multi: bool=False, clearable: bool=False):
-        self.display_options[label] = Filter(label, options, tab_name=self.label, default_selection=default_selection, multi=multi, clearable=clearable)
+    def add_display_option(self, label, options, default_selection: int=0, multi: bool=False, clearable: bool=False, color=None):
+        self.display_options[label] = Filter(label, options, tab_name=self.label, default_selection=default_selection, multi=multi, clearable=clearable, color=color)
 
     def add_pre_display_option(self, label, options, default_selection: int=0, multi: bool=False, clearable: bool=False):
         self.pre_display_options[label] = Filter(label, options, tab_name=self.label, default_selection=default_selection, multi=multi, clearable=clearable)

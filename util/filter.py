@@ -2,13 +2,14 @@ from dash import Input, Output, html, dcc
 import dash_bootstrap_components as dbc
 
 class Filter:
-    def __init__(self, label, options, tab_name=None, column_name=None, default_selection: int=0, multi: bool=False, clearable: bool=True):
+    def __init__(self, label, options, tab_name=None, column_name=None, default_selection: int=0, multi: bool=False, clearable: bool=True, color=None):
         self.name = label + "-" + tab_name if tab_name is not None else column_name if column_name is not None else label
         self.options = options
         self.multi = multi
         self.clearable = clearable
+        self.color = color
         self.default_selection = self.options if multi else self.options[default_selection] if len(self.options)>0 else None
-        self.label = html.Label([f'{label}:'], style={'font-weight': 'bold', "text-align": "left"}, id=f'{self.name}-select-label')
+        self.label = html.Label([f'{label}:'], style={'font-weight': 'bold', 'text-align': "left", 'color': color}, id=f'{self.name}-select-label')
         self.dropdown = dcc.Dropdown(
             id=f'{self.name}-select', options=[{'label': i, 'value': i} for i in self.options],
             multi=self.multi, value=self.default_selection, clearable=self.clearable
@@ -25,14 +26,14 @@ class Filter:
             dbc.Row([html.Div([self.label])]),
             dbc.Row([html.Div([self.dropdown])]),
         ]
-        , width=3, xs=6, sm=6, md=4, lg=3, xl=3, className="g-0")
+        , width=3, xs=6, sm=6, md=4, lg=3, xl=3)
 
     def get_label_dropdown_multi(self):
         return dbc.Col([
             dbc.Row([html.Div([self.label])]),
             dbc.Row([html.Div([self.dropdown])]),
         ]
-        , width=12, className="g-0")
+        , width=12)
 
     def get_input(self):
         return Input(f'{self.name}-select', 'value')

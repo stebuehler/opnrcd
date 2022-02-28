@@ -11,8 +11,8 @@ class ViewRadar(AbstractView):
         self.label = 'Radar'
         self.value = self.label + '-graph'
         self.active_filters = ['Blau' + self.label, 'Rot' + self.label]
-        self.add_display_option('Blau', [])
-        self.add_display_option('Rot', [])
+        self.add_display_option('Blau', [], color='blue')
+        self.add_display_option('Rot', [], color='red')
         self.add_pre_display_option('Zu vergleichendes Attribut', ['Künstler', 'Titel', 'Nationalität', 'Kontinent', 'Sprache', 'Baujahr', 'Baujahr Jahrzehnt'])
         self.define_pre_display_target_outputs()
 
