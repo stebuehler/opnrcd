@@ -67,19 +67,19 @@ app.layout = dbc.Container([
             is_open=False,
             placement='start'
         ),
-    dbc.Tabs([view.get_tab() for view in views], id='tabs', active_tab='Scatter-graph'),
+    dbc.Tabs([view.get_tab() for view in views], id='tabs', active_tab='Streudiagramm-graph'),
     dbc.Accordion(
         [
             dbc.AccordionItem(
                 [
                     dbc.Row(filter_divs)
                 ],
-                title='Filters'
+                title='Filter'
             ),
             dbc.AccordionItem(
                 children = [dbc.Row(pre_display_option_row) for pre_display_option_row in pre_display_option_divs]
                  + [dbc.Row(display_option_row) for display_option_row in display_option_divs],
-                title='Display options'
+                title='Anzeigeoptionen'
             )
         ],
         start_collapsed=True,

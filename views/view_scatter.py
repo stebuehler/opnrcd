@@ -5,7 +5,7 @@ import plotly.express as px
 class ViewScatter(AbstractView):
     def __init__(self):
         AbstractView.__init__(self)
-        self.label = 'Scatter'
+        self.label = 'Streudiagramm'
         self.value = self.label + '-graph'
         self.add_display_option('Group by', ['Jahr', 'Nationalität', 'Kontinent', 'Sprache', 'Baujahr', 'Baujahr Jahrzehnt', 'Künstler', 'Titel'])
         self.add_display_option('x-axis', NUMERICAL_VARIABLES + ['Timestamp sekunden', 'Dauer (m)'])

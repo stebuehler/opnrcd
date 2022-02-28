@@ -7,7 +7,7 @@ from util.data_loutr import NUMERICAL_VARIABLES
 class ViewCorrelation(AbstractView):
     def __init__(self):
         AbstractView.__init__(self)
-        self.label = 'Correlation'
+        self.label = 'Korrelation'
         self.value = self.label + '-graph'
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):

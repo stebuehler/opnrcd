@@ -5,7 +5,7 @@ import plotly.express as px
 class ViewHeatmap(AbstractView):
     def __init__(self):
         AbstractView.__init__(self)
-        self.label = 'Heatmap'
+        self.label = 'Wärmebild'
         self.value = self.label + '-graph'
         self.add_display_option('x-axis', NUMERICAL_VARIABLES)
         self.add_display_option('y-axis', NUMERICAL_VARIABLES, default_selection=1)

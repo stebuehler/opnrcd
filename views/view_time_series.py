@@ -46,7 +46,7 @@ def get_time_series_fig(x_axis_name, y_axis_name, mean_std_time_series):
 class ViewTimeSeries(AbstractView):
     def __init__(self):
         AbstractView.__init__(self)
-        self.label = 'Time Series'
+        self.label = 'Zeitreihe'
         self.value = self.label + '-graph'
         self.add_display_option('Upper plot', NUMERICAL_VARIABLES)
         self.add_display_option('Lower plot', NUMERICAL_VARIABLES, default_selection=1)

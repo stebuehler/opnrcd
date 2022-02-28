@@ -6,7 +6,7 @@ import plotly.express as px
 class ViewTreemap(AbstractView):
     def __init__(self):
         AbstractView.__init__(self)
-        self.label = 'Treemap'
+        self.label = 'Kacheldiagramm'
         self.value = self.label + '-graph'
         self.add_display_option('Measure', ['Dauer (min)', 'Count'])
         self.add_display_option('Group by', ['Jahr', 'Nationalität', 'Sprache', 'Baujahr', 'Künstler', 'Titel'])
