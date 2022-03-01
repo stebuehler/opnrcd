@@ -23,6 +23,7 @@ filters = [
     Filter('Nationalitäten', get_all_entries_for_column('Nationalität', strophen_only=True), column_name='Nationalität', multi=True),
 ]
 filter_inputs = [f.get_input() for f in filters]
+filter_outputs = [item for sublist in [f.get_output() for f in filters] for item in sublist]
 filter_divs = [f.get_label_dropdown() for f in filters]
 
 # "pre" display options. When a first callback is needed to determine the content of the display options
@@ -90,13 +91,14 @@ app.layout = dbc.Container([
 
 # this callback sets the display styles of all display options (invisible except the ones for the current tab)
 @app.callback(
+    *filter_outputs,
     *pre_display_option_display_outputs,
     *display_option_outputs,
     Input('tabs', 'active_tab'),
 )
 def apply_tab_filters(tab):
     view = [v for v in views if v.value == tab][0]
-    return view.get_div(pre_display_options + display_options)
+    return view.get_div(filters, pre_display_options + display_options)
 
 # this is the "pre" callback for the display options that need it.
 @app.callback(

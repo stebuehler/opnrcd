@@ -13,7 +13,8 @@
 
 ## To Do
 ### App
-* More refactoring of the data loading and filtering.
+* More refactoring of the data loading and filtering?
+* More graceful handling of filter selections that result in zero data?
 * Add Baujahr as a RangeSlider (map all below 1950 to 1950)
 * Add a "Reset all" button in the filtering section that fills all filters up with all values.
 * Rename columns (remove "1-10"s, rename "Timestamp sekunden" to "Zeitstempel")
@@ -26,7 +27,6 @@
 * Correlation
   * None
 * Time-series
-  * Hide filters other than year
   * Add the possibility to show a single year within the same plot (highlighted).
   * Why just two measures shown, why not all at once? (i.e. all six Bewertungskriterien in plots). Could get too busy, though.
 * Treemap

@@ -1,5 +1,4 @@
 from views.abstract_view import AbstractView
-from util.filter import Filter
 from dash import Output
 import plotly.express as px
 import plotly.graph_objects as go
@@ -26,7 +25,7 @@ class ViewRadar(AbstractView):
         column = kwargs[self.get_pre_display_option_id('Zu vergleichendes Attribut')]
         entries = get_all_entries_for_column(column, df)
         return_dict = [{'label': i, 'value': i} for i in entries]
-        return [return_dict, return_dict, entries[0], entries[1]]
+        return [return_dict, return_dict, entries[0], entries[1] if len(entries) > 1 else entries[0]]
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
         column_chosen = kwargs[self.get_pre_display_option_id('Zu vergleichendes Attribut')]
