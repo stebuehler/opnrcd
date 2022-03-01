@@ -9,10 +9,13 @@ class AbstractView(ABC):
         self.display_options = dict()
         self.pre_display_options = dict()
         self.pre_display_option_target_outputs = []
+        self.hide_filters_other_than_year = False
 
-    def get_div(self, filters):
-        active_display_options = [self.get_pre_display_option_id(label) for label in self.pre_display_options] + [self.get_display_option_id(label) for label in self.display_options]
-        filter_style_list = [(('Block' if f.name in active_display_options else 'None'), f.color) for f in filters]
+    def get_div(self, filters, display_options):
+        active_filters = [f.name for f in filters] if not self.hide_filters_other_than_year else ['Jahr']
+        active_display_options = [self.get_pre_display_option_id(label) for label in self.pre_display_options] + [self.get_display_option_id(label) for label in self.display_options]       
+        active_filters_and_display_options = active_filters + active_display_options
+        filter_style_list = [(('' if f.name in active_filters_and_display_options else 'None'), f.color) for f in (filters + display_options)]
         filter_display_style = [item for sublist in [[{'display': style, 'color': color}] + [{'display': style, 'color': color, 'font-weight': 'bold', 'text-align': 'left'}] for (style, color) in filter_style_list] for item in sublist]
         return filter_display_style
 

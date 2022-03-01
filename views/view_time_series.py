@@ -52,6 +52,7 @@ class ViewTimeSeries(AbstractView):
         self.value = self.label + '-graph'
         self.add_display_option('Obere Kurve', NUMERICAL_VARIABLES)
         self.add_display_option('Untere Kurve', NUMERICAL_VARIABLES, default_selection=1)
+        self.hide_filters_other_than_year = True
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
         x_axis_name = kwargs[self.get_display_option_id('Obere Kurve')]

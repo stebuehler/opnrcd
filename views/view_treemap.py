@@ -1,5 +1,4 @@
 from views.abstract_view import AbstractView
-from util.filter import Filter
 from util.data_loutr import NUMERICAL_VARIABLES
 import plotly.express as px
 
