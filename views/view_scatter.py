@@ -11,6 +11,7 @@ class ViewScatter(AbstractView):
         self.add_display_option('x-Achse', NUMERICAL_VARIABLES + ['Timestamp sekunden', 'Dauer (m)'])
         self.add_display_option('y-Achse', NUMERICAL_VARIABLES + ['Timestamp sekunden', 'Dauer (m)'], default_selection=1)
         self.add_display_option('Farbe', NUMERICAL_VARIABLES + ['Timestamp sekunden', 'Dauer (m)', 'Jahr', 'Baujahr'], default_selection=2)
+        self.add_display_option('Beschriftung', ['An', 'Aus'], toggle=True)
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
         # retrieve display options
@@ -18,6 +19,7 @@ class ViewScatter(AbstractView):
         y_axis_name = kwargs[self.get_display_option_id('y-Achse')]
         color = kwargs[self.get_display_option_id('Farbe')]
         groupby = kwargs[self.get_display_option_id('Gruppierung')]
+        labels = groupby if kwargs[self.get_display_option_id('Beschriftung')] == 'An' else None
         # nasty hack to avoid formatting issues when groupby and color are equal (Jahr, Baujahr)
         if color == groupby:
             opnrcd_df[color + ' '] = opnrcd_df[color]
@@ -29,7 +31,7 @@ class ViewScatter(AbstractView):
             y=y_axis_name,
             color=color,
             size='Dauer (m)',
-            text=self.show_labels_depending_on(groupby),
+            text=labels,
             hover_name=groupby,
             )
         self.fig.update_traces(textposition='top center')

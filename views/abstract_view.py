@@ -25,8 +25,8 @@ class AbstractView(ABC):
     def get_tab(self):
         return dbc.Tab(tab_id=self.value, label=self.label)
 
-    def add_display_option(self, label, options, default_selection: int=0, multi: bool=False, clearable: bool=False, color=None):
-        self.display_options[label] = Filter(label, options, tab_name=self.label, default_selection=default_selection, multi=multi, clearable=clearable, color=color)
+    def add_display_option(self, label, options, default_selection: int=0, multi: bool=False, clearable: bool=False, color=None, toggle: bool=False):
+        self.display_options[label] = Filter(label, options, tab_name=self.label, default_selection=default_selection, multi=multi, clearable=clearable, color=color, toggle=toggle)
 
     def add_pre_display_option(self, label, options, default_selection: int=0, multi: bool=False, clearable: bool=False):
         self.pre_display_options[label] = Filter(label, options, tab_name=self.label, default_selection=default_selection, multi=multi, clearable=clearable)

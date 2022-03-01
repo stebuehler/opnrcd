@@ -52,7 +52,6 @@ def filter_df_with_filters(**kwargs):
             time_series.iloc[:, time_series.columns.get_level_values(level='Jahr').isin(years)]
             )
     # filtering of the std df is more straightforward
-    print(kwargs)
     df = df[df["Strophe?"]]
     for column in kwargs:
         values = kwargs[column]
