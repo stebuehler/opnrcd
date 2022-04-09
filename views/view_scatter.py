@@ -57,9 +57,3 @@ class ViewScatter(AbstractView):
         df[color] = df['aux_color']/df['dauer']
         df['Dauer (m)'] = df['dauer']
         return df
-
-    def show_labels_depending_on(self, groupby):
-        if groupby == "Künstler" or groupby == "Titel":
-            return None
-        else:
-            return groupby

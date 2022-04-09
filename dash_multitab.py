@@ -5,6 +5,7 @@ import dash_bootstrap_components as dbc
 from util.data_loutr import NUMERICAL_VARIABLES, get_all_entries_for_column, load_data, get_normalized_time_series, filter_df_with_filters
 from util.filter import Filter
 from util.content import offcanvas_content
+from views.view_bar import ViewBar
 from views.view_correlation import ViewCorrelation
 from views.view_heatmap import ViewHeatmap
 from views.view_radar import ViewRadar
@@ -13,8 +14,7 @@ from views.view_time_series import ViewTimeSeries
 from views.view_treemap import ViewTreemap
 
 # Define all tabs
-# views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries(), ViewTreemap(), ViewRadar()]
-views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries(), ViewTreemap(), ViewRadar()]
+views = [ViewBar(), ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries(), ViewTreemap(), ViewRadar()]
 
 # Filters - these go across tabs
 filters = [
