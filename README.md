@@ -16,12 +16,14 @@
 * More refactoring of the data loading and filtering?
 * More graceful handling of filter selections that result in zero data?
 * Add Baujahr as a RangeSlider (map all below 1950 to 1950)
+* Add Starting page with a quartett card style look, where a single Strophe can be selected.
+* Add a more simple chart (Bar / stacked bar) to ease the experience for layman users.
 * Add a "Reset all" button in the filtering section that fills all filters up with all values.
 * Rename columns (remove "1-10"s, rename "Timestamp sekunden" to "Zeitstempel")
 * Document all (used) columns of the dataframe in the offcanvas help section ("hä?" button)
 ### Dashboards
 * Scatterplot
-  * Add toggle to turn labels on and off? (currently hardcoded depending on group by chosen)
+  * None
 * Heatmap
   * None
 * Correlation
