@@ -10,6 +10,7 @@ class AbstractView(ABC):
         self.pre_display_options = dict()
         self.pre_display_option_target_outputs = []
         self.hide_filters_other_than_year = False
+        self.starting_page = False
 
     def get_div(self, filters, display_options):
         active_filters = [f.name for f in filters] if not self.hide_filters_other_than_year else ['Jahr']
@@ -20,7 +21,10 @@ class AbstractView(ABC):
         return filter_display_style
 
     def get_fig(self):
-        return html.Div([dcc.Graph(id=self.label, figure=self.fig)])
+        if self.starting_page:
+            return html.Div([self.card])
+        else:    
+            return html.Div([dcc.Graph(id=self.label, figure=self.fig)])
 
     def get_tab(self):
         return dbc.Tab(tab_id=self.value, label=self.label)
