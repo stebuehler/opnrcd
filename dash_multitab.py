@@ -117,7 +117,7 @@ def apply_pre_display_options(*args):
         output_this_view = view.apply_pre_display_options(df, **kwargs_for_fig)
         if output_this_view:
             if return_list:
-                return_list.append(output_this_view)
+                return_list = return_list + output_this_view
             else:
                 return_list = output_this_view
     return return_list
