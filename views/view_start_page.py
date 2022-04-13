@@ -30,7 +30,19 @@ class ViewStartPage(AbstractView):
                 [
                     html.H4(df["Künstler"] + " - " + strophe, className="card-title"),
                     html.H5("OPNRCD " + df["Jahr"], className="card-subtitle"),
-                    html.P("Künstlerische Relevanz: " + f'{df["Künstlerische Relevanz (1-10)"].iloc[0]:.0f}', className="card-text",),
+                    html.P([
+                        html.Br(),
+                        "Künstlerische Relevanz:   " + f'{df["Künstlerische Relevanz (1-10)"].iloc[0]:.0f}', html.Br(),
+                        "Musikalische Härte:         " + f'{df["Musikalische Härte (1-10)"].iloc[0]:.0f}', html.Br(),
+                        "Tanzbarkeit:                     " + f'{df["Tanzbarkeit (1-10)"].iloc[0]:.0f}', html.Br(),
+                        "Nervofantigkeit:              " + f'{df["Nervofantigkeit (1-10)"].iloc[0]:.0f}', html.Br(),
+                        "Verblödungsfaktor:         " + f'{df["Verblödungsfaktor (1-10)"].iloc[0]:.0f}', html.Br(),
+                        "Weirdness:                      " + f'{df["Weirdness (1-8)"].iloc[0]:.0f}',
+                    ],
+                     className="card-text",
+                     style={'white-space': 'pre'},
+                     ),
                 ]
             ),
+            # className="w-75 mb-3",
         )

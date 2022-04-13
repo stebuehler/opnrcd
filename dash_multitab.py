@@ -87,7 +87,7 @@ app.layout = dbc.Container([
         start_collapsed=True,
         flush=True,
     ),
-    dbc.Row(dbc.Col(html.Div(id='tabs-content-graph')))
+    dbc.Row(dbc.Col(html.Div(id='tabs-content-graph')), justify="center")
 ])
 
 # this callback sets the display styles of all display options (invisible except the ones for the current tab)
