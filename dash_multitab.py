@@ -11,10 +11,11 @@ from views.view_radar import ViewRadar
 from views.view_scatter import ViewScatter
 from views.view_time_series import ViewTimeSeries
 from views.view_treemap import ViewTreemap
+from views.view_start_page import ViewStartPage
 
 # Define all tabs
 # views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries(), ViewTreemap(), ViewRadar()]
-views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries(), ViewTreemap(), ViewRadar()]
+views = [ViewStartPage(), ViewRadar(), ViewTreemap(), ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries()]
 
 # Filters - these go across tabs
 filters = [
@@ -86,7 +87,7 @@ app.layout = dbc.Container([
         start_collapsed=True,
         flush=True,
     ),
-    dbc.Row(dbc.Col(html.Div(id='tabs-content-graph')))
+    dbc.Row(dbc.Col(html.Div(id='tabs-content-graph')), justify="center")
 ])
 
 # this callback sets the display styles of all display options (invisible except the ones for the current tab)
@@ -116,7 +117,7 @@ def apply_pre_display_options(*args):
         output_this_view = view.apply_pre_display_options(df, **kwargs_for_fig)
         if output_this_view:
             if return_list:
-                return_list.append(output_this_view)
+                return_list = return_list + output_this_view
             else:
                 return_list = output_this_view
     return return_list

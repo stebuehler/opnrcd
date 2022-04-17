@@ -10,6 +10,7 @@ class AbstractView(ABC):
         self.pre_display_options = dict()
         self.pre_display_option_target_outputs = []
         self.hide_filters_other_than_year = False
+        self.starting_page = False
 
     def get_div(self, filters, display_options):
         active_filters = [f.name for f in filters] if not self.hide_filters_other_than_year else ['Jahr']
@@ -20,7 +21,16 @@ class AbstractView(ABC):
         return filter_display_style
 
     def get_fig(self):
-        return html.Div([dcc.Graph(id=self.label, figure=self.fig)])
+        if self.starting_page:
+            return dbc.Col([
+                html.Div([self.card])
+                ]
+            , width=4, xs=12, sm=10, md=6, lg=5, xl=4)
+        else:    
+            return dbc.Col([
+                html.Div([dcc.Graph(id=self.label, figure=self.fig)])
+                ]
+                , width=12, xs=12, sm=12, md=12, lg=12, xl=12)
 
     def get_tab(self):
         return dbc.Tab(tab_id=self.value, label=self.label)
@@ -28,8 +38,8 @@ class AbstractView(ABC):
     def add_display_option(self, label, options, default_selection: int=0, multi: bool=False, clearable: bool=False, color=None, toggle: bool=False):
         self.display_options[label] = Filter(label, options, tab_name=self.label, default_selection=default_selection, multi=multi, clearable=clearable, color=color, toggle=toggle)
 
-    def add_pre_display_option(self, label, options, default_selection: int=0, multi: bool=False, clearable: bool=False):
-        self.pre_display_options[label] = Filter(label, options, tab_name=self.label, default_selection=default_selection, multi=multi, clearable=clearable)
+    def add_pre_display_option(self, label, options=None, default_selection: int=0, multi: bool=False, clearable: bool=False, button: bool=False, button_text=None):
+        self.pre_display_options[label] = Filter(label, options, tab_name=self.label, default_selection=default_selection, multi=multi, clearable=clearable, button=button, button_text=button_text)
 
     def get_display_option_id(self, label):
         filter = self.display_options[label]
