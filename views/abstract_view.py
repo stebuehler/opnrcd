@@ -32,8 +32,8 @@ class AbstractView(ABC):
     def add_display_option(self, label, options, default_selection: int=0, multi: bool=False, clearable: bool=False, color=None, toggle: bool=False):
         self.display_options[label] = Filter(label, options, tab_name=self.label, default_selection=default_selection, multi=multi, clearable=clearable, color=color, toggle=toggle)
 
-    def add_pre_display_option(self, label, options, default_selection: int=0, multi: bool=False, clearable: bool=False):
-        self.pre_display_options[label] = Filter(label, options, tab_name=self.label, default_selection=default_selection, multi=multi, clearable=clearable)
+    def add_pre_display_option(self, label, options=None, default_selection: int=0, multi: bool=False, clearable: bool=False, button: bool=False):
+        self.pre_display_options[label] = Filter(label, options, tab_name=self.label, default_selection=default_selection, multi=multi, clearable=clearable, button=button)
 
     def get_display_option_id(self, label):
         filter = self.display_options[label]

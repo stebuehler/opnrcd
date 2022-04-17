@@ -1,9 +1,11 @@
+from scipy import rand
 from views.abstract_view import AbstractView
 from dash import Output
 from util.data_loutr import NUMERICAL_VARIABLES, get_all_entries_for_column
 import dash_bootstrap_components as dbc
 from dash import html
 from math import floor
+from random import random
 
 class ViewStartPage(AbstractView):
     def __init__(self):
@@ -12,6 +14,7 @@ class ViewStartPage(AbstractView):
         self.value = self.label + '-graph'
         self.starting_page = True
         self.add_display_option('Strophe', [])
+        self.add_pre_display_option('Zufallsstrophe', button=True)
         self.define_pre_display_target_outputs()
 
     def define_pre_display_target_outputs(self):
@@ -21,7 +24,8 @@ class ViewStartPage(AbstractView):
     def apply_pre_display_options(self, df, **kwargs):
         entries = get_all_entries_for_column('Titel', df)
         return_dict = [{'label': i, 'value': i} for i in entries]
-        return [return_dict, entries[0]]
+        random_index = floor(random()*len(entries))
+        return [return_dict, entries[random_index]]
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
         strophe = kwargs[self.get_display_option_id('Strophe')]

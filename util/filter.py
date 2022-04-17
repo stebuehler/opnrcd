@@ -2,19 +2,27 @@ from dash import Input, Output, html, dcc
 import dash_bootstrap_components as dbc
 
 class Filter:
-    def __init__(self, label, options, tab_name=None, column_name=None, default_selection: int=0, multi: bool=False, clearable: bool=True, color=None, toggle: bool=False):
+    def __init__(self, label, options=None, tab_name=None, column_name=None, default_selection: int=0, multi: bool=False, clearable: bool=True, color=None, toggle: bool=False, button: bool=False):
         self.name = label + "-" + tab_name if tab_name is not None else column_name if column_name is not None else label
         self.label = html.Label([f'{label}:'], style={'font-weight': 'bold', 'text-align': "left", 'color': color}, id=f'{self.name}-select-label')
         self.color = color
         self.is_multi = multi
         self.is_toggle = toggle
-        default_selection = options if multi else options[default_selection] if len(options)>0 else None
+        self.is_button = button
+        default_selection = None if options is None else options if multi else options[default_selection] if len(options)>0 else None
         if self.is_toggle:
             self.toggle = dcc.RadioItems(
                 id=f'{self.name}-select',
                 options=[{'label': i, 'value': i} for i in options],
                 value=default_selection,
                 inputStyle={'margin-right': '5px', 'margin-left': '5px'}
+                )
+        elif self.is_button:
+            self.button = dbc.Button(
+                label,  
+                id=f'{self.name}-select',
+                color="primary",
+                n_clicks=0,
                 )
         else:
             self.dropdown = dcc.Dropdown(
@@ -30,6 +38,8 @@ class Filter:
             return self.get_label_dropdown_multi()
         elif self.is_toggle:
             return self.get_label_dropdown_toggle()
+        elif self.is_button:
+            return self.get_label_dropdown_button()
         else:
             return self.get_label_dropdown_single()
     
@@ -54,8 +64,18 @@ class Filter:
         ]
         , width=3, xs=6, sm=6, md=4, lg=3, xl=3)
 
+    def get_label_dropdown_button(self):
+        return dbc.Col([
+            dbc.Row([html.Div([self.label])]),
+            dbc.Row([html.Div([self.button])]),
+        ]
+        , width=3, xs=6, sm=6, md=4, lg=3, xl=3)
+
     def get_input(self):
-        return Input(f'{self.name}-select', 'value')
+        if self.is_button:
+            return Input(f'{self.name}-select', 'n_clicks')
+        else:
+            return Input(f'{self.name}-select', 'value')
 
     def get_output(self):
         return [Output(f'{self.name}-select', 'style'), Output(f'{self.name}-select-label', 'style')]
