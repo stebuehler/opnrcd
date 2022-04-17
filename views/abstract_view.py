@@ -22,9 +22,15 @@ class AbstractView(ABC):
 
     def get_fig(self):
         if self.starting_page:
-            return html.Div([self.card])
+            return dbc.Col([
+                html.Div([self.card])
+                ]
+            , width=6, xs=12, sm=10, md=6, lg=6, xl=4)
         else:    
-            return html.Div([dcc.Graph(id=self.label, figure=self.fig)])
+            return dbc.Col([
+                html.Div([dcc.Graph(id=self.label, figure=self.fig)])
+                ]
+                , width=12, xs=12, sm=12, md=12, lg=12, xl=12)
 
     def get_tab(self):
         return dbc.Tab(tab_id=self.value, label=self.label)
@@ -32,8 +38,8 @@ class AbstractView(ABC):
     def add_display_option(self, label, options, default_selection: int=0, multi: bool=False, clearable: bool=False, color=None, toggle: bool=False):
         self.display_options[label] = Filter(label, options, tab_name=self.label, default_selection=default_selection, multi=multi, clearable=clearable, color=color, toggle=toggle)
 
-    def add_pre_display_option(self, label, options=None, default_selection: int=0, multi: bool=False, clearable: bool=False, button: bool=False):
-        self.pre_display_options[label] = Filter(label, options, tab_name=self.label, default_selection=default_selection, multi=multi, clearable=clearable, button=button)
+    def add_pre_display_option(self, label, options=None, default_selection: int=0, multi: bool=False, clearable: bool=False, button: bool=False, button_text=None):
+        self.pre_display_options[label] = Filter(label, options, tab_name=self.label, default_selection=default_selection, multi=multi, clearable=clearable, button=button, button_text=button_text)
 
     def get_display_option_id(self, label):
         filter = self.display_options[label]

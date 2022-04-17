@@ -2,7 +2,7 @@ from dash import Input, Output, html, dcc
 import dash_bootstrap_components as dbc
 
 class Filter:
-    def __init__(self, label, options=None, tab_name=None, column_name=None, default_selection: int=0, multi: bool=False, clearable: bool=True, color=None, toggle: bool=False, button: bool=False):
+    def __init__(self, label, options=None, tab_name=None, column_name=None, default_selection: int=0, multi: bool=False, clearable: bool=True, color=None, toggle: bool=False, button: bool=False, button_text=None):
         self.name = label + "-" + tab_name if tab_name is not None else column_name if column_name is not None else label
         self.label = html.Label([f'{label}:'], style={'font-weight': 'bold', 'text-align': "left", 'color': color}, id=f'{self.name}-select-label')
         self.color = color
@@ -19,7 +19,7 @@ class Filter:
                 )
         elif self.is_button:
             self.button = dbc.Button(
-                label,  
+                button_text if button_text is not None else label,  
                 id=f'{self.name}-select',
                 color="primary",
                 n_clicks=0,

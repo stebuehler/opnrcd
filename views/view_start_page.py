@@ -10,11 +10,11 @@ from random import random
 class ViewStartPage(AbstractView):
     def __init__(self):
         AbstractView.__init__(self)
-        self.label = 'Strophenansicht'
+        self.label = 'Strophensteckbrief'
         self.value = self.label + '-graph'
         self.starting_page = True
         self.add_display_option('Strophe', [])
-        self.add_pre_display_option('Zufallsstrophe', button=True)
+        self.add_pre_display_option('Zufallsstrophe', button=True, button_text="I'm feeling lucky!")
         self.define_pre_display_target_outputs()
 
     def define_pre_display_target_outputs(self):
@@ -39,25 +39,26 @@ class ViewStartPage(AbstractView):
                     html.H5('OPNRCD ' + df['Jahr'], className='card-subtitle'),
                     html.P([
                         html.Br(),
-                        'Startzeit auf CD:              ' + df["Timestamp"].iloc[0], html.Br(),
-                        'Startzeit relativ:               ' + f'{df["Timestamp normalized"].iloc[0]:.1%}', html.Br(),
-                        'Dauer:                             ' + dauer_string, html.Br(),
+                        'Startzeit auf CD:                   ' + df["Timestamp"].iloc[0], html.Br(),
+                        'Startzeit relativ:                    ' + f'{df["Timestamp normalized"].iloc[0]:.1%}', html.Br(),
+                        'Dauer:                                  ' + dauer_string, html.Br(),
                         html.Br(),
-                        'Nationalität Künstler:      ' + df["Nationalität"].iloc[0], html.Br(),
-                        'Sprache:                          ' + df["Sprache"].iloc[0], html.Br(),
-                        'Baujahr:                           ' + f'{df["Baujahr"].iloc[0]:.0f}', html.Br(),
+                        'Nationalität Künstler:           ' + df["Nationalität"].iloc[0], html.Br(),
+                        'Sprache:                               ' + df["Sprache"].iloc[0], html.Br(),
+                        'Baujahr:                                ' + f'{df["Baujahr"].iloc[0]:.0f}', html.Br(),
                         html.Br(),
-                        'Künstlerische Relevanz:   ' + f'{df["Künstlerische Relevanz (1-10)"].iloc[0]:.0f}', html.Br(),
-                        'Musikalische Härte:         ' + f'{df["Musikalische Härte (1-10)"].iloc[0]:.0f}', html.Br(),
-                        'Tanzbarkeit:                     ' + f'{df["Tanzbarkeit (1-10)"].iloc[0]:.0f}', html.Br(),
-                        'Nervofantigkeit:              ' + f'{df["Nervofantigkeit (1-10)"].iloc[0]:.0f}', html.Br(),
-                        'Verblödungsfaktor:         ' + f'{df["Verblödungsfaktor (1-10)"].iloc[0]:.0f}', html.Br(),
-                        'Weirdness:                      ' + f'{df["Weirdness (1-8)"].iloc[0]:.0f}',
+                        'Künstlerische Relevanz:        ' + f'{df["Künstlerische Relevanz (1-10)"].iloc[0]:.0f}', html.Br(),
+                        'Musikalische Härte:              ' + f'{df["Musikalische Härte (1-10)"].iloc[0]:.0f}', html.Br(),
+                        'Tanzbarkeit:                          ' + f'{df["Tanzbarkeit (1-10)"].iloc[0]:.0f}', html.Br(),
+                        'Nervofantigkeit:                   ' + f'{df["Nervofantigkeit (1-10)"].iloc[0]:.0f}', html.Br(),
+                        'Verblödungsfaktor:              ' + f'{df["Verblödungsfaktor (1-10)"].iloc[0]:.0f}', html.Br(),
+                        'Weirdness:                           ' + f'{df["Weirdness (1-8)"].iloc[0]:.0f}',
                     ],
                      className='card-text',
                      style={'white-space': 'pre'},
                      ),
                 ]
             ),
-            # className='w-75 mb-3',
+            outline=True,
+            color='dark',
         )
