@@ -33,32 +33,39 @@ class ViewStartPage(AbstractView):
         dauer = df["Dauer (s)"].iloc[0]
         dauer_string = f'{floor(dauer / 60):.0f}' + ':' + f'{dauer - 60*floor(dauer / 60):02d}'
         self.card = dbc.Card(
-            dbc.CardBody(
-                [
-                    html.H4(df['Künstler'] + " - " + strophe, className='card-title'),
-                    html.H5('OPNRCD ' + df['Jahr'], className='card-subtitle'),
-                    html.P([
-                        html.Br(),
-                        'Startzeit auf CD:                   ' + df["Timestamp"].iloc[0], html.Br(),
-                        'Startzeit relativ:                    ' + f'{df["Timestamp normalized"].iloc[0]:.1%}', html.Br(),
-                        'Dauer:                                  ' + dauer_string, html.Br(),
-                        html.Br(),
-                        'Nationalität Künstler:           ' + df["Nationalität"].iloc[0], html.Br(),
-                        'Sprache:                               ' + df["Sprache"].iloc[0], html.Br(),
-                        'Baujahr:                                ' + f'{df["Baujahr"].iloc[0]:.0f}', html.Br(),
-                        html.Br(),
-                        'Künstlerische Relevanz:        ' + f'{df["Künstlerische Relevanz (1-10)"].iloc[0]:.0f}', html.Br(),
-                        'Musikalische Härte:              ' + f'{df["Musikalische Härte (1-10)"].iloc[0]:.0f}', html.Br(),
-                        'Tanzbarkeit:                          ' + f'{df["Tanzbarkeit (1-10)"].iloc[0]:.0f}', html.Br(),
-                        'Nervofantigkeit:                   ' + f'{df["Nervofantigkeit (1-10)"].iloc[0]:.0f}', html.Br(),
-                        'Verblödungsfaktor:              ' + f'{df["Verblödungsfaktor (1-10)"].iloc[0]:.0f}', html.Br(),
-                        'Weirdness:                           ' + f'{df["Weirdness (1-8)"].iloc[0]:.0f}',
-                    ],
-                     className='card-text',
-                     style={'white-space': 'pre'},
-                     ),
-                ]
-            ),
+            [
+                dbc.CardHeader(
+                    [
+                        html.H4(strophe, className='card-title'),
+                    ]
+                ),
+                dbc.CardBody(
+                    [
+                        html.H5(df['Künstler'], className='card-subtitle', style={'margin-bottom': '0.3rem'}),
+                        html.H6('OPNRCD ' + df['Jahr'], className='card-subtitle'),
+                        html.P([
+                            html.Br(),
+                            'Dauer:                                  ' + dauer_string, html.Br(),
+                            'Startzeit auf CD:                   ' + df["Timestamp"].iloc[0], html.Br(),
+                            'Startzeit relativ:                    ' + f'{df["Timestamp normalized"].iloc[0]:.1%}', html.Br(),
+                            html.Br(),
+                            'Nationalität Künstler:           ' + df["Nationalität"].iloc[0], html.Br(),
+                            'Sprache:                               ' + df["Sprache"].iloc[0], html.Br(),
+                            'Baujahr:                                ' + f'{df["Baujahr"].iloc[0]:.0f}', html.Br(),
+                            html.Br(),
+                            'Künstlerische Relevanz:        ' + f'{df["Künstlerische Relevanz (1-10)"].iloc[0]:.0f}', html.Br(),
+                            'Musikalische Härte:              ' + f'{df["Musikalische Härte (1-10)"].iloc[0]:.0f}', html.Br(),
+                            'Tanzbarkeit:                          ' + f'{df["Tanzbarkeit (1-10)"].iloc[0]:.0f}', html.Br(),
+                            'Nervofantigkeit:                   ' + f'{df["Nervofantigkeit (1-10)"].iloc[0]:.0f}', html.Br(),
+                            'Verblödungsfaktor:              ' + f'{df["Verblödungsfaktor (1-10)"].iloc[0]:.0f}', html.Br(),
+                            'Weirdness:                           ' + f'{df["Weirdness (1-8)"].iloc[0]:.0f}',
+                        ],
+                        className='card-text',
+                        style={'white-space': 'pre'},
+                        ),
+                    ]
+                ),
+            ],
             outline=True,
             color='dark',
         )
