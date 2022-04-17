@@ -22,7 +22,6 @@
 * Add a more simple chart (Bar / stacked bar) to ease the experience for layman users.
 * Add a "Reset all" button in the filtering section that fills all filters up with all values.
 * Rename columns (remove "1-10"s, rename "Timestamp sekunden" to "Zeitstempel")
-* Document all (used) columns of the dataframe in the offcanvas help section ("hä?" button)
 ### Dashboards
 * Scatterplot
   * None
