@@ -13,6 +13,5 @@ dependencies:
     - numpy
     - pandas
     - plotly
-    - random
     - scikit_learn
     - gunicorn # for app deployment
