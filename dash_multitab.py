@@ -22,6 +22,7 @@ filters = [
     Filter('Jahre', get_all_entries_for_column('Jahr', strophen_only=True), column_name='Jahr', multi=True),
     Filter('Sprachen', get_all_entries_for_column('Sprache', strophen_only=True), column_name='Sprache', multi=True),
     Filter('Nationalitäten', get_all_entries_for_column('Nationalität', strophen_only=True), column_name='Nationalität', multi=True),
+    Filter('Künstlerische Relevanz', range_slider=True, range=[1, 10], step=1, column_name='Künstlerische Relevanz (1-10)'),
 ]
 filter_inputs = [f.get_input() for f in filters]
 filter_outputs = [item for sublist in [f.get_output() for f in filters] for item in sublist]

@@ -54,6 +54,6 @@ def filter_df_with_filters(**kwargs):
     # filtering of the std df is more straightforward
     df = df[df["Strophe?"]]
     for column in kwargs:
-        values = kwargs[column]
+        values = range(kwargs[column][0], kwargs[column][1]+1, 1) if column in NUMERICAL_VARIABLES else kwargs[column] 
         df = df[df[column].isin(values)]
     return df, mean_std_time_series
