@@ -40,5 +40,5 @@
 ## Bugs
 * Currently None
 ## Updates for remote app in case new packages are used in the app:
-* requirements.txt: Either manually or type 'pipreqs .' in the project directory (may first need to install pipreqs via 'pip install pipreqs')
+* requirements.txt: Either manually or type 'pipreqs .' in the project directory (may first need to install pipreqs via 'pip install pipreqs'). "gunicorn" needs to be added manually after that, otherwise the remote deployment crashes.
 * environment.yml: Manually
