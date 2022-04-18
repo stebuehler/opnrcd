@@ -9,8 +9,10 @@ dependencies:
     - dash-html-components
     - dash-bootstrap-components
     - matplotlib
+    - math
     - numpy
     - pandas
     - plotly
+    - random
     - scikit_learn
     - gunicorn # for app deployment

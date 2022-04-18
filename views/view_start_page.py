@@ -1,4 +1,3 @@
-from scipy import rand
 from views.abstract_view import AbstractView
 from dash import Output
 from util.data_loutr import NUMERICAL_VARIABLES, get_all_entries_for_column
