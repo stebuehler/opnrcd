@@ -15,4 +15,5 @@ dependencies:
     - plotly
     - scikit_learn
     - scipy
+    - werkzeug
     - gunicorn # for app deployment
