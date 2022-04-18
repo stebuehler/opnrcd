@@ -25,7 +25,7 @@ class AbstractView(ABC):
             return dbc.Col([
                 html.Div([self.card])
                 ]
-            , width=4, xs=12, sm=10, md=6, lg=5, xl=4)
+            , width=4, xs=12, sm=10, md=7, lg=5, xl=4)
         else:    
             return dbc.Col([
                 html.Div([dcc.Graph(id=self.label, figure=self.fig)])

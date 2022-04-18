@@ -55,7 +55,7 @@ app.layout = dbc.Container([
         children=[
             dbc.NavItem(dbc.NavLink("opnrcd.ch", href="https://www.opnrcd.ch/", target="_blank")),
             dbc.NavItem(dbc.NavLink("figg-di.ch", href="https://www.figg-di.ch/", target="_blank")),
-            dbc.Button("hä?", id='button_open_offcanvas', color="primary", className="me-1"),
+            dbc.Button("hä?", id='button_open_offcanvas', color="primary", style={"text-align": "left"}),
         ],
         brand="OPNRCD-ANLTK",
         brand_href="#",
@@ -76,18 +76,21 @@ app.layout = dbc.Container([
                 [
                     dbc.Row(filter_divs)
                 ],
-                title='Filter'
+                title='Filter',
+                item_id='accordion_item_filters',
             ),
             dbc.AccordionItem(
                 children = [dbc.Row(pre_display_option_row) for pre_display_option_row in pre_display_option_divs]
                  + [dbc.Row(display_option_row) for display_option_row in display_option_divs],
-                title='Anzeigeoptionen'
+                title='Anzeigeoptionen',
+                item_id='accordion_item_display_options',
             )
         ],
         start_collapsed=True,
         flush=True,
+        # active_item='accordion_item_display_options',
     ),
-    dbc.Row(dbc.Col(html.Div(id='tabs-content-graph')), justify="center")
+    dbc.Row(dbc.Col(html.Div(id='tabs-content-graph')))
 ])
 
 # this callback sets the display styles of all display options (invisible except the ones for the current tab)
