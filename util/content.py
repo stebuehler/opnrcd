@@ -6,10 +6,10 @@ def offcanvas_content():
         Eine Netz-Applikation zur quantitativen und komparativen Analyse von OPNRCD-Strophen oder OPNRCD-Strophen-Gruppen.
 
         #### Filter
-        Ermöglichen, eine Teilmenge aller OPNRCD-Strophen zu selektieren. Wirken auf alle Tabulatoren gleichzeitig.
+        Ermöglichen, eine Teilmenge aller OPNRCD-Strophen zu selektieren. Wirken auf alle Reiter gleichzeitig.
 
         #### Anzeigeoptionen
-        Erlauben, die Graphik auf dem jeweiligen Tabulator anzupassen. Separat pro Tabulator.
+        Erlauben, die Graphik auf dem jeweiligen Reiter anzupassen. Separat pro Reiter.
 
         #### Strophenattribute
         - **Baujahr:** Jahr, in dem die OPNRCD-Strophe als "Lied" erschaffen wurde.  
@@ -31,6 +31,9 @@ def offcanvas_content():
         - **Verblödungsfaktor:** Kann durch textliche oder musikalische Verblödung getrieben sein, sowie durch verblödete Äusserungen des Künstlers.  
         - **Nervofantigkeit:** Variable welche die Genervtheit einer durchschnittlichen OPNRCD-Hörperson durch wiederholte akustische Exponiertheit zu besagter Strophe quantifiziert.  
         - **Weirdness:** Beschreibt wie komisch, resp. einzigartig die besagte Strophe ist.
+
+        #### Skits
+        Skits (belustigende Zwischenspiele, die aber keine echten OPNRCD-Strophen sind) sind von der Bewertung und allen momentan verfügbaren Analytik-Exponaten **ausgeschlossen**. Die Dauer der Skits ist in der Gesamtdauer pro OPNRCD enthalten, welche auf dem "Strophensteckbrief"-Reiter, sowie auf dem "Zeitreihe"-Reiter ausgewiesen wird. In allen anderen Reitern summiert sich die Gesamtdauer aller echten OPNRCD-Strophen zu einer kürzeren Dauer.
 
         #### Impressum
         OPNRBZNZ GmbH  
