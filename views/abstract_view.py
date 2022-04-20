@@ -12,13 +12,24 @@ class AbstractView(ABC):
         self.hide_filters_other_than_year = False
         self.starting_page = False
 
-    def get_div(self, filters, display_options):
-        active_filters = [f.name for f in filters] if not self.hide_filters_other_than_year else ['Jahr']
+    def get_div(self, filters_non_range_slider, filters_range_slider, display_options):
+        active_filters_non_range_slider = [f.name for f in filters_non_range_slider] if not self.hide_filters_other_than_year else ['Jahr']
+        active_filters_range_slider = [f.name for f in filters_range_slider] if not self.hide_filters_other_than_year else ['Jahr']
         active_display_options = [self.get_pre_display_option_id(label) for label in self.pre_display_options] + [self.get_display_option_id(label) for label in self.display_options]       
-        active_filters_and_display_options = active_filters + active_display_options
-        filter_style_list = [(('' if f.name in active_filters_and_display_options else 'None'), f.color) for f in (filters + display_options)]
-        filter_display_style = [item for sublist in [[{'display': style, 'color': color}] + [{'display': style, 'color': color, 'font-weight': 'bold', 'text-align': 'left'}] for (style, color) in filter_style_list] for item in sublist]
-        return filter_display_style
+        all_active_names = active_filters_non_range_slider + active_filters_range_slider + active_display_options
+        #
+        filter_non_range_slider_style_list = [(('' if f.name in all_active_names else 'None'), f.color) for f in (filters_non_range_slider)]
+        filter_non_range_slider_display_style = [item for sublist in [[{'display': style, 'color': color}] + [{'display': style, 'color': color, 'font-weight': 'bold', 'text-align': 'left'}] for (style, color) in filter_non_range_slider_style_list] for item in sublist]
+        filter_range_slider_style_list = [(('' if f.name in all_active_names else 'None')) for f in (filters_range_slider)]
+        filter_range_slider_display_style = [item for sublist in [[{'display': style}] + [{'display': style, 'font-weight': 'bold', 'text-align': 'left'}] for style in filter_range_slider_style_list] for item in sublist]
+        display_option_style_list = [(('' if f.name in all_active_names else 'None'), f.color) for f in (display_options)]
+        display_option_display_style = [item for sublist in [[{'display': style, 'color': color}] + [{'display': style, 'color': color, 'font-weight': 'bold', 'text-align': 'left'}] for (style, color) in display_option_style_list] for item in sublist]
+        print(all_active_names)
+        print(filter_non_range_slider_style_list)
+        print(filter_non_range_slider_display_style)
+        print(filter_range_slider_style_list)
+        print(filter_range_slider_display_style)
+        return filter_non_range_slider_display_style + filter_range_slider_display_style + display_option_display_style
 
     def get_fig(self):
         if self.starting_page:

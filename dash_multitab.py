@@ -18,15 +18,18 @@ from views.view_start_page import ViewStartPage
 views = [ViewStartPage(), ViewRadar(), ViewTreemap(), ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries()]
 
 # Filters - these go across tabs
-filters = [
+filters_non_range_slider = [
     Filter('Jahre', get_all_entries_for_column('Jahr', strophen_only=True), column_name='Jahr', multi=True),
     Filter('Sprachen', get_all_entries_for_column('Sprache', strophen_only=True), column_name='Sprache', multi=True),
     Filter('Nationalitäten', get_all_entries_for_column('Nationalität', strophen_only=True), column_name='Nationalität', multi=True),
+]
+filters_range_slider = [
     Filter('Künstlerische Relevanz', range_slider=True, range=[1, 10], step=1, column_name='Künstlerische Relevanz (1-10)'),
 ]
-filter_inputs = [f.get_input() for f in filters]
-filter_outputs = [item for sublist in [f.get_output() for f in filters] for item in sublist]
-filter_divs = [f.get_label_dropdown() for f in filters]
+filter_inputs = [f.get_input() for f in filters_non_range_slider + filters_range_slider]
+filter_outputs_non_range_slider = [item for sublist in [f.get_output() for f in filters_non_range_slider] for item in sublist]
+filter_outputs_range_slider = [item for sublist in [f.get_output() for f in filters_range_slider] for item in sublist]
+filter_divs = [f.get_label_dropdown() for f in filters_non_range_slider + filters_range_slider]
 
 # "pre" display options. When a first callback is needed to determine the content of the display options
 pre_display_options = [f for v in views for f in v.pre_display_options_list()]
@@ -96,14 +99,15 @@ app.layout = dbc.Container([
 
 # this callback sets the display styles of all display options (invisible except the ones for the current tab)
 @app.callback(
-    *filter_outputs,
+    *filter_outputs_non_range_slider,
+    *filter_outputs_range_slider,
     *pre_display_option_display_outputs,
     *display_option_outputs,
     Input('tabs', 'active_tab'),
 )
 def apply_tab_filters(tab):
     view = [v for v in views if v.value == tab][0]
-    return view.get_div(filters, pre_display_options + display_options)
+    return view.get_div(filters_non_range_slider, filters_range_slider, pre_display_options + display_options)
 
 # this is the "pre" callback for the display options that need it.
 @app.callback(
@@ -112,8 +116,8 @@ def apply_tab_filters(tab):
     pre_display_option_inputs
 )
 def apply_pre_display_options(*args):
-    kwargs_all = dict(zip([f.name for f in filters] + [f.name for f in pre_display_options], args))
-    kwargs_for_df_filtering = {f.name: kwargs_all[f.name] for f in filters}
+    kwargs_all = dict(zip([f.name for f in filters_non_range_slider] + [f.name for f in pre_display_options], args))
+    kwargs_for_df_filtering = {f.name: kwargs_all[f.name] for f in filters_non_range_slider}
     kwargs_for_fig = {name: kwargs_all[name] for name in kwargs_all if name not in kwargs_for_df_filtering}
     df, time_series_data = filter_df_with_filters(**kwargs_for_df_filtering)
     return_list = None
@@ -136,8 +140,8 @@ def apply_pre_display_options(*args):
 )
 def render_content(tab, *args):
     # create the function arguments dynamically from the filters, see https://community.plotly.com/t/how-to-elegantly-handle-a-very-large-number-of-input-state-in-callbacks/19228
-    kwargs_all = dict(zip([f.name for f in filters] + [f.name for f in pre_display_options] + [f.name for f in display_options], args))
-    kwargs_for_df_filtering = {f.name: kwargs_all[f.name] for f in filters}
+    kwargs_all = dict(zip([f.name for f in filters_non_range_slider] + [f.name for f in pre_display_options] + [f.name for f in display_options], args))
+    kwargs_for_df_filtering = {f.name: kwargs_all[f.name] for f in filters_non_range_slider}
     kwargs_for_fig = {name: kwargs_all[name] for name in kwargs_all if name not in kwargs_for_df_filtering}
     # df filtering
     df, time_series_data = filter_df_with_filters(**kwargs_for_df_filtering)
