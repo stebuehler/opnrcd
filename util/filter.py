@@ -1,4 +1,3 @@
-from re import X
 from dash import Input, Output, html, dcc
 import dash_bootstrap_components as dbc
 
@@ -97,7 +96,4 @@ class Filter:
             return Input(f'{self.name}-select', 'value')
 
     def get_output(self):
-        if self.is_range_slider:
-            return [Output(f'{self.name}-select', 'layout'), Output(f'{self.name}-select-label', 'style')]
-        else:
-            return [Output(f'{self.name}-select', 'style'), Output(f'{self.name}-select-label', 'style')]
+        return [Output(f'{self.name}-select', 'style'), Output(f'{self.name}-select-label', 'style')]
