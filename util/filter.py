@@ -56,36 +56,36 @@ class Filter:
     
     def get_label_dropdown_single(self):
         return dbc.Col([
-            dbc.Row([html.Div([self.label])]),
-            dbc.Row([html.Div([self.dropdown])]),
+            dbc.Row([html.Div([self.label], id=f'{self.name}-select-label-div')]),
+            dbc.Row([html.Div([self.dropdown], id=f'{self.name}-select-div')]),
         ]
         , width=3, xs=6, sm=6, md=4, lg=3, xl=3)
 
     def get_label_dropdown_multi(self):
         return dbc.Col([
-            dbc.Row([html.Div([self.label])]),
-            dbc.Row([html.Div([self.dropdown])]),
+            dbc.Row([html.Div([self.label], id=f'{self.name}-select-label-div')]),
+            dbc.Row([html.Div([self.dropdown], id=f'{self.name}-select-div')]),
         ]
         , width=12)
 
     def get_label_dropdown_toggle(self):
         return dbc.Col([
-            dbc.Row([html.Div([self.label])]),
-            dbc.Row([html.Div([self.toggle])]),
+            dbc.Row([html.Div([self.label], id=f'{self.name}-select-label-div')]),
+            dbc.Row([html.Div([self.toggle], id=f'{self.name}-select-div')]),
         ]
         , width=3, xs=6, sm=6, md=4, lg=3, xl=3)
 
     def get_label_dropdown_button(self):
         return dbc.Col([
-            dbc.Row([html.Div([self.label])]),
-            dbc.Row([html.Div([self.button])]),
+            dbc.Row([html.Div([self.label], id=f'{self.name}-select-label-div')]),
+            dbc.Row([html.Div([self.button], id=f'{self.name}-select-div')]),
         ]
         , width=3, xs=6, sm=6, md=4, lg=3, xl=3)
 
     def get_label_dropdown_range_slider(self):
         return dbc.Col([
-            dbc.Row([html.Div([self.label])]),
-            dbc.Row([html.Div([self.range_slider])]),
+            dbc.Row([html.Div([self.label], id=f'{self.name}-select-label-div')]),
+            dbc.Row([html.Div([self.range_slider], id=f'{self.name}-select-div')]),
         ]
         , width=3, xs=6, sm=6, md=4, lg=3, xl=3)
 
@@ -96,4 +96,4 @@ class Filter:
             return Input(f'{self.name}-select', 'value')
 
     def get_output(self):
-        return [Output(f'{self.name}-select', 'style'), Output(f'{self.name}-select-label', 'style')]
+        return [Output(f'{self.name}-select-div', 'style'), Output(f'{self.name}-select-label-div', 'style')]
