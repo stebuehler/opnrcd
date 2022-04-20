@@ -11,6 +11,7 @@ NUMERICAL_VARIABLES = [
 
 def load_data(strophen_only: bool=True) -> pd.DataFrame:
     opnrcd_df = pd.read_csv('source_data/OPNRCD_alltime_stats.csv')
+    opnrcd_df = map_baujahr(opnrcd_df)
     if strophen_only:
         opnrcd_df = opnrcd_df[opnrcd_df["Strophe?"]]
     opnrcd_df = opnrcd_df.astype({"Jahr": str})
@@ -43,7 +44,17 @@ def get_all_entries_for_column(column, df=None, strophen_only=True):
     return entries
 
 
-def filter_df_with_filters(**kwargs):
+def get_max_entry_for_column(column, df=None, strophen_only=True):
+    df = load_data(strophen_only=strophen_only) if df is None else df
+    return df[column].max()
+
+
+def get_min_entry_for_column(column, df=None, strophen_only=True):
+    df = load_data(strophen_only=strophen_only) if df is None else df
+    return df[column].min()
+    
+
+def filter_df_with_filters(list_of_range_slider_columns, **kwargs):
     df = load_data(strophen_only=False)
     time_series = get_normalized_time_series(df)
     # filter the nasty time series - only for years
@@ -54,6 +65,13 @@ def filter_df_with_filters(**kwargs):
     # filtering of the std df is more straightforward
     df = df[df["Strophe?"]]
     for column in kwargs:
-        values = range(kwargs[column][0], kwargs[column][1]+1, 1) if column in NUMERICAL_VARIABLES else kwargs[column] 
-        df = df[df[column].isin(values)]
+        if column in list_of_range_slider_columns:
+            df = df[df[column].between(kwargs[column][0], kwargs[column][1])]
+        else:
+            values = kwargs[column] 
+            df = df[df[column].isin(values)]
     return df, mean_std_time_series
+
+def map_baujahr(df):
+    df['Baujahr mapped'] = df['Baujahr'].apply(lambda x: x if x > 1950 else 1950)
+    return df

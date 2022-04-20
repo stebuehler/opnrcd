@@ -2,7 +2,7 @@ import dash
 from dash import Input, Output, html, State
 import dash_bootstrap_components as dbc
 
-from util.data_loutr import NUMERICAL_VARIABLES, get_all_entries_for_column, load_data, get_normalized_time_series, filter_df_with_filters
+from util.data_loutr import NUMERICAL_VARIABLES, get_all_entries_for_column, get_max_entry_for_column, get_min_entry_for_column, load_data, get_normalized_time_series, filter_df_with_filters
 from util.filter import Filter
 from util.content import offcanvas_content
 from views.view_correlation import ViewCorrelation
@@ -18,17 +18,24 @@ from views.view_start_page import ViewStartPage
 views = [ViewStartPage(), ViewRadar(), ViewTreemap(), ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries()]
 
 # Filters - these go across tabs
+jahrzente_marks = {1950: '1950', 1960:'1960', 1970: '1970', 1980:'1980', 1990:'1990', 2000:'2000', 2010:'2010', 2020:'2020'}
+minuten_marks = {60:'60', 120:'120', 180:'180', 240:'240', 300:'300', 360:'360', 420:'420', 480:'480'}
+prozent_marks = {0:'0%', 0.2: '20%', 0.4: '40%', 0.6:'60%', 0.8:'80%', 1:'100%'}
 filters = [
     Filter('Jahre', get_all_entries_for_column('Jahr', strophen_only=True), column_name='Jahr', multi=True),
     Filter('Sprachen', get_all_entries_for_column('Sprache', strophen_only=True), column_name='Sprache', multi=True),
     Filter('Nationalitäten', get_all_entries_for_column('Nationalität', strophen_only=True), column_name='Nationalität', multi=True),
-    Filter('Künstlerische Relevanz', range_slider=True, range=[1, 10], step=1, column_name='Künstlerische Relevanz (1-10)'),
-    Filter('Musikalische Härte', range_slider=True, range=[1, 10], step=1, column_name='Musikalische Härte (1-10)'),
-    Filter('Tanzbarkeit', range_slider=True, range=[1, 10], step=1, column_name='Tanzbarkeit (1-10)'),
-    Filter('Verblödungsfaktor', range_slider=True, range=[1, 10], step=1, column_name='Verblödungsfaktor (1-10)'),
-    Filter('Nervofantigkeit', range_slider=True, range=[1, 10], step=1, column_name='Nervofantigkeit (1-10)'),
-    Filter('Weirdness', range_slider=True, range=[1, 8], step=1, column_name='Weirdness (1-8)'),
+    Filter('Künstlerische Relevanz', range_slider=True, slider_range=[1, 10], step=1, column_name='Künstlerische Relevanz (1-10)'),
+    Filter('Musikalische Härte', range_slider=True, slider_range=[1, 10], step=1, column_name='Musikalische Härte (1-10)'),
+    Filter('Tanzbarkeit', range_slider=True, slider_range=[1, 10], step=1, column_name='Tanzbarkeit (1-10)'),
+    Filter('Verblödungsfaktor', range_slider=True, slider_range=[1, 10], step=1, column_name='Verblödungsfaktor (1-10)'),
+    Filter('Nervofantigkeit', range_slider=True, slider_range=[1, 10], step=1, column_name='Nervofantigkeit (1-10)'),
+    Filter('Weirdness', range_slider=True, slider_range=[1, 8], step=1, column_name='Weirdness (1-8)'),
+    Filter('Baujahr (<1950 in 1950 enthalten)', range_slider=True, wide=True, step=1, marks=jahrzente_marks, slider_range=[1950, get_max_entry_for_column('Baujahr')], column_name='Baujahr mapped'),
+    Filter('Dauer (Sekunden)', range_slider=True, wide=True, step=1, marks=minuten_marks, slider_range=[get_min_entry_for_column('Dauer (s)'), get_max_entry_for_column('Dauer (s)')], column_name='Dauer (s)'),
+    Filter('Startzeit relativ', range_slider=True, wide=True, step=0.001, marks=prozent_marks, slider_range=[0,1], column_name='Timestamp normalized'),
 ]
+list_of_range_slider_columns = [f.column_name for f in filters if f.is_range_slider]
 filter_inputs = [f.get_input() for f in filters]
 filter_outputs = [item for sublist in [f.get_output() for f in filters] for item in sublist]
 filter_divs = [f.get_label_dropdown() for f in filters]
@@ -120,7 +127,7 @@ def apply_pre_display_options(*args):
     kwargs_all = dict(zip([f.name for f in filters] + [f.name for f in pre_display_options], args))
     kwargs_for_df_filtering = {f.name: kwargs_all[f.name] for f in filters}
     kwargs_for_fig = {name: kwargs_all[name] for name in kwargs_all if name not in kwargs_for_df_filtering}
-    df, time_series_data = filter_df_with_filters(**kwargs_for_df_filtering)
+    df, time_series_data = filter_df_with_filters(list_of_range_slider_columns, **kwargs_for_df_filtering)
     return_list = None
     for view in views:
         output_this_view = view.apply_pre_display_options(df, **kwargs_for_fig)
@@ -145,7 +152,7 @@ def render_content(tab, *args):
     kwargs_for_df_filtering = {f.name: kwargs_all[f.name] for f in filters}
     kwargs_for_fig = {name: kwargs_all[name] for name in kwargs_all if name not in kwargs_for_df_filtering}
     # df filtering
-    df, time_series_data = filter_df_with_filters(**kwargs_for_df_filtering)
+    df, time_series_data = filter_df_with_filters(list_of_range_slider_columns, **kwargs_for_df_filtering)
     # select view based on tab selection
     view = [v for v in views if v.value == tab][0]
     # generate figure

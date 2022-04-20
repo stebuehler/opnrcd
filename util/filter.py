@@ -2,7 +2,7 @@ from dash import Input, Output, html, dcc
 import dash_bootstrap_components as dbc
 
 class Filter:
-    def __init__(self, label, options=None, tab_name=None, column_name=None, default_selection: int=0, multi: bool=False, clearable: bool=True, color=None, toggle: bool=False, button: bool=False, button_text=None, range_slider: bool=False, range=None, step=None):
+    def __init__(self, label, options=None, tab_name=None, column_name=None, default_selection: int=0, multi: bool=False, clearable: bool=True, color=None, toggle: bool=False, button: bool=False, button_text=None, range_slider: bool=False, slider_range=None, step=None, wide=False, marks=None):
         self.name = label + "-" + tab_name if tab_name is not None else column_name if column_name is not None else label
         self.label = html.Label([f'{label}:'], style={'font-weight': 'bold', 'text-align': "left", 'color': color}, id=f'{self.name}-select-label')
         self.color = color
@@ -10,6 +10,7 @@ class Filter:
         self.is_toggle = toggle
         self.is_button = button
         self.is_range_slider = range_slider
+        self.column_name=column_name
         default_selection = None if options is None else options if multi else options[default_selection] if len(options)>0 else None
         if self.is_toggle:
             self.toggle = dcc.RadioItems(
@@ -26,11 +27,16 @@ class Filter:
                 n_clicks=0,
                 )
         elif self.is_range_slider:
+            self.wide=wide
+            if marks is None:
+                marks = {n:f'{n}' for n in range(slider_range[0], slider_range[1]+1)}
             self.range_slider = dcc.RangeSlider(
-                range[0],
-                range[1],
-                step,
-                value=range,
+                slider_range[0],
+                slider_range[1],
+                step=step,
+                value=slider_range,
+                marks=marks,
+                tooltip={'always_visible': False},
                 id=f'{self.name}-select',
             )
         else:
@@ -83,11 +89,18 @@ class Filter:
         , width=3, xs=6, sm=6, md=4, lg=3, xl=3)
 
     def get_label_dropdown_range_slider(self):
-        return dbc.Col([
-            dbc.Row([html.Div([self.label], id=f'{self.name}-select-label-div')]),
-            dbc.Row([html.Div([self.range_slider], id=f'{self.name}-select-div')]),
-        ]
-        , width=3, xs=6, sm=6, md=4, lg=3, xl=3)
+        if not self.wide:
+            return dbc.Col([
+                dbc.Row([html.Div([self.label], id=f'{self.name}-select-label-div')]),
+                dbc.Row([html.Div([self.range_slider], id=f'{self.name}-select-div')]),
+            ]
+            , width=3, xs=6, sm=6, md=4, lg=3, xl=3)
+        else:
+            return dbc.Col([
+                dbc.Row([html.Div([self.label], id=f'{self.name}-select-label-div')]),
+                dbc.Row([html.Div([self.range_slider], id=f'{self.name}-select-div')]),
+            ]
+            , width=6, xs=12, sm=12, md=6, lg=6, xl=6)
 
     def get_input(self):
         if self.is_button:
