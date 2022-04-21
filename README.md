@@ -17,8 +17,6 @@
 * More refactoring of the data loading and filtering?
 * More graceful handling of filter selections that result in zero data?
 * Start with Anzeigeoptionen expanded instead of collapsed?
-* Add Baujahr as a RangeSlider (map all below 1950 to 1950)
-* Add numerical categories as RangeSliders
 * Add a more simple chart (Bar / stacked bar) to ease the experience for layman users.
 * Add a "Reset all" button in the filtering section that fills all filters up with all values.
 * Rename columns (remove "1-10"s, rename "Timestamp sekunden" to "Zeitstempel")
