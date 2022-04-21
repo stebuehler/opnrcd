@@ -39,4 +39,5 @@
 * Currently None
 ## Updates for remote app in case new packages are used in the app:
 * requirements.txt: Either manually or type 'pipreqs .' in the project directory (may first need to install pipreqs via 'pip install pipreqs'). "gunicorn" needs to be added manually after that, otherwise the remote deployment crashes.
+  * Make sure werkzeuzg is set to 2.0.0, not 2.1.0
 * environment.yml: Manually
