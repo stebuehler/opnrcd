@@ -17,8 +17,6 @@
 * More refactoring of the data loading and filtering?
 * More graceful handling of filter selections that result in zero data?
 * Start with Anzeigeoptionen expanded instead of collapsed?
-* Add Baujahr as a RangeSlider (map all below 1950 to 1950)
-* Add numerical categories as RangeSliders
 * Add a more simple chart (Bar / stacked bar) to ease the experience for layman users.
 * Add a "Reset all" button in the filtering section that fills all filters up with all values.
 * Rename columns (remove "1-10"s, rename "Timestamp sekunden" to "Zeitstempel")
@@ -41,4 +39,5 @@
 * Currently None
 ## Updates for remote app in case new packages are used in the app:
 * requirements.txt: Either manually or type 'pipreqs .' in the project directory (may first need to install pipreqs via 'pip install pipreqs'). "gunicorn" needs to be added manually after that, otherwise the remote deployment crashes.
+  * Make sure werkzeuzg is set to 2.0.0, not 2.1.0
 * environment.yml: Manually
