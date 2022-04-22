@@ -110,3 +110,6 @@ class Filter:
 
     def get_output(self):
         return [Output(f'{self.name}-select-div', 'style'), Output(f'{self.name}-select-label-div', 'style')]
+
+    def get_options_output(self):
+        pass

@@ -39,6 +39,25 @@ list_of_range_slider_columns = [f.column_name for f in filters if f.is_range_sli
 filter_inputs = [f.get_input() for f in filters]
 filter_outputs = [item for sublist in [f.get_output() for f in filters] for item in sublist]
 filter_divs = [f.get_label_dropdown() for f in filters]
+filter_options_output = [f.get_options_output() for f in filters]
+
+# "reset all" button
+# reset_all_button = Filter('', button=True, button_text='Alle Filter zurücksetzen')
+reset_all_button = dbc.Row(
+    [
+        dbc.Col(
+            [
+                dbc.Button(
+                'Alle Filter zurücksetzen',
+                id='reset-all',
+                color='primary',
+                n_clicks=0,
+                )
+            ],
+            width=3, xs=6, sm=6, md=4, lg=3, xl=3
+        )
+    ]
+)
 
 # "pre" display options. When a first callback is needed to determine the content of the display options
 pre_display_options = [f for v in views for f in v.pre_display_options_list()]
@@ -87,7 +106,8 @@ app.layout = dbc.Container([
         [
             dbc.AccordionItem(
                 [
-                    dbc.Row(filter_divs)
+                    dbc.Row(filter_divs),
+                    reset_all_button,
                 ],
                 title='Filter',
                 item_id='accordion_item_filters',
@@ -105,6 +125,14 @@ app.layout = dbc.Container([
     ),
     dbc.Row(dbc.Col(html.Div(id='tabs-content-graph')))
 ])
+
+# this callback resets all filters
+@app.callback(
+    *filter_options_output,
+    Input('reset-all', 'n_clicks')
+)
+def reset_all_filters(n):
+    return None
 
 # this callback sets the display styles of all display options (invisible except the ones for the current tab)
 @app.callback(
