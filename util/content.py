@@ -6,7 +6,7 @@ def offcanvas_content():
         Eine Netz-Applikation zur quantitativen und komparativen Analyse von OPNRCD-Strophen oder OPNRCD-Strophen-Gruppen.
 
         #### Filter
-        Ermöglichen, eine Teilmenge aller OPNRCD-Strophen zu selektieren. Wirken auf alle Reiter gleichzeitig.
+        Ermöglichen, eine Teilmenge aller OPNRCD-Strophen zu selektieren. Wirken auf alle Reiter gleichzeitig. Für Reiter "Zeitreihe" ist nur der oberste Filter aktiv.
 
         #### Anzeigeoptionen
         Erlauben, die Graphik auf dem jeweiligen Reiter anzupassen. Separat pro Reiter.
