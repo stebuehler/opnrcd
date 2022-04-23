@@ -22,23 +22,42 @@ jahrzente_marks = {1950: '1950', 1960:'1960', 1970: '1970', 1980:'1980', 1990:'1
 minuten_marks = {60:'60', 120:'120', 180:'180', 240:'240', 300:'300', 360:'360', 420:'420', 480:'480'}
 prozent_marks = {0:'0%', 0.2: '20%', 0.4: '40%', 0.6:'60%', 0.8:'80%', 1:'100%'}
 filters = [
-    Filter('Jahre', get_all_entries_for_column('Jahr', strophen_only=True), column_name='Jahr', multi=True),
-    Filter('Sprachen', get_all_entries_for_column('Sprache', strophen_only=True), column_name='Sprache', multi=True),
-    Filter('Nationalitäten', get_all_entries_for_column('Nationalität', strophen_only=True), column_name='Nationalität', multi=True),
-    Filter('Künstlerische Relevanz', range_slider=True, slider_range=[1, 10], step=1, column_name='Künstlerische Relevanz (1-10)'),
-    Filter('Musikalische Härte', range_slider=True, slider_range=[1, 10], step=1, column_name='Musikalische Härte (1-10)'),
-    Filter('Tanzbarkeit', range_slider=True, slider_range=[1, 10], step=1, column_name='Tanzbarkeit (1-10)'),
-    Filter('Verblödungsfaktor', range_slider=True, slider_range=[1, 10], step=1, column_name='Verblödungsfaktor (1-10)'),
-    Filter('Nervofantigkeit', range_slider=True, slider_range=[1, 10], step=1, column_name='Nervofantigkeit (1-10)'),
-    Filter('Weirdness', range_slider=True, slider_range=[1, 8], step=1, column_name='Weirdness (1-8)'),
-    Filter('Baujahr (<1950 in 1950 enthalten)', range_slider=True, wide=True, step=1, marks=jahrzente_marks, slider_range=[1950, get_max_entry_for_column('Baujahr')], column_name='Baujahr mapped'),
-    Filter('Dauer (Sekunden)', range_slider=True, wide=True, step=1, marks=minuten_marks, slider_range=[get_min_entry_for_column('Dauer (s)'), get_max_entry_for_column('Dauer (s)')], column_name='Dauer (s)'),
-    Filter('Startzeit relativ', range_slider=True, wide=True, step=0.001, marks=prozent_marks, slider_range=[0,1], column_name='Timestamp normalized'),
+    Filter('Jahre', options=get_all_entries_for_column('Jahr', strophen_only=True), column_name='Jahr', multi=True),
+    Filter('Sprachen', options=get_all_entries_for_column('Sprache', strophen_only=True), column_name='Sprache', multi=True),
+    Filter('Nationalitäten', options=get_all_entries_for_column('Nationalität', strophen_only=True), column_name='Nationalität', multi=True),
+    Filter('Künstlerische Relevanz', range_slider=True, options=[1, 10], step=1, column_name='Künstlerische Relevanz (1-10)'),
+    Filter('Musikalische Härte', range_slider=True, options=[1, 10], step=1, column_name='Musikalische Härte (1-10)'),
+    Filter('Tanzbarkeit', range_slider=True, options=[1, 10], step=1, column_name='Tanzbarkeit (1-10)'),
+    Filter('Verblödungsfaktor', range_slider=True, options=[1, 10], step=1, column_name='Verblödungsfaktor (1-10)'),
+    Filter('Nervofantigkeit', range_slider=True, options=[1, 10], step=1, column_name='Nervofantigkeit (1-10)'),
+    Filter('Weirdness', range_slider=True, options=[1, 8], step=1, column_name='Weirdness (1-8)'),
+    Filter('Baujahr (<1950 in 1950 enthalten)', range_slider=True, wide=True, step=1, marks=jahrzente_marks, options=[1950, get_max_entry_for_column('Baujahr')], column_name='Baujahr mapped'),
+    Filter('Dauer (Sekunden)', range_slider=True, wide=True, step=1, marks=minuten_marks, options=[get_min_entry_for_column('Dauer (s)'), get_max_entry_for_column('Dauer (s)')], column_name='Dauer (s)'),
+    Filter('Startzeit relativ', range_slider=True, wide=True, step=0.001, marks=prozent_marks, options=[0,1], column_name='Timestamp normalized'),
 ]
 list_of_range_slider_columns = [f.column_name for f in filters if f.is_range_slider]
 filter_inputs = [f.get_input() for f in filters]
 filter_outputs = [item for sublist in [f.get_output() for f in filters] for item in sublist]
 filter_divs = [f.get_label_dropdown() for f in filters]
+filter_options_output = [f.get_options_output() for f in filters]
+
+# "reset all" button
+# reset_all_button = Filter('', button=True, button_text='Alle Filter zurücksetzen')
+reset_all_button = dbc.Row(
+    [
+        dbc.Col(
+            [
+                dbc.Button(
+                'Alle Filter zurücksetzen',
+                id='reset-all',
+                color='primary',
+                n_clicks=0,
+                )
+            ],
+            width=3, xs=6, sm=6, md=4, lg=3, xl=3
+        )
+    ]
+)
 
 # "pre" display options. When a first callback is needed to determine the content of the display options
 pre_display_options = [f for v in views for f in v.pre_display_options_list()]
@@ -87,7 +106,8 @@ app.layout = dbc.Container([
         [
             dbc.AccordionItem(
                 [
-                    dbc.Row(filter_divs)
+                    dbc.Row(filter_divs),
+                    reset_all_button,
                 ],
                 title='Filter',
                 item_id='accordion_item_filters',
@@ -105,6 +125,17 @@ app.layout = dbc.Container([
     ),
     dbc.Row(dbc.Col(html.Div(id='tabs-content-graph')))
 ])
+
+# this callback resets all filters
+@app.callback(
+    *filter_options_output,
+    Input('reset-all', 'n_clicks')
+)
+def reset_all_filters(n):
+    option_list = []
+    for f in filters:
+        option_list = option_list + [f.get_original_value()]
+    return option_list
 
 # this callback sets the display styles of all display options (invisible except the ones for the current tab)
 @app.callback(

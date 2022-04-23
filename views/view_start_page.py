@@ -13,7 +13,7 @@ class ViewStartPage(AbstractView):
         self.value = self.label + '-graph'
         self.starting_page = True
         self.add_display_option('Strophe', [])
-        self.add_pre_display_option('Zufallsstrophe', button=True, button_text="I'm feeling lucky!")
+        self.add_pre_display_option('Zufallsstrophe', button=True, button_text="Ich glaub ich hab Glück!")
         self.define_pre_display_target_outputs()
 
     def define_pre_display_target_outputs(self):
