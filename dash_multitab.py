@@ -132,7 +132,10 @@ app.layout = dbc.Container([
     Input('reset-all', 'n_clicks')
 )
 def reset_all_filters(n):
-    return None
+    option_list = []
+    for f in filters:
+        option_list = option_list + [f.get_original_value()]
+    return option_list
 
 # this callback sets the display styles of all display options (invisible except the ones for the current tab)
 @app.callback(

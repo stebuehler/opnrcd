@@ -11,6 +11,7 @@ class Filter:
         self.is_button = button
         self.is_range_slider = range_slider
         self.column_name=column_name
+        self.original_value = options
         default_selection = None if options is None else options if multi else options[default_selection] if len(options)>0 else None
         if self.is_toggle:
             self.toggle = dcc.RadioItems(
@@ -112,4 +113,7 @@ class Filter:
         return [Output(f'{self.name}-select-div', 'style'), Output(f'{self.name}-select-label-div', 'style')]
 
     def get_options_output(self):
-        return Output(f'{self.name}-select-div', 'options')
+        return Output(f'{self.name}-select', 'value')
+
+    def get_original_value(self):
+        return self.original_value
