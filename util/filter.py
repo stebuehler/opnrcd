@@ -2,7 +2,7 @@ from dash import Input, Output, html, dcc
 import dash_bootstrap_components as dbc
 
 class Filter:
-    def __init__(self, label, options=None, tab_name=None, column_name=None, default_selection: int=0, multi: bool=False, clearable: bool=True, color=None, toggle: bool=False, button: bool=False, button_text=None, range_slider: bool=False, slider_range=None, step=None, wide=False, marks=None):
+    def __init__(self, label, options=None, tab_name=None, column_name=None, default_selection: int=0, multi: bool=False, clearable: bool=True, color=None, toggle: bool=False, button: bool=False, button_text=None, range_slider: bool=False, step=None, wide=False, marks=None):
         self.name = label + "-" + tab_name if tab_name is not None else column_name if column_name is not None else label
         self.label = html.Label([f'{label}:'], style={'font-weight': 'bold', 'text-align': "left", 'color': color}, id=f'{self.name}-select-label')
         self.color = color
@@ -29,12 +29,12 @@ class Filter:
         elif self.is_range_slider:
             self.wide=wide
             if marks is None:
-                marks = {n:f'{n}' for n in range(slider_range[0], slider_range[1]+1)}
+                marks = {n:f'{n}' for n in range(options[0], options[1]+1)}
             self.range_slider = dcc.RangeSlider(
-                slider_range[0],
-                slider_range[1],
+                options[0],
+                options[1],
                 step=step,
-                value=slider_range,
+                value=options,
                 marks=marks,
                 tooltip={'always_visible': False},
                 id=f'{self.name}-select',
@@ -112,4 +112,4 @@ class Filter:
         return [Output(f'{self.name}-select-div', 'style'), Output(f'{self.name}-select-label-div', 'style')]
 
     def get_options_output(self):
-        pass
+        return Output(f'{self.name}-select-div', 'options')
