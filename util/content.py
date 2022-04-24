@@ -3,10 +3,10 @@ from dash import dcc
 def offcanvas_content():
     content = dcc.Markdown('''
         #### OPNRCD-ANLTK
-        Eine Netz-Applikation zur quantitativen und komparativen Analyse von OPNRCD-Strophen oder OPNRCD-Strophen-Gruppen.
+        Eine Netz-Applikation zur quantitativen und komparativen Analyse von OPNRCD-Strophen oder OPNRCD-Strophen-Gruppen. Funktional auf mobilen Endgeräten aber idealerweise auf einem Rechner mit Mauszeiger benutzt.
 
         #### Filter
-        Ermöglichen, eine Teilmenge aller OPNRCD-Strophen zu selektieren. Wirken auf alle Reiter gleichzeitig. Für Reiter "Zeitreihe" ist nur der oberste Filter aktiv.
+        Ermöglichen, eine Teilmenge aller OPNRCD-Strophen zu selektieren. Wirken auf alle Reiter gleichzeitig. Für Reiter "Zeitreihe" ist nur der Jahres-Filter aktiv.
 
         #### Anzeigeoptionen
         Erlauben, die Graphik auf dem jeweiligen Reiter anzupassen. Separat pro Reiter.
