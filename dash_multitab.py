@@ -186,8 +186,12 @@ def render_content(tab, *args):
     # select view based on tab selection
     view = [v for v in views if v.value == tab][0]
     # generate figure
-    view.generate_fig(df, time_series_data, **kwargs_for_fig)
-    return view.get_fig()
+    try:
+        view.generate_fig(df, time_series_data, **kwargs_for_fig)
+        return view.get_fig()
+    except Exception:
+        return html.Div(['Leerer Datensatz!'])
+        
 
 # aux callback for the offcanvas (help "hä" page)
 @app.callback(

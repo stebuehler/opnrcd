@@ -24,7 +24,7 @@ class ViewStartPage(AbstractView):
         entries = get_all_entries_for_column('Titel', df)
         return_dict = [{'label': i, 'value': i} for i in entries]
         random_index = floor(random()*len(entries))
-        return [return_dict, entries[random_index]]
+        return [return_dict, entries[random_index]] if len(entries) > 0 else [return_dict, None]
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
         strophe = kwargs[self.get_display_option_id('Strophe')]
