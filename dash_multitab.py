@@ -42,7 +42,6 @@ filter_divs = [f.get_label_dropdown() for f in filters]
 filter_options_output = [f.get_options_output() for f in filters]
 
 # "reset all" button
-# reset_all_button = Filter('', button=True, button_text='Alle Filter zurücksetzen')
 reset_all_button = dbc.Row(
     [
         dbc.Col(
@@ -87,7 +86,7 @@ app.layout = dbc.Container([
         children=[
             dbc.NavItem(dbc.NavLink("opnrcd.ch", href="https://www.opnrcd.ch/", target="_blank")),
             dbc.NavItem(dbc.NavLink("figg-di.ch", href="https://www.figg-di.ch/", target="_blank")),
-            dbc.Button("hä?", id='button_open_offcanvas', color="primary", style={"text-align": "left"}),
+            dbc.Button("Was isch das für en Scheiss?", id='button_open_offcanvas', color="primary", style={"text-align": "left"}),
         ],
         brand="OPNRCD-ANLTK",
         brand_href="#",

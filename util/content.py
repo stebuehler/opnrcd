@@ -32,6 +32,10 @@ def offcanvas_content():
         - **Nervofantigkeit:** Variable welche die Genervtheit einer durchschnittlichen OPNRCD-Hörperson durch wiederholte akustische Exponiertheit zu besagter Strophe quantifiziert.  
         - **Weirdness:** Beschreibt wie komisch, resp. einzigartig die besagte Strophe ist.
 
+        #### Gewichtung
+        Falls nicht explizit erwähnt oder wählbar, werden Werte immer mit der **Dauer** der Strophe gewichtet, um Werte auf aggregierter Ebene zu erhalten.  
+        **Rechnungsbeispiel**: Die Summe einer Strophe mit Nervofantigkeit 3 und Dauer 2:00 und einer Strophe mit Nervofantigkeit 6 und Dauer 1:00 hat Nervofantigkeit 4 (4 = (2 x 3 + 1 x 6) / (2 + 1)).
+
         #### Skits
         Skits (belustigende Zwischenspiele, die aber keine echten OPNRCD-Strophen sind) sind von der Bewertung und allen momentan verfügbaren Analytik-Exponaten **ausgeschlossen**. Die Dauer der Skits ist in der Gesamtdauer pro OPNRCD enthalten, welche auf dem "Strophensteckbrief"-Reiter, sowie auf dem "Zeitreihe"-Reiter ausgewiesen wird. In allen anderen Reitern summiert sich die Gesamtdauer aller echten OPNRCD-Strophen zu einer kürzeren Dauer.
 
