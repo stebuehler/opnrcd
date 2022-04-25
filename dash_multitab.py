@@ -190,7 +190,7 @@ def render_content(tab, *args):
         view.generate_fig(df, time_series_data, **kwargs_for_fig)
         return view.get_fig()
     except Exception:
-        return html.Div(['Empty data'])
+        return html.Div(['Leerer Datensatz!'])
         
 
 # aux callback for the offcanvas (help "hä" page)
