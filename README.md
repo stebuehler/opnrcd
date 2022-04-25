@@ -15,7 +15,6 @@
 ## To Do
 ### App
 * More refactoring of the data loading and filtering?
-* More graceful handling of filter selections that result in zero data?
 * Add a more simple chart (Bar / stacked bar) to ease the experience for layman users?
 * Rename columns (remove "1-10"s, rename "Timestamp sekunden" to "Zeitstempel")
 ### Dashboards
