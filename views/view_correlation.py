@@ -17,6 +17,6 @@ class ViewCorrelation(AbstractView):
         self.fig.data[0].hovertemplate = 'x: %{x}<br>y: %{y}<br>Korrelation = %{z:.3f}<extra></extra>'
 
     def prepare_df(self, df):
-        df = df[NUMERICAL_VARIABLES + ['Dauer (m)', 'Baujahr', 'Timestamp sekunden']].dropna().corr()
+        df = df[NUMERICAL_VARIABLES + ['Dauer (m)', 'Baujahr', 'Startzeit (s)']].dropna().corr()
         np.fill_diagonal(df.values, 0)
         return df

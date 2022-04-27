@@ -52,6 +52,6 @@ class ViewParallelCategory(AbstractView):
             8: 'High',
         }
         for variable in NUMERICAL_VARIABLES:
-            mapping = map_for_weirdness if variable == 'Weirdness (1-8)' else map_for_all_except_weirdness
+            mapping = map_for_weirdness if variable == 'Weirdness' else map_for_all_except_weirdness
             df[variable] = df[variable].map(mapping)
         return df

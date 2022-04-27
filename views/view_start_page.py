@@ -21,14 +21,14 @@ class ViewStartPage(AbstractView):
         self.pre_display_option_target_outputs.append(Output(self.get_display_option_id('Strophe') + '-select', 'value'))
 
     def apply_pre_display_options(self, df, **kwargs):
-        entries = get_all_entries_for_column('Titel', df)
+        entries = get_all_entries_for_column('Strophentitel', df)
         return_dict = [{'label': i, 'value': i} for i in entries]
         random_index = floor(random()*len(entries))
         return [return_dict, entries[random_index]] if len(entries) > 0 else [return_dict, None]
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
         strophe = kwargs[self.get_display_option_id('Strophe')]
-        df = opnrcd_df[opnrcd_df['Titel'] == strophe]
+        df = opnrcd_df[opnrcd_df['Strophentitel'] == strophe]
         dauer = df["Dauer (s)"].iloc[0]
         dauer_string = f'{floor(dauer / 60):.0f}' + ':' + f'{dauer - 60*floor(dauer / 60):02d}'
         self.card = dbc.Card(
@@ -49,15 +49,15 @@ class ViewStartPage(AbstractView):
                             'Baujahr:                  ' + f'{df["Baujahr"].iloc[0]:.0f}', html.Br(),
                             html.Br(),
                             'Dauer:                    ' + dauer_string, html.Br(),
-                            'Startzeit auf CD:         ' + df["Timestamp"].iloc[0], html.Br(),
-                            'Startzeit relativ:        ' + f'{df["Timestamp normalized"].iloc[0]:.1%}', html.Br(),
+                            'Startzeit auf CD:         ' + df["Startzeit"].iloc[0], html.Br(),
+                            'Startzeit relativ:        ' + f'{df["Startzeit normalized"].iloc[0]:.1%}', html.Br(),
                             html.Br(),
-                            'Künstlerische Relevanz:   ' + f'{df["Künstlerische Relevanz (1-10)"].iloc[0]:.0f}', html.Br(),
-                            'Musikalische Härte:       ' + f'{df["Musikalische Härte (1-10)"].iloc[0]:.0f}', html.Br(),
-                            'Tanzbarkeit:              ' + f'{df["Tanzbarkeit (1-10)"].iloc[0]:.0f}', html.Br(),
-                            'Nervofantigkeit:          ' + f'{df["Nervofantigkeit (1-10)"].iloc[0]:.0f}', html.Br(),
-                            'Verblödungsfaktor:        ' + f'{df["Verblödungsfaktor (1-10)"].iloc[0]:.0f}', html.Br(),
-                            'Weirdness:                ' + f'{df["Weirdness (1-8)"].iloc[0]:.0f}',
+                            'Künstlerische Relevanz:   ' + f'{df["Künstlerische Relevanz"].iloc[0]:.0f}', html.Br(),
+                            'Musikalische Härte:       ' + f'{df["Musikalische Härte"].iloc[0]:.0f}', html.Br(),
+                            'Tanzbarkeit:              ' + f'{df["Tanzbarkeit"].iloc[0]:.0f}', html.Br(),
+                            'Nervofantigkeit:          ' + f'{df["Nervofantigkeit"].iloc[0]:.0f}', html.Br(),
+                            'Verblödungsfaktor:        ' + f'{df["Verblödungsfaktor"].iloc[0]:.0f}', html.Br(),
+                            'Weirdness:                ' + f'{df["Weirdness"].iloc[0]:.0f}',
                         ],
                         className='card-text',
                         style={'white-space': 'pre', 'font-family': 'monospace'},
