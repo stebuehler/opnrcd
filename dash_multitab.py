@@ -25,15 +25,15 @@ filters = [
     Filter('Jahre', options=get_all_entries_for_column('Jahr', strophen_only=True), column_name='Jahr', multi=True),
     Filter('Sprachen', options=get_all_entries_for_column('Sprache', strophen_only=True), column_name='Sprache', multi=True),
     Filter('Nationalitäten', options=get_all_entries_for_column('Nationalität', strophen_only=True), column_name='Nationalität', multi=True),
-    Filter('Künstlerische Relevanz', range_slider=True, options=[1, 10], step=1, column_name='Künstlerische Relevanz (1-10)'),
-    Filter('Musikalische Härte', range_slider=True, options=[1, 10], step=1, column_name='Musikalische Härte (1-10)'),
-    Filter('Tanzbarkeit', range_slider=True, options=[1, 10], step=1, column_name='Tanzbarkeit (1-10)'),
-    Filter('Verblödungsfaktor', range_slider=True, options=[1, 10], step=1, column_name='Verblödungsfaktor (1-10)'),
-    Filter('Nervofantigkeit', range_slider=True, options=[1, 10], step=1, column_name='Nervofantigkeit (1-10)'),
-    Filter('Weirdness', range_slider=True, options=[1, 8], step=1, column_name='Weirdness (1-8)'),
+    Filter('Künstlerische Relevanz', range_slider=True, options=[1, 10], step=1, column_name='Künstlerische Relevanz'),
+    Filter('Musikalische Härte', range_slider=True, options=[1, 10], step=1, column_name='Musikalische Härte'),
+    Filter('Tanzbarkeit', range_slider=True, options=[1, 10], step=1, column_name='Tanzbarkeit'),
+    Filter('Verblödungsfaktor', range_slider=True, options=[1, 10], step=1, column_name='Verblödungsfaktor'),
+    Filter('Nervofantigkeit', range_slider=True, options=[1, 10], step=1, column_name='Nervofantigkeit'),
+    Filter('Weirdness', range_slider=True, options=[1, 8], step=1, column_name='Weirdness'),
     Filter('Baujahr (<1950 in 1950 enthalten)', range_slider=True, wide=True, step=1, marks=jahrzente_marks, options=[1950, get_max_entry_for_column('Baujahr')], column_name='Baujahr mapped'),
     Filter('Dauer (Sekunden)', range_slider=True, wide=True, step=1, marks=minuten_marks, options=[get_min_entry_for_column('Dauer (s)'), get_max_entry_for_column('Dauer (s)')], column_name='Dauer (s)'),
-    Filter('Startzeit relativ', range_slider=True, wide=True, step=0.001, marks=prozent_marks, options=[0,1], column_name='Timestamp normalized'),
+    Filter('Startzeit relativ', range_slider=True, wide=True, step=0.001, marks=prozent_marks, options=[0,1], column_name='Startzeit normalized'),
 ]
 list_of_range_slider_columns = [f.column_name for f in filters if f.is_range_slider]
 filter_inputs = [f.get_input() for f in filters]

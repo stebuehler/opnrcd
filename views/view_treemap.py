@@ -8,8 +8,8 @@ class ViewTreemap(AbstractView):
         self.label = 'Kacheldiagramm'
         self.value = self.label + '-graph'
         self.add_display_option('Mass', ['Dauer (min)', 'Anzahl'])
-        self.add_display_option('Gruppierung', ['Jahr', 'Nationalität', 'Sprache', 'Baujahr', 'Künstler', 'Titel'])
-        self.add_display_option('Farbe', NUMERICAL_VARIABLES + ['Timestamp sekunden', 'Jahr', 'Baujahr'], default_selection=2)
+        self.add_display_option('Gruppierung', ['Jahr', 'Nationalität', 'Sprache', 'Baujahr', 'Künstler', 'Strophentitel'])
+        self.add_display_option('Farbe', NUMERICAL_VARIABLES + ['Startzeit (s)', 'Jahr', 'Baujahr'], default_selection=2)
 
     def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
         measure = kwargs[self.get_display_option_id('Mass')]
@@ -32,16 +32,16 @@ class ViewTreemap(AbstractView):
 
     def give_path(self, groupby):
         if groupby == 'Nationalität':
-            return ['Total', 'Kontinent', 'Nationalität', 'Künstler', 'Titel']
+            return ['Total', 'Kontinent', 'Nationalität', 'Künstler', 'Strophentitel']
         elif groupby == 'Sprache':
-            return ['Total', 'Sprache gruppiert 2', 'Sprache', 'Künstler', 'Titel']
+            return ['Total', 'Sprache gruppiert 2', 'Sprache', 'Künstler', 'Strophentitel']
         elif groupby == 'Baujahr':
-            return ['Total', 'Baujahr Jahrzehnt', 'Baujahr', 'Künstler', 'Titel']
+            return ['Total', 'Baujahr Jahrzehnt', 'Baujahr', 'Künstler', 'Strophentitel']
         elif groupby == 'Jahr':
-            return ['Total', 'Jahr', 'Künstler', 'Titel']
+            return ['Total', 'Jahr', 'Künstler', 'Strophentitel']
         elif groupby == 'Künstler':
-            return ['Total', 'Künstler', 'Titel']
-        elif groupby == 'Titel':
-            return ['Total', 'Titel']
+            return ['Total', 'Künstler', 'Strophentitel']
+        elif groupby == 'Strophentitel':
+            return ['Total', 'Strophentitel']
         else:
             raise NotImplementedError

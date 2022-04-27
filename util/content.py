@@ -20,8 +20,8 @@ def offcanvas_content():
         - **Künstler:** Interpret der Strophe.  
         - **Nationalität:** Die Nationalität des (Haupt-)Interpreten.  
         - **Sprache:** (Haupt-)Sprache, in der der Strophentext verfasst ist. Kann "Mehrere" sein, falls mehrere ähnlich stark vertretene Sprachen vorhanden sind.          
-        - **Timestamp:** Startzeit der Strophe auf der jeweiligen OPNRCD.  
-        - **Titel:** Name der Strophe.  
+        - **Startzeit:** Startzeit der Strophe auf der jeweiligen OPNRCD.  
+        - **Strophentitel:** Name der Strophe.  
 
         #### Strophenbewertung
         Die Bewertung der Strophen in den sechs Kategorien wurde stets in alkoholisiertem Zustand im Reinraum von geschultem Personal (OPNRCDKMT) durchgeführt; und ist ISO-zertifiziert. Alle Kategorien weisen ganzzahlige Wert zwischen eins und zehn auf. Ausser die Kategorie Weirdness, welche sich von eins bis acht erstreckt.

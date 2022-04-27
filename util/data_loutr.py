@@ -1,12 +1,12 @@
 import pandas as pd
 
 NUMERICAL_VARIABLES = [
-    'Künstlerische Relevanz (1-10)',
-    'Musikalische Härte (1-10)',
-    'Tanzbarkeit (1-10)',
-    'Verblödungsfaktor (1-10)',
-    'Nervofantigkeit (1-10)',
-    'Weirdness (1-8)'
+    'Künstlerische Relevanz',
+    'Musikalische Härte',
+    'Tanzbarkeit',
+    'Verblödungsfaktor',
+    'Nervofantigkeit',
+    'Weirdness'
 ]
 
 def load_data(strophen_only: bool=True) -> pd.DataFrame:
@@ -19,8 +19,8 @@ def load_data(strophen_only: bool=True) -> pd.DataFrame:
 
 
 def get_normalized_time_series(df) -> pd.DataFrame:
-    df['Timestamp normalized'] = df['Timestamp sekunden'] / df.groupby('Jahr')['Dauer (s)'].transform('sum')
-    df_ts = df[df['Strophe?']].set_index(['Timestamp normalized', 'Jahr'])[NUMERICAL_VARIABLES].unstack('Jahr').ffill()
+    df['Startzeit normalized'] = df['Startzeit (s)'] / df.groupby('Jahr')['Dauer (s)'].transform('sum')
+    df_ts = df[df['Strophe?']].set_index(['Startzeit normalized', 'Jahr'])[NUMERICAL_VARIABLES].unstack('Jahr').ffill()
     # Add 1.0 as last time index
     series = df_ts.iloc[-1]
     series.name = 1.0
