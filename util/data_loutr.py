@@ -19,8 +19,8 @@ def load_data(strophen_only: bool=True) -> pd.DataFrame:
 
 
 def get_normalized_time_series(df) -> pd.DataFrame:
-    df['Startzeit normalized'] = df['Startzeit (s)'] / df.groupby('Jahr')['Dauer (s)'].transform('sum')
-    df_ts = df[df['Strophe?']].set_index(['Startzeit normalized', 'Jahr'])[NUMERICAL_VARIABLES].unstack('Jahr').ffill()
+    df['Startzeit normalisiert'] = df['Startzeit (s)'] / df.groupby('Jahr')['Dauer (s)'].transform('sum')
+    df_ts = df[df['Strophe?']].set_index(['Startzeit normalisiert', 'Jahr'])[NUMERICAL_VARIABLES].unstack('Jahr').ffill()
     # Add 1.0 as last time index
     series = df_ts.iloc[-1]
     series.name = 1.0

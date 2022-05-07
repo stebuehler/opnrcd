@@ -21,6 +21,7 @@ def offcanvas_content():
         - **Nationalität:** Die Nationalität des (Haupt-)Interpreten.  
         - **Sprache:** (Haupt-)Sprache, in der der Strophentext verfasst ist. Kann "Mehrere" sein, falls mehrere ähnlich stark vertretene Sprachen vorhanden sind.          
         - **Startzeit:** Startzeit der Strophe auf der jeweiligen OPNRCD.  
+        - **Startzeit normalisiert:** Startzeit der Strophe, geteilt durch Gesamtlänge der jeweiligen OPNRCD. Wert entsprechend im Intervall \[0,1).  
         - **Strophentitel:** Name der Strophe.  
 
         #### Strophenbewertung

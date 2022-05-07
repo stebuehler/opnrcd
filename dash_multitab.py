@@ -33,7 +33,7 @@ filters = [
     Filter('Weirdness', range_slider=True, options=[1, 8], step=1, column_name='Weirdness'),
     Filter('Baujahr (<1950 in 1950 enthalten)', range_slider=True, wide=True, step=1, marks=jahrzente_marks, options=[1950, get_max_entry_for_column('Baujahr')], column_name='Baujahr mapped'),
     Filter('Dauer (Sekunden)', range_slider=True, wide=True, step=1, marks=minuten_marks, options=[get_min_entry_for_column('Dauer (s)'), get_max_entry_for_column('Dauer (s)')], column_name='Dauer (s)'),
-    Filter('Startzeit relativ', range_slider=True, wide=True, step=0.001, marks=prozent_marks, options=[0,1], column_name='Startzeit normalized'),
+    Filter('Startzeit normalisiert', range_slider=True, wide=True, step=0.001, marks=prozent_marks, options=[0,1], column_name='Startzeit normalisiert'),
 ]
 list_of_range_slider_columns = [f.column_name for f in filters if f.is_range_slider]
 filter_inputs = [f.get_input() for f in filters]
