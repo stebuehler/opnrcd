@@ -8,8 +8,8 @@ class ViewScatter(AbstractView):
         self.label = 'Streudiagramm'
         self.value = self.label + '-graph'
         self.add_display_option('Gruppierung', ['Jahr', 'Nationalität', 'Kontinent', 'Sprache', 'Baujahr', 'Baujahr Jahrzehnt', 'Künstler', 'Strophentitel'])
-        self.add_display_option('x-Achse', NUMERICAL_VARIABLES + ['Startzeit (s)', 'Dauer (m)'])
-        self.add_display_option('y-Achse', NUMERICAL_VARIABLES + ['Startzeit (s)', 'Dauer (m)'], default_selection=1)
+        self.add_display_option('x-Achse', NUMERICAL_VARIABLES + ['Startzeit (s)', 'Dauer (m)', 'Jahr', 'Baujahr'])
+        self.add_display_option('y-Achse', NUMERICAL_VARIABLES + ['Startzeit (s)', 'Dauer (m)', 'Jahr', 'Baujahr'], default_selection=1)
         self.add_display_option('Farbe', NUMERICAL_VARIABLES + ['Startzeit (s)', 'Dauer (m)', 'Jahr', 'Baujahr'], default_selection=2)
         self.add_display_option('Beschriftung', ['An', 'Aus'], toggle=True)
 
