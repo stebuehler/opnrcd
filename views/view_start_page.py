@@ -50,7 +50,7 @@ class ViewStartPage(AbstractView):
                             html.Br(),
                             'Dauer:                    ' + dauer_string, html.Br(),
                             'Startzeit auf CD:         ' + df["Startzeit"].iloc[0], html.Br(),
-                            'Startzeit relativ:        ' + f'{df["Startzeit normalisiert"].iloc[0]:.1%}', html.Br(),
+                            'Startzeit normalisiert:   ' + f'{df["Startzeit normalisiert"].iloc[0]:.1%}', html.Br(),
                             html.Br(),
                             'Künstlerische Relevanz:   ' + f'{df["Künstlerische Relevanz"].iloc[0]:.0f}', html.Br(),
                             'Musikalische Härte:       ' + f'{df["Musikalische Härte"].iloc[0]:.0f}', html.Br(),
