@@ -11,7 +11,7 @@ class ViewTreemap(AbstractView):
         self.add_display_option('Gruppierung', ['Jahr', 'Nationalität', 'Sprache', 'Baujahr', 'Künstler', 'Strophentitel'])
         self.add_display_option('Farbe', NUMERICAL_VARIABLES + ['Startzeit (s)', 'Jahr', 'Baujahr'], default_selection=2)
 
-    def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
+    def generate_fig(self, opnrcd_df, normalized_time_series, time_series_by_year, **kwargs):
         measure = kwargs[self.get_display_option_id('Mass')]
         color=kwargs[self.get_display_option_id('Farbe')]
         df = self.prepare_df(opnrcd_df)

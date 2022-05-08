@@ -157,7 +157,7 @@ def apply_pre_display_options(*args):
     kwargs_all = dict(zip([f.name for f in filters] + [f.name for f in pre_display_options], args))
     kwargs_for_df_filtering = {f.name: kwargs_all[f.name] for f in filters}
     kwargs_for_fig = {name: kwargs_all[name] for name in kwargs_all if name not in kwargs_for_df_filtering}
-    df, time_series_data = filter_df_with_filters(list_of_range_slider_columns, **kwargs_for_df_filtering)
+    df, time_series_data, time_series_by_year = filter_df_with_filters(list_of_range_slider_columns, **kwargs_for_df_filtering)
     return_list = None
     for view in views:
         output_this_view = view.apply_pre_display_options(df, **kwargs_for_fig)
@@ -182,12 +182,12 @@ def render_content(tab, *args):
     kwargs_for_df_filtering = {f.name: kwargs_all[f.name] for f in filters}
     kwargs_for_fig = {name: kwargs_all[name] for name in kwargs_all if name not in kwargs_for_df_filtering}
     # df filtering
-    df, time_series_data = filter_df_with_filters(list_of_range_slider_columns, **kwargs_for_df_filtering)
+    df, time_series_data, time_series_by_year = filter_df_with_filters(list_of_range_slider_columns, **kwargs_for_df_filtering)
     # select view based on tab selection
     view = [v for v in views if v.value == tab][0]
     # generate figure
     try:
-        view.generate_fig(df, time_series_data, **kwargs_for_fig)
+        view.generate_fig(df, time_series_data, time_series_by_year, **kwargs_for_fig)
         return view.get_fig()
     except Exception:
         return html.Div(['Leerer Datensatz!'])

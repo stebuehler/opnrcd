@@ -12,7 +12,7 @@ class Filter:
         self.is_range_slider = range_slider
         self.column_name=column_name
         self.original_value = options
-        default_selection = None if options is None else options if multi else options[default_selection] if len(options)>0 else None
+        default_selection = None if options is None else options if multi else options[default_selection] if len(options)>0 and default_selection>-1 else None
         if self.is_toggle:
             self.toggle = dcc.RadioItems(
                 id=f'{self.name}-select',

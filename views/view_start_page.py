@@ -26,7 +26,7 @@ class ViewStartPage(AbstractView):
         random_index = floor(random()*len(entries))
         return [return_dict, entries[random_index]] if len(entries) > 0 else [return_dict, None]
 
-    def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
+    def generate_fig(self, opnrcd_df, normalized_time_series, time_series_by_year, **kwargs):
         strophe = kwargs[self.get_display_option_id('Strophe')]
         df = opnrcd_df[opnrcd_df['Strophentitel'] == strophe]
         dauer = df["Dauer (s)"].iloc[0]

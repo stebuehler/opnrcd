@@ -9,7 +9,7 @@ class ViewParallelCategory(AbstractView):
         self.value = self.label + '-graph'
         self.active_filters = ['Jahre', 'Sprachen', 'Variables to show', 'Level of detail']
 
-    def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
+    def generate_fig(self, opnrcd_df, normalized_time_series, time_series_by_year, **kwargs):
         years = kwargs['Jahre']
         sprachen = kwargs['Sprachen']
         variables_to_show = kwargs['Variables to show']

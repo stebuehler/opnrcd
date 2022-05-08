@@ -13,7 +13,7 @@ class ViewScatter(AbstractView):
         self.add_display_option('Farbe', NUMERICAL_VARIABLES + ['Startzeit normalisiert', 'Dauer (m)', 'Jahr', 'Baujahr'], default_selection=2)
         self.add_display_option('Beschriftung', ['An', 'Aus'], toggle=True)
 
-    def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
+    def generate_fig(self, opnrcd_df, normalized_time_series, time_series_by_year, **kwargs):
         # retrieve display options
         x_axis_name = kwargs[self.get_display_option_id('x-Achse')]
         y_axis_name = kwargs[self.get_display_option_id('y-Achse')]
