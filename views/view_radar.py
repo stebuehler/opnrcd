@@ -30,7 +30,7 @@ class ViewRadar(AbstractView):
         else:
             return [return_dict, return_dict, None, None]
 
-    def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
+    def generate_fig(self, opnrcd_df, normalized_time_series, time_series_by_year, **kwargs):
         column_chosen = kwargs[self.get_pre_display_option_id('Zu vergleichendes Attribut')]
         radar1 = kwargs[self.get_display_option_id('Blau')]
         radar2 = kwargs[self.get_display_option_id('Rot')]

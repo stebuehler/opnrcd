@@ -25,9 +25,7 @@
 * Correlation
   * None
 * Time-series
-  * Make plot react to "Startzeit" filter
-  * Add the possibility to show a single year within the same plot (highlighted).
-  * Why just two measures shown, why not all at once? (i.e. all six Bewertungskriterien in plots). Could get too busy, though.
+  * None
 * Treemap
   * None
 * Radar

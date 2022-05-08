@@ -11,7 +11,7 @@ class ViewHeatmap(AbstractView):
         self.add_display_option('y-Achse', NUMERICAL_VARIABLES, default_selection=1)
         self.add_display_option('Mass', ['Dauer (min)', 'Anzahl'])
 
-    def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
+    def generate_fig(self, opnrcd_df, normalized_time_series, time_series_by_year, **kwargs):
         measure = kwargs[self.get_display_option_id('Mass')]
         x_axis_name = kwargs[self.get_display_option_id('x-Achse')]
         y_axis_name = kwargs[self.get_display_option_id('y-Achse')]

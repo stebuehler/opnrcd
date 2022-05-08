@@ -70,7 +70,7 @@ def filter_df_with_filters(list_of_range_slider_columns, **kwargs):
         else:
             values = kwargs[column] 
             df = df[df[column].isin(values)]
-    return df, mean_std_time_series
+    return df, mean_std_time_series, time_series
 
 def map_baujahr(df):
     df['Baujahr mapped'] = df['Baujahr'].apply(lambda x: x if x > 1950 else 1950)

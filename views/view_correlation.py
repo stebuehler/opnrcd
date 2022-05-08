@@ -10,7 +10,7 @@ class ViewCorrelation(AbstractView):
         self.label = 'Korrelation'
         self.value = self.label + '-graph'
 
-    def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
+    def generate_fig(self, opnrcd_df, normalized_time_series, time_series_by_year, **kwargs):
         corr_df = self.prepare_df(opnrcd_df)
         self.fig = px.imshow(corr_df, text_auto=".2f", color_continuous_scale=px.colors.diverging.RdBu, color_continuous_midpoint=0)
         self.fig.update_layout(transition_duration=200)
