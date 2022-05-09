@@ -78,7 +78,7 @@ app = dash.Dash(
     meta_tags=[{'name': 'viewport', 'content': 'width=device-width, initial-scale=1'}]
     )
 server = app.server
-app.title = "OPNRCD-ANLTK"
+app.title = "OPNRCDANLTK"
 
 # and here comes the layout...
 app.layout = dbc.Container([
@@ -88,7 +88,7 @@ app.layout = dbc.Container([
             dbc.NavItem(dbc.NavLink("figg-di.ch", href="https://www.figg-di.ch/", target="_blank")),
             dbc.Button("Was isch das für en Scheiss?", id='button_open_offcanvas', color="primary", style={"text-align": "left"}),
         ],
-        brand="OPNRCD-ANLTK",
+        brand="OPNRCDANLTK",
         brand_href="#",
         color="primary",
         dark=True
