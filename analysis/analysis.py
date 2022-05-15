@@ -79,7 +79,7 @@ assert full_df[f'distance_{len(NUMERICAL_VARIABLES)}'].max() < 1.e-10
 
 sort_by_n_components = 5
 # Top & bottom five Strophen by distance to prediction
-by_strophe =full_df[full_df['Jahr'] != '2021'].sort_values(f'distance_{sort_by_n_components}')[['Jahr', 'Künstler', 'Titel'] + [f'distance_{n_components}' for n_components in range(1, len(NUMERICAL_VARIABLES))]]
+by_strophe =full_df[full_df['Jahr'] != '2021'].sort_values(f'distance_{sort_by_n_components}')[['Jahr', 'Künstler', 'Strophentitel'] + [f'distance_{n_components}' for n_components in range(1, len(NUMERICAL_VARIABLES))]]
 
 # average distance per year
 by_year = full_df[full_df['Jahr'] != '2021'].groupby('Jahr').mean()[[f'distance_{n_components}' for n_components in range(1, len(NUMERICAL_VARIABLES))]].sort_values(f'distance_{sort_by_n_components}')

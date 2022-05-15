@@ -1,43 +1,47 @@
 from views.abstract_view import AbstractView
+from util.data_loutr import NUMERICAL_VARIABLES
 import plotly.express as px
 
 class ViewTreemap(AbstractView):
     def __init__(self):
         AbstractView.__init__(self)
-        self.label = 'Treemap'
+        self.label = 'Kacheldiagramm'
         self.value = self.label + '-graph'
-        self.active_filters = ['Jahre', 'Measure', 'Group by', 'Color']
+        self.add_display_option('Mass', ['Dauer (min)', 'Anzahl'])
+        self.add_display_option('Gruppierung', ['Jahr', 'Nationalität', 'Sprache', 'Baujahr', 'Künstler', 'Strophentitel'])
+        self.add_display_option('Farbe', NUMERICAL_VARIABLES + ['Startzeit (s)', 'Jahr', 'Baujahr'], default_selection=2)
 
-    def generate_fig(self, opnrcd_df, normalized_time_series, **kwargs):
-        years = kwargs['Jahre']
-        measure = kwargs['Measure']
-        self.prepare_df(opnrcd_df, years)
-        treemap_path = self.give_path(kwargs['Group by'])
+    def generate_fig(self, opnrcd_df, normalized_time_series, time_series_by_year, **kwargs):
+        measure = kwargs[self.get_display_option_id('Mass')]
+        color=kwargs[self.get_display_option_id('Farbe')]
+        df = self.prepare_df(opnrcd_df)
+        treemap_path = self.give_path(kwargs[self.get_display_option_id('Gruppierung')])
         self.fig = px.treemap(
-            self.df, path=treemap_path, 
-            values='Count' if measure == 'Count' else 'Dauer (m)',
-            color=kwargs['Color']
+            df, path=treemap_path, 
+            values='Anzahl' if measure == 'Anzahl' else 'Dauer (m)',
+            color=color,
             )
-        self.fig.data[0].hovertemplate = '<b>%{label}</b><br>Measure = %{value}<br>Color = %{color:.2f}'
+        self.fig.update(layout_showlegend=False)
+        self.fig.data[0].hovertemplate = '<b>%{label}</b><br>' + measure + ' = %{value}<br>' + color + ' = %{color:.2f}<extra></extra>'
 
-    def prepare_df(self, opnrcd_df, years):
-        self.df = opnrcd_df[opnrcd_df['Jahr'].isin(years)]
-        self.df['All'] = 'All'
-        self.df['Count'] = 1
-        self.df = self.df.astype({'Jahr': 'int64'})
+    def prepare_df(self, df):
+        df['Total'] = 'Total'
+        df['Anzahl'] = 1
+        df = df.astype({'Jahr': 'int64'})
+        return df
 
     def give_path(self, groupby):
         if groupby == 'Nationalität':
-            return ['All', 'Kontinent', 'Nationalität', 'Künstler', 'Titel']
+            return ['Total', 'Kontinent', 'Nationalität', 'Künstler', 'Strophentitel']
         elif groupby == 'Sprache':
-            return ['All', 'Sprache gruppiert 2', 'Sprache', 'Künstler', 'Titel']
+            return ['Total', 'Sprache gruppiert 2', 'Sprache', 'Künstler', 'Strophentitel']
         elif groupby == 'Baujahr':
-            return ['All', 'Baujahr Jahrzehnt', 'Baujahr', 'Künstler', 'Titel']
+            return ['Total', 'Baujahr Jahrzehnt', 'Baujahr', 'Künstler', 'Strophentitel']
         elif groupby == 'Jahr':
-            return ['All', 'Jahr', 'Künstler', 'Titel']
+            return ['Total', 'Jahr', 'Künstler', 'Strophentitel']
         elif groupby == 'Künstler':
-            return ['All', 'Künstler', 'Titel']
-        elif groupby == 'Titel':
-            return ['All', 'Titel']
+            return ['Total', 'Künstler', 'Strophentitel']
+        elif groupby == 'Strophentitel':
+            return ['Total', 'Strophentitel']
         else:
             raise NotImplementedError

@@ -1,40 +1,39 @@
 ## Content
 ### Dashboards
+* Strophenbrowser
 * scatter
 * heat map
 * correlation
 * time series
 * tree map
+* radar
+* parallel categories (hidden)
 
 ### Analyses
 * PCA decomposition
 
 ## To Do
 ### App
-* Find a css style sheet
-* Make filter width less ridiculously wide and depend on window size. Should also be possible with bootstrap. Alternatively, may require to rewrite the part where the html.Div() holding the filters is defined (nested divs with style={'flex':1, 'padding':10} in the inner divs and style={'display':'flex', 'flex-direction':'row'} in the main outer Div?)
+* More refactoring of the data loading and filtering?
+  * App is a tad slow on the remote version. See if the data loading can be made more efficient (one-time loading of source data into user's cache instead of querying the file on the server every time)
+* Add a more simple chart (Bar / stacked bar) to ease the experience for layman users?
 ### Dashboards
 * Scatterplot
-  * Modify hovertemplate to show less digits
-  * Add toggle to turn labels on and off (currently hardcoded depending on group by chosen)
+  * None
 * Heatmap
-  * Remove timestamp as an option for x and y axis
+  * None
 * Correlation
-  * Show numbers in matrix heatmap (see comments in code for more detail).
-  * Modify color scale to start and end at min, max off-diagonal elements. (set diagonal to zero)
+  * None
 * Time-series
-  * Add the possibility to show a single year within the same plot (highlighted).
-  * Move filters next to charts (filter upper and lower chart independently)?
-  * Rename filters ("x axis" and "y axis" don't make sense)
-  * Remove timestamp as an option.
-  * Why just two measures shown, why not all at once? (i.e. all six Bewertungskriterien in plots). Could get too busy, though.
+  * None
 * Treemap
-  * Let user choose how deep the path should go? (better readability of avg color).
-  * Choice whether to include skits or not (currently not). Would mess up the colors, though, as skits are not rated by the OPNRCDKMT (or require clever nested callbacks to hide the color option when skits are included)
+  * None
+* Radar
+  * None
 
 ## Bugs
-* Scatter
-  * Color by Jahr has decimal rounding errors (worst if only one year is chosen, then color legend is messed up, too)
+* Currently None
 ## Updates for remote app in case new packages are used in the app:
-* requirements.txt: Either manually or type 'pipreqs .' in the project directory (may first need to install pipreqs via 'pip install pipreqs')
+* requirements.txt: Either manually or type 'pipreqs .' in the project directory (may first need to install pipreqs via 'pip install pipreqs'). "gunicorn" needs to be added manually after that, otherwise the remote deployment crashes.
+  * Make sure werkzeuzg is set to 2.0.0, not 2.1.0
 * environment.yml: Manually
