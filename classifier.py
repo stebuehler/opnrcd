@@ -34,16 +34,16 @@ def get_feature_df(df, measure, num_vars, time_weighted: bool = False):
 
 def prepare_data(measure, mode, time_weighted):
     df = load_data()
-    df = df.rename(columns={k: k.replace(' (1-10)', '').replace(' (1-8)', '') for k in NUMERICAL_VARIABLES[:-1]})
-    num_vars = [num_var.replace(' (1-10)', '').replace(' (1-8)', '') for num_var in NUMERICAL_VARIABLES[:-1]]
+    df = df.rename(columns={k: k.replace(' (1-10)', '').replace(' (1-8)', '') for k in NUMERICAL_VARIABLES})
+    num_vars = [num_var.replace(' (1-10)', '').replace(' (1-8)', '') for num_var in NUMERICAL_VARIABLES]
     df['dauer_relativ'] = df[['Dauer (s)', 'Jahr']].groupby('Jahr').transform('sum')
     df['dauer_relativ'] = df['Dauer (s)'] / df['dauer_relativ']
     df['count'] = 1.0
     df['count_relativ'] = df[['count', 'Jahr']].groupby('Jahr').transform('sum')
     df['count_relativ'] = df['count'] / df['count_relativ']
-    df['end_time'] = df['Timestamp sekunden'] + df['Dauer (s)']
+    df['end_time'] = df['Startzeit (s)'] + df['Dauer (s)']
     df['time_weight'] = df[['Jahr', 'end_time']].groupby('Jahr').transform('max')
-    df['time_weight'] = (df['Timestamp sekunden'] + df['Dauer (s)'] / 2.0) / df['time_weight']
+    df['time_weight'] = (df['Startzeit (s)'] + df['Dauer (s)'] / 2.0) / df['time_weight']
     df['time_weight'] = df['time_weight'].apply(lambda x: 1-x**2/2.0)
     define_binning(df, num_vars, mode)
     return get_feature_df(df, measure, num_vars, time_weighted)
@@ -86,16 +86,16 @@ fig.show()
 # cut classification -> decision trees:
 # --------------------------------------
 df = load_data()
-df = df.rename(columns={k: k.replace(' (1-10)', '').replace(' (1-8)', '') for k in NUMERICAL_VARIABLES[:-1]})
-num_vars = [num_var.replace(' (1-10)', '').replace(' (1-8)', '') for num_var in NUMERICAL_VARIABLES[:-1]]
+df = df.rename(columns={k: k.replace(' (1-10)', '').replace(' (1-8)', '') for k in NUMERICAL_VARIABLES})
+num_vars = [num_var.replace(' (1-10)', '').replace(' (1-8)', '') for num_var in NUMERICAL_VARIABLES]
 df['dauer_relativ'] = df[['Dauer (s)', 'Jahr']].groupby('Jahr').transform('sum')
 df['dauer_relativ'] = df['Dauer (s)'] / df['dauer_relativ']
 df['count'] = 1.0
 df['count_relativ'] = df[['count', 'Jahr']].groupby('Jahr').transform('sum')
 df['count_relativ'] = df['count'] / df['count_relativ']
-df['end_time'] = df['Timestamp sekunden'] + df['Dauer (s)']
+df['end_time'] = df['Startzeit (s)'] + df['Dauer (s)']
 df['time_weight'] = df[['Jahr', 'end_time']].groupby('Jahr').transform('max')
-df['time_weight'] = (df['Timestamp sekunden'] + df['Dauer (s)'] / 2.0) / df['time_weight']
+df['time_weight'] = (df['Startzeit (s)'] + df['Dauer (s)'] / 2.0) / df['time_weight']
 df['time_weight'] = df['time_weight'].apply(lambda x: 1-x/2.0)
 
 df['dauer_relativ_time_weighted'] = df['dauer_relativ'] * df['time_weight']
@@ -189,6 +189,7 @@ cut_score_df = pd.merge(cut_df, score_df, left_index=True, right_index=True)
 #                     series2 = df[(df[num_var] >= val) | (df[num_var2] >= val2)].groupby('Jahr').sum()[measure]
 #                     calculate_score(series1, series2, cut)
 
-features = prepare_data('count_relativ', 'fixed', True)
+features = prepare_data('dauer_relativ', 'quantiles', True)
 
 features[features.columns[10:12]].plot()
+plt.show()
