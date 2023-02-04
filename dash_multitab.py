@@ -85,8 +85,7 @@ app.layout = dbc.Container([
     dbc.NavbarSimple(
         children=[
             dbc.NavItem(dbc.NavLink("opnrcd.ch", href="https://www.opnrcd.ch/", target="_blank")),
-            dbc.NavItem(dbc.NavLink("figg-di.ch", href="https://www.figg-di.ch/", target="_blank")),
-            dbc.Button("Was isch das für en Scheiss?", id='button_open_offcanvas', color="primary", style={"text-align": "left"}),
+            dbc.Button("Was isch das?", id='button_open_offcanvas', color="primary", style={"text-align": "left"}),
         ],
         brand="OPNRCDANLTK",
         brand_href="#",
@@ -96,7 +95,7 @@ app.layout = dbc.Container([
     dbc.Offcanvas(
             offcanvas_content(),
             id="offcanvas",
-            title="Was isch das für en Scheiss?",
+            title="Was isch das?",
             is_open=False,
             placement='start'
         ),
@@ -120,7 +119,6 @@ app.layout = dbc.Container([
         ],
         start_collapsed=True,
         flush=True,
-        # active_item='accordion_item_display_options',
     ),
     dbc.Row(dbc.Col(html.Div(id='tabs-content-graph')))
 ])
