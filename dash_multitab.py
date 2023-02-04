@@ -14,7 +14,7 @@ from views.view_treemap import ViewTreemap
 from views.view_start_page import ViewStartPage
 
 # Define all tabs
-views = [ViewStartPage(), ViewRadar(), ViewTreemap(), ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries()]
+tabs = [ViewStartPage(), ViewRadar(), ViewTreemap(), ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries()]
 
 # Filters - these go across tabs
 jahrzente_marks = {1950: '1950', 1960:'1960', 1970: '1970', 1980:'1980', 1990:'1990', 2000:'2000', 2010:'2010', 2020:'2020'}
@@ -58,17 +58,17 @@ reset_all_button = dbc.Row(
 )
 
 # "pre" display options. When a first callback is needed to determine the content of the display options
-pre_display_options = [f for v in views for f in v.pre_display_options_list()]
-pre_display_option_inputs = [f.get_input() for v in views for f in v.pre_display_options_list()]
-pre_display_option_display_outputs = [item for sublist in [f.get_output() for v in views for f in v.pre_display_options_list()] for item in sublist]
-pre_display_option_target_outputs = [output for v in views for output in v.pre_display_option_target_output_list()]
-pre_display_option_divs = [[f.get_label_dropdown() for f in v.pre_display_options_list()] for v in views]
+pre_display_options = [f for t in tabs for f in t.pre_display_options_list()]
+pre_display_option_inputs = [f.get_input() for t in tabs for f in t.pre_display_options_list()]
+pre_display_option_display_outputs = [item for sublist in [f.get_output() for t in tabs for f in t.pre_display_options_list()] for item in sublist]
+pre_display_option_target_outputs = [output for t in tabs for output in t.pre_display_option_target_output_list()]
+pre_display_option_divs = [[f.get_label_dropdown() for f in t.pre_display_options_list()] for t in tabs]
 
 # display options depend on tab - achieved by nested list in "display_option_div"
-display_options = [f for v in views for f in v.display_options_list()]
-display_option_inputs = [f.get_input() for v in views for f in v.display_options_list()]
-display_option_outputs = [item for sublist in [f.get_output() for v in views for f in v.display_options_list()] for item in sublist]
-display_option_divs = [[f.get_label_dropdown() for f in v.display_options_list()] for v in views]
+display_options = [f for t in tabs for f in t.display_options_list()]
+display_option_inputs = [f.get_input() for t in tabs for f in t.display_options_list()]
+display_option_outputs = [item for sublist in [f.get_output() for t in tabs for f in t.display_options_list()] for item in sublist]
+display_option_divs = [[f.get_label_dropdown() for f in t.display_options_list()] for t in tabs]
 
 # the actual app starts here
 app = dash.Dash(
@@ -98,7 +98,7 @@ app.layout = dbc.Container([
             is_open=False,
             placement='start'
         ),
-    dbc.Tabs([view.get_tab() for view in views], id='tabs', active_tab=views[0].value),
+    dbc.Tabs([t.get_tab() for t in tabs], id='tabs', active_tab=tabs[0].value),
     dbc.Accordion(
         [
             dbc.AccordionItem(
@@ -141,7 +141,7 @@ def reset_all_filters(n):
     Input('tabs', 'active_tab'),
 )
 def apply_tab_filters(tab):
-    view = [v for v in views if v.value == tab][0]
+    view = [t for t in tabs if t.value == tab][0]
     return view.get_div(filters, pre_display_options + display_options)
 
 # this is the "pre" callback for the display options that need it.
@@ -156,8 +156,8 @@ def apply_pre_display_options(*args):
     kwargs_for_fig = {name: kwargs_all[name] for name in kwargs_all if name not in kwargs_for_df_filtering}
     df, time_series_data, time_series_by_year = filter_df_with_filters(list_of_range_slider_columns, **kwargs_for_df_filtering)
     return_list = None
-    for view in views:
-        output_this_view = view.apply_pre_display_options(df, **kwargs_for_fig)
+    for tab in tabs:
+        output_this_view = tab.apply_pre_display_options(df, **kwargs_for_fig)
         if output_this_view:
             if return_list:
                 return_list = return_list + output_this_view
@@ -181,7 +181,7 @@ def render_content(tab, *args):
     # df filtering
     df, time_series_data, time_series_by_year = filter_df_with_filters(list_of_range_slider_columns, **kwargs_for_df_filtering)
     # select view based on tab selection
-    view = [v for v in views if v.value == tab][0]
+    view = [t for t in tabs if t.value == tab][0]
     # generate figure
     try:
         view.generate_fig(df, time_series_data, time_series_by_year, **kwargs_for_fig)
