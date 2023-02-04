@@ -14,7 +14,6 @@ from views.view_treemap import ViewTreemap
 from views.view_start_page import ViewStartPage
 
 # Define all tabs
-# views = [ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries(), ViewTreemap(), ViewRadar()]
 views = [ViewStartPage(), ViewRadar(), ViewTreemap(), ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries()]
 
 # Filters - these go across tabs
