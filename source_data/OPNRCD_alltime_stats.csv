@@ -27,7 +27,7 @@ Jahr,Reihenfolge,Reihenfolge nur Strophen,Strophe?,Künstler,Strophentitel,Kwart
 2019,26,16,TRUE,Soeur sourire,Dominique,,41:47,2507,41.78,170,2.83,Französisch,Andere,Andere,4,1,136,2,1,3,3,Belgien,Europa Rest,Europa,1963,1960er,56,4/4,Ste,,680,170,23120,340,170,510,510
 2019,27,,FALSE,Simpsons,Un deux trois,,44:37,2677,44.62,3,0.05,Französisch,Andere,Andere,,,,,,,,USA,USA,Nordamerika,2007,2000er,12,,Mad,,,,0,0,0,0,0
 2019,28,17,TRUE,Jeans Team,Haddu Zeit,,44:40,2680,44.67,76,1.27,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,1,4,166,3,9,9,7,Deutschland,Deutschland,Europa,2013,2010er,6,4/4,Mad?,,76,304,12616,228,684,684,532
-2019,29,18,TRUE,HGich. T,Tanke,,45:56,2756,45.93,163,2.72,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,6,6,163,6,9,6,7,Deutschland,Deutschland,Europa,2011,2010er,8,4/4,Ste,?,978,978,26569,978,1467,978,1141
+2019,29,18,TRUE,HGich.T,Tanke,,45:56,2756,45.93,163,2.72,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,6,6,163,6,9,6,7,Deutschland,Deutschland,Europa,2011,2010er,8,4/4,Ste,?,978,978,26569,978,1467,978,1141
 2019,30,19,TRUE,Eek-a-mouse,Anarexol,,48:39,2919,48.65,252,4.20,Englisch,Englisch,Englisch,6,5,74,4,5,5,5,Jamaika,Rest der Welt,Nordamerika,1984,1980er,35,4/4,Luca,,1512,1260,18648,1008,1260,1260,1260
 2019,31,,FALSE,Bratwurst mit Senf,Geköpft,,52:51,3171,52.85,12,0.20,Schweizerdeutsch,Schweizerdeutsch,Deutsch und Schweizerdeutsch,,,,,,,,Schweiz,Schweiz,Europa,2016,2010er,3,,Ste,,,,0,0,0,0,0
 2019,32,20,TRUE,Iggy and the stooges,Search and destroy,,53:03,3183,53.05,191,3.18,Englisch,Englisch,Englisch,9,7,153,5,2,3,2,USA,USA,Nordamerika,1973,1970er,46,4/4,Mad,,1719,1337,29223,955,382,573,382
@@ -80,7 +80,7 @@ Jahr,Reihenfolge,Reihenfolge nur Strophen,Strophe?,Künstler,Strophentitel,Kwart
 2018,35,,FALSE,Leslie Chow,So long gay boys,,63:37,3817,63.62,12,0.20,Englisch,Englisch,Englisch,,,,,,,,USA,USA,Nordamerika,2009,2000er,9,,,,,,0,0,0,0,0
 2018,36,20,TRUE,Oh! Schnabeltiere,Käsemann,,63:49,3829,63.82,135,2.25,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,7,7,70,3,9,8,8,Schweiz,Schweiz,Europa,2009,2000er,9,,Mad,,945,945,9450,405,1215,1080,1080
 2018,37,,FALSE,Hurz-Zuhörer Nr. 1,Die Gefühle des Komponisten als Fabel,,66:04,3964,66.07,13,0.22,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,,,,,,,,Deutschland,Deutschland,Europa,1993,1990er,25,,,,,,0,0,0,0,0
-2018,38,21,TRUE,HGich. T,tutenchamun,3 - Legenden 2,66:17,3977,66.28,343,5.72,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,8,6,140,4,10,8,8,Deutschland,Deutschland,Europa,2010,2010er,8,,Erich,,2744,2058,48020,1372,3430,2744,2744
+2018,38,21,TRUE,HGich.T,tutenchamun,3 - Legenden 2,66:17,3977,66.28,343,5.72,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,8,6,140,4,10,8,8,Deutschland,Deutschland,Europa,2010,2010er,8,,Erich,,2744,2058,48020,1372,3430,2744,2744
 2018,39,,FALSE,Hurz-Zuhörer Nr. 2,Sowas hab ich noch nie gehört,,72:00,4320,72.00,8,0.13,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,,,,,,,,Deutschland,Deutschland,Europa,1993,1990er,25,,,,,,0,0,0,0,0
 2018,40,22,TRUE,Stephen Hawking,All out of love,,72:08,4328,72.13,215,3.58,Englisch,Englisch,Englisch,2,1,55,1,7,9,7,England,England,Europa,2017,2010er,1,,Ste,,430,215,11825,215,1505,1935,1505
 2018,41,,FALSE,Keek,WAS?,,75:43,4543,75.72,1,0.02,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,,,,,,,,Deutschland,Deutschland,Europa,1999,1990er,19,,,,,,0,0,0,0,0
@@ -228,7 +228,7 @@ Jahr,Reihenfolge,Reihenfolge nur Strophen,Strophe?,Künstler,Strophentitel,Kwart
 2013,8,5,TRUE,Fritz,Thüringer Klösse,,11:26,686,11.43,69,1.15,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,1,2,,6,9,8,6,Deutschland,Deutschland,Europa,2012,2010er,1,,,,69,138,0,414,621,552,414
 2013,9,6,TRUE,United Bagpipes of Scotland,Scotland the brave,,12:35,755,12.58,130,2.17,Instrumental,Instrumental,Instrumental,5,3,,2,1,6,2,Schottland,Europa Rest,Europa,1911,1950er und früher,102,,,,650,390,0,260,130,780,260
 2013,10,7,TRUE,Fidlar,Cheap Beer,,14:45,885,14.75,124,2.07,Englisch,Englisch,Englisch,4,8,,4,4,5,4,USA,USA,Nordamerika,2012,2010er,1,,,x,496,992,0,496,496,620,496
-2013,11,8,TRUE,MC Tee fea. McDoof,Ihre Bestellung bitte,,16:49,1009,16.82,219,3.65,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,4,6,,5,7,5,6,Deutschland,Deutschland,Europa,2000,2000er,13,,,,876,1314,0,1095,1533,1095,1314
+2013,11,8,TRUE,MC Tee feat. McDoof,Ihre Bestellung bitte,,16:49,1009,16.82,219,3.65,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,4,6,,5,7,5,6,Deutschland,Deutschland,Europa,2000,2000er,13,,,,876,1314,0,1095,1533,1095,1314
 2013,12,,FALSE,Helmut Körschgen,Hunger hier (Reprise),,20:28,1228,20.47,3,0.05,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,,,,,,,,Deutschland,Deutschland,Europa,1994,1990er,19,,,,,,0,0,0,0,0
 2013,13,9,TRUE,Rummelsnuff,Bratwurstzange,2 - Legenden 1,20:31,1231,20.52,155,2.58,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,5,4,,6,6,4,6,Deutschland,Deutschland,Europa,2013,2010er,0,,,,775,620,0,930,930,620,930
 2013,14,,FALSE,Giorgio Moroder,My name (Giorgo by Moroder snippet),,23:06,1386,23.10,19,0.32,Englisch,Englisch,Englisch,,,,,,,,Italien,Europa Rest,Europa,2013,2010er,0,,,,,,0,0,0,0,0
@@ -275,7 +275,7 @@ Jahr,Reihenfolge,Reihenfolge nur Strophen,Strophe?,Künstler,Strophentitel,Kwart
 2012,21,15,TRUE,Jack Stoiker,Wa chönd d'Vögel deför?,7 - Jack Stoiker,51:11,3071,51.18,240,4.00,Schweizerdeutsch,Schweizerdeutsch,Deutsch und Schweizerdeutsch,6,2,,3,6,5,6,Schweiz,Schweiz,Europa,1999,1990er,13,,,,1440,480,0,720,1440,1200,1440
 2012,22,16,TRUE,Allschwil Posse,Drägg am Stäggä,,55:11,3311,55.18,216,3.60,Schweizerdeutsch,Schweizerdeutsch,Deutsch und Schweizerdeutsch,5,5,,6,6,5,5,Schweiz,Schweiz,Europa,1999,1990er,13,,,,1080,1080,0,1296,1296,1080,1080
 2012,23,17,TRUE,Le Tigre,Deceptacon,,58:47,3527,58.78,179,2.98,Englisch,Englisch,Englisch,8,6,,8,3,4,5,USA,USA,Nordamerika,1999,1990er,13,,,,1432,1074,0,1432,537,716,895
-2012,24,18,TRUE,Ricky Rich fea. Disco Pogo Crew,Disco Pogo (Wir dreh'n ab),,61:46,3706,61.77,209,3.48,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,2,6,,7,3,7,2,Deutschland,Deutschland,Europa,2010,2010er,2,,,,418,1254,0,1463,627,1463,418
+2012,24,18,TRUE,Ricky Rich feat. Disco Pogo Crew,Disco Pogo (Wir dreh'n ab),,61:46,3706,61.77,209,3.48,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,2,6,,7,3,7,2,Deutschland,Deutschland,Europa,2010,2010er,2,,,,418,1254,0,1463,627,1463,418
 2012,25,19,TRUE,Doctor P,Big Boss,,65:15,3915,65.25,198,3.30,Instrumental,Instrumental,Instrumental,4,9,,5,6,9,4,England,England,Europa,2010,2010er,2,,,,792,1782,0,990,1188,1782,792
 2012,26,20,TRUE,The Exploited,Sex and Violence,,68:33,4113,68.55,302,5.03,Englisch,Englisch,Englisch,6,6,,4,8,7,5,Schottland,Europa Rest,Europa,1981,1980er,31,,,,1812,1812,0,1208,2416,2114,1510
 2012,27,21,TRUE,Dalmatian Rex and the Eigentones,Octopus I love you,,73:35,4415,73.58,168,2.80,Englisch,Englisch,Englisch,5,2,,6,4,2,4,England,England,Europa,2008,2000er,4,,,,840,336,0,1008,672,336,672
@@ -435,10 +435,45 @@ Jahr,Reihenfolge,Reihenfolge nur Strophen,Strophe?,Künstler,Strophentitel,Kwart
 2022,30,,FALSE,Rainier Wolfcastle,Gaydar,,57:37,3457,57.62,16,0.27,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,,,,,,,,USA,USA,Nordamerika,1993,1990er,29,,Luca,,0,0,0,0,0,0,0
 2022,31,18,TRUE,DAF,Als wärs das letzte mal,,57:53,3473,57.88,199,3.32,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,8,6,,6,1,3,4,Deutschland,Deutschland,Europa,1981,1980er,41,,Ste,,1592,1194,0,1194,199,597,796
 2022,32,,FALSE,Kings and Pimps,I doubt it,,61:12,3672,61.20,5,0.08,Mehrere,Andere,Andere,,,,,,,,Deutschland,Deutschland,Europa,2014,2010er,8,,Erich,,0,0,0,0,0,0,0
-2022,33,19,TRUE,HGichT,Hauptschuhle,,61:17,3677,61.28,34,0.57,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,6,5,,2,10,8,8,Deutschland,Deutschland,Europa,2008,2000er,14,,Bigli,,204,170,0,68,340,272,272
+2022,33,19,TRUE,HGich.T,Hauptschuhle,,61:17,3677,61.28,34,0.57,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,6,5,,2,10,8,8,Deutschland,Deutschland,Europa,2008,2000er,14,,Bigli,,204,170,0,68,340,272,272
 2022,34,20,TRUE,Ronny Trettmann,Sommer ist für alle da,,61:51,3711,61.85,280,4.67,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,4,3,,6,6,5,4,Deutschland,Deutschland,Europa,2006,2000er,16,,Ste,,1120,840,0,1680,1680,1400,1120
 2022,35,21,TRUE,Kotzreiz,Toilettenstern,,66:31,3991,66.52,130,2.17,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,4,4,,8,4,2,3,Deutschland,Deutschland,Europa,2020,2020er,2,,Capo,,520,520,0,1040,520,260,390
 2022,36,22,TRUE,Expulze & Narfos,Loutr,,68:41,4121,68.68,169,2.82,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,3,9,,4,7,7,5,Italien,Europa Rest,Europa,2020,2020er,2,,Ste,,507,1521,0,676,1183,1183,845
 2022,37,23,TRUE,Trust,Antisocial,,71:30,4290,71.50,302,5.03,Französisch,Andere,Andere,7,7,,5,2,4,2,Frankreich,Europa Rest,Europa,1980,1980er,42,,Ste,,2114,2114,0,1510,604,1208,604
 2022,38,24,TRUE,Stiller Has,Waliselle,,76:32,4592,76.53,307,5.12,Schweizerdeutsch,Schweizerdeutsch,Deutsch und Schweizerdeutsch,8,2,,2,3,3,6,Schweiz,Schweiz,Europa,2000,2000er,22,,Ste,,2456,614,0,614,921,921,1842
 2022,39,,FALSE,Poet from Beavis and Butthead,And then my friend you die (extended),,81:39,4899,81.65,19,0.32,Englisch,Englisch,Englisch,,,,,,,,USA,USA,Nordamerika,1995,1990er,27,,Mad/Ste,,0,0,0,0,0,0,0
+2023,1,1,TRUE,DetoXDan feat. Achim,Hörerwarnung,,00:00,0,0.00,74,1.23,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,6,5,,3,5,4,4,Deutschland,Deutschland,Europa,2022,2020er,1,,,,444,370,0,222,370,296,296
+2023,2,,FALSE,Die drei ???,Und jetzt ein Bier,,01:14,74,1.23,5,0.08,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,,,,,,,,USA,USA,Nordamerika,1975,1970er,48,,,,0,0,0,0,0,0,0
+2023,3,2,TRUE,Doja Cat,MOOO!,,01:19,79,1.32,277,4.62,Englisch,Englisch,Englisch,6,2,,6,6,6,7,USA,USA,Nordamerika,2018,2010er,5,,,,1662,554,0,1662,1662,1662,1939
+2023,4,,FALSE,Achim,Suffen bis zum Umfallen,,05:56,356,5.93,5,0.08,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,,,,,,,,Deutschland,Deutschland,Europa,2016,2010er,7,,,,0,0,0,0,0,0,0
+2023,5,3,TRUE,Electric Callboy,Hurrikan,,06:01,361,6.02,97,1.62,Mehrere,Andere,Andere,4,9,,4,7,8,7,Deutschland,Deutschland,Europa,2022,2020er,1,,,,388,873,0,388,679,776,679
+2023,6,,FALSE,Helmut Körschgen,Wär ich doch lieber Schlagersänger geworden,,07:38,458,7.63,4,0.07,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,,,,,,,,Deutschland,Deutschland,Europa,1994,1990er,29,,,,0,0,0,0,0,0,0
+2023,7,4,TRUE,Fereydoun Farokhzad,Ashyaneh,,07:42,462,7.70,324,5.40,Persisch,Andere,Andere,7,3,,7,3,3,3,Iran,#N/A,#N/A,1975,1970er,48,,,,2268,972,0,2268,972,972,972
+2023,8,,FALSE,Salvatore Ganacci,Try to relax your anus,,13:06,786,13.10,9,0.15,Englisch,Englisch,Englisch,,,,,,,,Schweden,Europa Rest,Europa,2017,2010er,6,,,,0,0,0,0,0,0,0
+2023,9,5,TRUE,MC Eichel,Ich haue meinen Penis mit der Eichel auf ein Holzbrett,,13:15,795,13.25,156,2.60,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,1,5,,5,10,6,7,Deutschland,Deutschland,Europa,2009,2000er,14,,,,156,780,0,780,1560,936,1092
+2023,10,,FALSE,Frederice Wiechel,Gurke Entsaften,,15:51,951,15.85,6,0.10,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,,,,,,,,Deutschland,Deutschland,Europa,2021,2020er,2,,,,0,0,0,0,0,0,0
+2023,11,6,TRUE,Scooter,Friends,,15:57,957,15.95,277,4.62,Englisch,Englisch,Englisch,3,7,,7,4,3,1,Deutschland,Deutschland,Europa,1995,1990er,28,,,,831,1939,0,1939,1108,831,277
+2023,12,7,TRUE,Produzenten der Froide,White Power Golden Shower,,20:34,1234,20.57,157,2.62,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,5,4,,3,2,3,4,Deutschland,Deutschland,Europa,2009,2000er,14,,,,785,628,0,471,314,471,628
+2023,13,8,TRUE,Styx,Mr. Roboto,,23:11,1391,23.18,311,5.18,Englisch,Englisch,Englisch,7,5,,6,2,3,4,USA,USA,Nordamerika,1983,1980er,40,,,,2177,1555,0,1866,622,933,1244
+2023,14,,FALSE,Kraftwerk feat. Baron Herzberger,Kunstmist auf der Autobahn,,28:22,1702,28.37,40,0.67,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,,,,,,,,Deutschland,Deutschland,Europa,1974,1970er,49,,,,0,0,0,0,0,0,0
+2023,15,9,TRUE,Hans-A-Plast,Lederhosentyp,,29:02,1742,29.03,120,2.00,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,7,7,,6,3,4,4,Deutschland,Deutschland,Europa,1979,1970er,44,,,,840,840,0,720,360,480,480
+2023,16,10,TRUE,Christian Weiss,Penis,,31:02,1862,31.03,90,1.50,Schweizerdeutsch,Schweizerdeutsch,Deutsch und Schweizerdeutsch,4,1,,2,5,2,5,Schweiz,Schweiz,Europa,2018,2010er,5,,,,360,90,0,180,450,180,450
+2023,17,,FALSE,Julia,Langsam beim Alkohol,,32:32,1952,32.53,11,0.18,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,,,,,,,,Deutschland,Deutschland,Europa,2021,2020er,2,,,,0,0,0,0,0,0,0
+2023,18,11,TRUE,Deichkind,Hört ihr die Signale,,32:43,1963,32.72,196,3.27,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,4,7,,6,7,5,4,Deutschland,Deutschland,Europa,2008,2000er,15,,,,784,1372,0,1176,1372,980,784
+2023,19,12,TRUE,Madeleine Chartrand,Ani Kuni,,35:59,2159,35.98,194,3.23,Arapaho,Andere,Andere,6,3,,6,1,3,2,Kanada,Rest der Welt,Nordamerika,1972,1970er,51,,,,1164,582,0,1164,194,582,388
+2023,20,13,TRUE,Kassierer feat. Arnold Schwarzenegger,Sound of Quantenmusik,,39:13,2353,39.22,88,1.47,Mehrere,Andere,Andere,3,8,,2,8,8,8,Deutschland,Deutschland,Europa,2010,2010er,13,,,,264,704,0,176,704,704,704
+2023,21,14,TRUE,Screamin Jay Hawkins,Constipation Blues,,40:41,2441,40.68,247,4.12,Englisch,Englisch,Englisch,7,3,,2,6,7,7,USA,USA,Nordamerika,1969,1960er,54,,,,1729,741,0,494,1482,1729,1729
+2023,22,15,TRUE,Team Scheisse,20:15,,44:48,2688,44.80,108,1.80,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,5,7,,4,6,6,4,Deutschland,Deutschland,Europa,2022,2020er,1,,,,540,756,0,432,648,648,432
+2023,23,,FALSE,Butt-Head,A sentence in Spanish,,46:36,2796,46.60,7,0.12,Spanisch,Andere,Andere,,,,,,,,USA,USA,Nordamerika,1993,1990er,30,,,,0,0,0,0,0,0,0
+2023,24,17,TRUE,Patent Ochsner,Freespirit,,46:43,2803,46.72,260,4.33,Englisch,Englisch,Englisch,4,5,,4,8,8,7,Schweiz,Schweiz,Europa,1997,1990er,26,,,,1040,1300,0,1040,2080,2080,1820
+2023,25,18,TRUE,Fanfare Ciocarlia feat. Mister Baumann and Mister Rauber,Gummybear sniffs Senf,,51:03,3063,51.05,183,3.05,Mehrere,Andere,Andere,5,4,,7,7,5,7,Rumänien,Europa Rest,Europa,2011,2010er,12,,,,915,732,0,1281,1281,915,1281
+2023,26,,FALSE,Janus Christus,Da hets na Bier drin,,54:06,3246,54.10,5,0.08,Schweizerdeutsch,Schweizerdeutsch,Deutsch und Schweizerdeutsch,,,,,,,,Schweiz,Schweiz,Europa,2022,2020er,1,,,,0,0,0,0,0,0,0
+2023,27,19,TRUE,Jules-X,Dr DJ isch (Ode an Roumnizer),,54:11,3251,54.18,183,3.05,Schweizerdeutsch,Schweizerdeutsch,Deutsch und Schweizerdeutsch,3,6,,7,7,5,5,Schweiz,Schweiz,Europa,2021,2020er,2,,,,549,1098,0,1281,1281,915,915
+2023,28,,FALSE,Rüdiger,Nicht so tief,,57:14,3434,57.23,40,0.67,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,,,,,,,,Deutschland,Deutschland,Europa,2010,2010er,13,,,,0,0,0,0,0,0,0
+2023,29,20,TRUE,CCCP Fideli alla Linea,Punk Islam,,57:54,3474,57.90,343,5.72,Italienisch,Andere,Andere,8,7,,4,2,5,6,Italien,Europa Rest,Europa,1984,1980er,39,,,,2744,2401,0,1372,686,1715,2058
+2023,30,,FALSE,Oliver Maurmann,Ex-Hund,,63:37,3817,63.62,3,0.05,Schweizerdeutsch,Schweizerdeutsch,Deutsch und Schweizerdeutsch,,,,,,,,Schweiz,Schweiz,Europa,2015,2010er,8,,,,0,0,0,0,0,0,0
+2023,31,21,TRUE,Guz,General Guz befreit Pyongyang,,63:40,3820,63.67,137,2.28,Instrumental,Instrumental,Instrumental,5,4,,5,3,2,2,Schweiz,Schweiz,Europa,2013,2010er,10,,,,685,548,0,685,411,274,274
+2023,32,22,TRUE,Mehnersmoos,BIR,,65:57,3957,65.95,152,2.53,Deutsch,Deutsch,Deutsch und Schweizerdeutsch,2,4,,6,9,6,5,Deutschland,Deutschland,Europa,2022,2020er,1,,,,304,608,0,912,1368,912,760
+2023,33,,FALSE,Janus Christus,Venedig Hurensohn Intro (Auszug),,68:29,4109,68.48,14,0.23,Schweizerdeutsch,Schweizerdeutsch,Deutsch und Schweizerdeutsch,,,,,,,,Schweiz,Schweiz,Europa,2023,2020er,0,,,,0,0,0,0,0,0,0
+2023,34,23,TRUE,Wesley Willis,Suck a Caribou's ass,,68:43,4123,68.72,141,2.35,Englisch,Englisch,Englisch,6,4,,4,8,7,8,USA,USA,Nordamerika,1995,1990er,28,,,,846,564,0,564,1128,987,1128
+2023,35,,FALSE,Ricky from trailer Park Boys,Knock knock,,71:04,4264,71.07,6,0.10,Englisch,Englisch,Englisch,,,,,,,,Kanada,Rest der Welt,Nordamerika,2004,2000er,19,,,,0,0,0,0,0,0,0
