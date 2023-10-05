@@ -12,9 +12,10 @@ from views.view_scatter import ViewScatter
 from views.view_time_series import ViewTimeSeries
 from views.view_treemap import ViewTreemap
 from views.view_start_page import ViewStartPage
+from views.view_box import ViewBox
 
 # Define all tabs
-tabs = [ViewStartPage(), ViewRadar(), ViewTreemap(), ViewScatter(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries()]
+tabs = [ViewStartPage(), ViewRadar(), ViewTreemap(), ViewScatter(), ViewBox(), ViewHeatmap(), ViewCorrelation(), ViewTimeSeries()]
 
 # Filters - these go across tabs
 jahrzente_marks = {1950: '1950', 1960:'1960', 1970: '1970', 1980:'1980', 1990:'1990', 2000:'2000', 2010:'2010', 2020:'2020'}
