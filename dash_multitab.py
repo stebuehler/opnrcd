@@ -188,7 +188,10 @@ def render_content(tab, *args):
     try:
         view.generate_fig(df, time_series_data, time_series_by_year, **kwargs_for_fig)
         return view.get_fig()
-    except Exception:
+    except Exception as inst:
+        # print(type(inst))    # the exception type
+        # print(inst.args)     # arguments stored in .args
+        # print(inst)  
         return html.Div(['Leerer Datensatz!'])
         
 

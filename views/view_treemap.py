@@ -8,7 +8,7 @@ class ViewTreemap(AbstractView):
         self.label = 'Kacheldiagramm'
         self.value = self.label + '-graph'
         self.add_display_option('Mass', ['Dauer (min)', 'Anzahl'])
-        self.add_display_option('Gruppierung', ['Jahr', 'Nationalität', 'Sprache', 'Baujahr', 'Künstler', 'Strophentitel'])
+        self.add_display_option('Gruppierung', ['Jahr', 'Kontinent', 'Nationalität', 'Sprache gruppiert', 'Sprache', 'Baujahr Jahrzehnt', 'Baujahr', 'Künstler', 'Strophentitel'])
         self.add_display_option('Farbe', NUMERICAL_VARIABLES + ['Startzeit (s)', 'Jahr', 'Baujahr'], default_selection=2)
 
     def generate_fig(self, opnrcd_df, normalized_time_series, time_series_by_year, **kwargs):
@@ -32,10 +32,16 @@ class ViewTreemap(AbstractView):
 
     def give_path(self, groupby):
         if groupby == 'Nationalität':
+            return ['Total', 'Nationalität', 'Künstler', 'Strophentitel']
+        elif groupby == 'Kontinent':
             return ['Total', 'Kontinent', 'Nationalität', 'Künstler', 'Strophentitel']
-        elif groupby == 'Sprache':
+        elif groupby == 'Sprache gruppiert':
             return ['Total', 'Sprache gruppiert 2', 'Sprache', 'Künstler', 'Strophentitel']
+        elif groupby == 'Sprache':
+            return ['Total', 'Sprache', 'Künstler', 'Strophentitel']
         elif groupby == 'Baujahr':
+            return ['Total', 'Baujahr', 'Künstler', 'Strophentitel']
+        elif groupby == 'Baujahr Jahrzehnt':
             return ['Total', 'Baujahr Jahrzehnt', 'Baujahr', 'Künstler', 'Strophentitel']
         elif groupby == 'Jahr':
             return ['Total', 'Jahr', 'Künstler', 'Strophentitel']
